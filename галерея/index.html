@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="packages/slider/styles/slider.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <!--! Краткая форма кода-->
+    <!-- .slider[data-width="720px"data-heigth="480px"]>div*3.slider-item.hidden-slider>img[src="http://placeimg.com/1920/1080/tech"alt=""] -->
+    <!--! передача настроек через data атрибуты. можно передовать и ввиде объекта в scripte. перд закрытием /body  -->
+    <div class="slider" data-width="720px" data-height="480px">
+      <!--! каждый div с тегом img это отдельный слайд -->
+      <div class="slider-item hidden-slider">
+        <img src="http://placeimg.com/1920/1080/tech" alt="" />
+      </div>
+      <div class="slider-item hidden-slider">
+        <img src="http://placeimg.com/1920/1080/animals" alt="" />
+      </div>
+      <div class="slider-item hidden-slider">
+        <img src="http://placeimg.com/1920/1080/arch" alt="" />
+      </div>
+      <div class="slider-item hidden-slider">
+        <img src="http://placeimg.com/1920/1080/grayscale" alt="" />
+      </div>
+      <div class="slider-item hidden-slider">
+        <img src="http://placeimg.com/1920/1080/nature" alt="" />
+      </div>
+    </div>
+    <script src="packages/slider/script/slider.js"></script>
+    <!-- !<script>
+		!  еще один вариант передачи настроек. в виде объекта, конструктора. чаще всего так и делают
+      !  стороняя библиотека предоставляет контсруктор для создания слайдера
+      !new Slider({
+        width: 720, // ширина
+        heigth: 480, // высота
+        autoplay: true, // автовоспроизведение
+        delay: 1000, // задержка между воспроизведением
+      !});
+    !</script> -->
+  </body>
+</html>
