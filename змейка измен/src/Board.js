@@ -4,8 +4,7 @@ class Board {
   }
 
   /**
-   * Метод получает другие игровые объекты, которые нужны ему
-   * для работы.
+   * Метод получает другие игровые объекты, которые нужны ему для работы.
    * @param {Settings} settings объект настроек.
    * @param {Snake} snake объект змейки.
    */
@@ -36,7 +35,6 @@ class Board {
    */
   renderSnake() {
     const snakeBodyElems = this.getSnakeBodyElems(this.snake.body);
-
     snakeBodyElems.forEach(function (tdEl) {
       tdEl.classList.add("snakeBody");
     });

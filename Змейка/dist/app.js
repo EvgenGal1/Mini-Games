@@ -152,7 +152,7 @@ class Board {
    * @returns {boolean} true если змейка находится на еде, иначе false.
    */
   // `голова на еде`
-  isHeadOnFood() {
+  didSnakeEatFood() {
     // у еды (таблица(тег td) с классом .food) проверим класслист содержит (contains) ли он змейку (класс snakeBody)
     // если змейка зашла на еду, тогда будут 2 класса (food, snakeBody)
     return this.boardEl.querySelector(".food").classList.contains("snakeBody");
@@ -335,7 +335,7 @@ class Game {
       return;
     }
     // в board проверяем `находить голова на еде`
-    if (this.board.isHeadOnFood()) {
+    if (this.board.didSnakeEatFood()) {
       // увеличиваем тело змейки
       this.snake.increaseBody();
       // ставим новую еду

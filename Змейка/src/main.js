@@ -1,7 +1,7 @@
 // ждем когда всё загрузится и потом выполняем
 window.addEventListener("load", () => {
-  // объект класса settings
-  // объект настроек
+  // создание объектов классов
+  // объект(класс) настроек
   const settings = new Settings();
   // статус
   const status = new Status();
@@ -9,45 +9,54 @@ window.addEventListener("load", () => {
   const snake = new Snake();
   // объект (класс) игрового поля
   const board = new Board();
-  // объект меню. отвечает за работу кнопок (старт, пауза)
-  const menu = new Menu();
-  // еда
-  const food = new Food();
+  // объект контроль, элементы управления(бывший меню). отвечает за работу кнопок(старт, пауза), счётчика и пр.
+  const controls = new Controls();
+  // еда. класс удален
+  // const food = new Food();
   // объект игры
   const game = new Game();
-  //   const score = new Score();
 
-  //! передаем свои настройки
-  // в классе settings метод init (установка начальных значений). в виде объекта передаем настройки для нашей игры(скорость, длина для выйгрыша)
-  settings.init({ speed: 5, winLength: 5 });
+  const score = new Score();
 
-  //
-  //   snake.init(settings);
+  // Передача настроек
+  //* рефакторинг +. свои настр. в перемен
+  const initialSettings = { speed: 5, winLength: 10 };
 
-  //! передаем в board через init, настройки и змейку
+  //  в классе settings метод init (установка начальных значений). в виде объекта передаем настройки для нашей игры(скорость, длина для выйгрыша)
+  settings.init(initialSettings);
+  //* рефакторинг -. терь передае через переменную
+  // settings.init({ speed: 5, winLength: 5 });
+  // змейке перед настройки
+  snake.init(settings);
+  // передаем в board через init, настройки и змейку
   board.init(settings, snake);
-
-  //! в food передаем настройки,змейку и игр поле
-  food.init(settings, snake, board);
+  //* рефакторинг -. класс удалён. в food передаем настройки,змейку и игр поле
+  // food.init(settings, snake, board);
+  // в game передаем ссылки на объекты
+  game.init(settings, status, board, snake, controls, score);
   //
+  score.init(settings);
+  //* рефакторинг +. в контрол передаем класс game
+  controls.init(game);
 
-  //! в game передаем ссылки на объекты
-  game.init(settings, status, board, snake, menu, food);
-
-  //
-  //   score.init(settings);
-
-  //! отрисовываем игровое поле
+  //* рефакторинг +. запуск
+  // отрисовываем игровое поле
   board.renderBoard();
-
-  //! отрисов. змейку
-  board.renderSnake();
-
-  //! создаем новую еду
-  food.setNewFood();
-
-  //! метод обработчика сотытия клика
-  game.run();
+  //* рефакторинг +. отрисов. змейку
+  board.renderSnake(snake);
+  // board.renderSnake();
+  //* рефакторинг +.
+  score.renderPointsForWin(initialSettings.winLength);
+  //* рефакторинг +. создаем новую еду
+  board.renderNewFood();
+  // food.setNewFood();
+  //* рефакторинг +.
+  score.renderCurrentScore(snake.body.length);
+  //* рефакторинг +. в классе controls(эл. управл.), вызов слуш.событ.
+  controls.addControlsEventListeners();
+  //* рефакторинг -. была часть запусков
+  // метод обработчика сотытия клика
+  // game.run();
 });
 
 // изучить принципы SOLID
