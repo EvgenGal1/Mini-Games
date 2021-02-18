@@ -1,3 +1,4 @@
+//! если в файле только один класс то его имя пишут с большой буквы (хорошая практика  - один файл - один класс)
 class Board {
   //! this. везде (почти) указывает на объект в котом находиться. здесь Board
   constructor() {
@@ -69,11 +70,11 @@ class Board {
    * Метод очищает игровое поле.
    */
   // clearBoard() {
-  //   // константа tdElems = получаем все теги "td",
+  // константа tdElems = получаем все теги "td",
   //   const tdElems = document.querySelectorAll("td");
-  //   // перебираем циклом forEach все теги td
+  // перебираем циклом forEach все теги td
   //   tdElems.forEach(function (td) {
-  //     // выставляем класс как пустую строку
+  // выставляем класс как пустую строку
   //     td.className = "";
   //   });
   // }
@@ -161,9 +162,9 @@ class Board {
    */
   // принимает рандомные координаты от setNewFood() {}, и дает им класс food
   // renderFood(coords) {
-  //   // перемен. foodCell = получаем ячейку таблицы (getCellEl) по принятым коорд
+  // перемен. foodCell = получаем ячейку таблицы (getCellEl) по принятым коорд
   //   const foodCell = this.getCellEl(coords.x, coords.y);
-  //   // приписываем класс
+  // приписываем класс
   //   foodCell.classList.add("food");
   // }
 
@@ -196,7 +197,7 @@ class Board {
   }
 
   /**
-   * @deprecated Метод больше не используется, т.к. теперь змейка может проходить через стены.
+  //  // *@deprecated Метод больше не используется, т.к. теперь змейка может проходить через стены.
    *
    * Является ли следующий шаг, шагом в стену.
    * @param {Object} nextCellCoords - координаты ячейки, куда змейка собирается сделать шаг.
@@ -204,16 +205,17 @@ class Board {
    * @param {number} nextCellCoords.y
    * @returns {boolean}
    */
-  // в таблице нумерация идет с 1. в правого верхнего края. по гориз Х, по вертик Y
-  // isNextStepToWall(nextCellCoords) {
-  //   // переменная nextCell = получаем ячейку таблицы по коорд
-  //   let nextCell = this.getCellEl(nextCellCoords.x, nextCellCoords.y);
-  //   // если коорд идентичны null
-  //   if (nextCell === null) {
-  //     // возврат истина
-  //     return true;
-  //   }
-  //   // иначе ложь
-  //   return false;
-  // }
+  // в таблице нумерация идет с 1. с правого верхнего края. по гориз Х, по вертик Y
+  isNextStepToWall(nextCellCoords) {
+    // переменная nextCell = получаем ячейку таблицы по коорд
+    let nextCell = this.getCellEl(nextCellCoords.x, nextCellCoords.y);
+    return nextCell === null;
+    // если коорд идентичны null
+    // if (nextCell === null) {
+    //   // возврат истина
+    //   return true;
+    // }
+    // // иначе ложь
+    // return false;
+  }
 }

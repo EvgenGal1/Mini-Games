@@ -1,10 +1,10 @@
 class Snake {
   //! this. везде (почти) указывает на объект в котом находиться. здесь Snake
   constructor() {
-    //! массив с возможными направлениями змейки
+    // массив с возможными направлениями змейки
     this.possibleDirections = ["down", "up", "left", "right"];
 
-    //! массив с координ. змейки (верхн. левый угол х0, у0)
+    // массив с координ. змейки (верхн. левый угол х0, у0)
     this.body = [
       {
         x: 1,
@@ -12,7 +12,7 @@ class Snake {
       },
     ];
 
-    //! направл. по умолчанию - вниз
+    // направл. по умолчанию - вниз
     this.direction = "down";
   }
 
@@ -24,8 +24,9 @@ class Snake {
   }
 
   /**
-   *! Меняем направление движения.
-   * @param {string} direction направление может быть down, up, left, right.
+   * Меняем направление движения.
+   ** рефакторинг ~. direction на newDirection
+   * @param {string} newDirection направление может быть down, up, left, right.
    * @throws {Error} при передаче не корректного направления выбрасывается ошибка.
    */
   // принимает направления от pressKeyHandler из Game
@@ -47,7 +48,7 @@ class Snake {
   }
 
   /**
-   *! Метод проверяет, является ли переданное направление, противоположным тому куда сейчас движется змейка.
+   * Метод проверяет, является ли переданное направление, противоположным тому куда сейчас движется змейка.
    * @param {string} newDirection новое направление, может быть up, down, right, left.
    * @returns {boolean} true если новое направление противоположно текущему, иначе false.
    */
@@ -72,17 +73,20 @@ class Snake {
   }
 
   /**
-   *! Метод осуществляет шаг змейки. Добавляет ячейку перед существующим положением головы и удаляет одну ячейку в хвосте.
+   * Метод осуществляет шаг змейки. Добавляет ячейку перед существующим положением головы и удаляет одну ячейку в хвосте.
    */
   // `выполнить шаг`
   performStep() {
     // берем текущие коорд головы (в массиве первый элемент[0])
     let currentHeadCoords = this.body[0];
-    // копируем их в переменную
-    let newHeadCoords = {
-      x: currentHeadCoords.x,
-      y: currentHeadCoords.y,
-    };
+    //* рефакторинг +. синтаксис деструкторизации. коротко.
+    let newHeadCoords = { ...currentHeadCoords };
+    //* рефакторинг -. тоже самое только длинно
+    // копируем их в переменную из объ. currentHeadCoords
+    // let newHeadCoords = {
+    //   x: currentHeadCoords.x,
+    //   y: currentHeadCoords.y,
+    // };
     // смотрим какое направление
     switch (this.direction) {
       // если "вниз" то по Y + 1
@@ -103,22 +107,23 @@ class Snake {
         break;
     }
 
-    //  //если голова уходит за правый край
-    //  if (newHeadCoords.x > this.settings.colsCount) {
-    //    newHeadCoords.x = 1;
-    //  }
-    //  //если голова уходит за нижний край
-    //  if (newHeadCoords.y > this.settings.rowsCount) {
-    //    newHeadCoords.y = 1;
-    //  }
-    //  //если голова уходит за левый край
-    //  if (newHeadCoords.x == 0) {
-    //    newHeadCoords.x = this.settings.colsCount;
-    //  }
-    //  //если голова уходит за верхний край
-    //  if (newHeadCoords.y == 0) {
-    //    newHeadCoords.y = this.settings.rowsCount;
-    //  }
+    // настройки ухода за стенку
+    // //если голова уходит за правый край
+    // if (newHeadCoords.x > this.settings.colsCount) {
+    //   newHeadCoords.x = 1;
+    // }
+    // //если голова уходит за нижний край
+    // if (newHeadCoords.y > this.settings.rowsCount) {
+    //   newHeadCoords.y = 1;
+    // }
+    // //если голова уходит за левый край
+    // if (newHeadCoords.x == 0) {
+    //   newHeadCoords.x = this.settings.colsCount;
+    // }
+    // //если голова уходит за верхний край
+    // if (newHeadCoords.y == 0) {
+    //   newHeadCoords.y = this.settings.rowsCount;
+    // }
 
     // в dody добавляем в начале (новую ячейку)
     this.body.unshift(newHeadCoords);
@@ -127,7 +132,7 @@ class Snake {
   }
 
   /**
-   *! Метод дублирует в массиве объектов представляющих тело змейки последнюю ячейку, т.е. в массиве в конце оказываются два одинаковых объекта.
+   * Метод дублирует в массиве объектов представляющих тело змейки последнюю ячейку, т.е. в массиве в конце оказываются два одинаковых объекта.
    * Когда метод performStep в самом конце удаляет последний элемент массива, он удаляет сдублированный объект, таким образом тело змейки растет.
    */
   //`увеличить тело`
@@ -136,11 +141,14 @@ class Snake {
     // переменная `последняя ячейка тела` = обрашаемся к массиву body[берем его последний элемент
     // (длина массива - 1(нумерация элементов с 0, потому из длины массива, скажем 3, - 1, будет 2, и это 3 элемент по счету, т.е. 0,1,2 ))]
     let bodyLastCell = this.body[this.body.length - 1];
-    // в переменную newBodyLastCell записываем коорд последней ячейки
-    let newBodyLastCell = {
-      x: bodyLastCell.x,
-      y: bodyLastCell.y,
-    };
+    //* рефакторинг +.синтаксис деструкторизации. коротко
+    let newBodyLastCell = { ...bodyLastCell };
+    //* рефакторинг -. тоже самое только длинно
+    // в переменную newBodyLastCell записываем коорд последней ячейки из объ. bodyLastCell
+    // let newBodyLastCell = {
+    //   x: bodyLastCell.x,
+    //   y: bodyLastCell.y,
+    // };
     // к теле змейки добавляем в конце такую же ячейку
     this.body.push(newBodyLastCell);
   }

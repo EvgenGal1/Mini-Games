@@ -2,17 +2,18 @@
 class Status {
   constructor() {
     // при открытие страницы сразу ставим на паузу
-    this.setPaused();
+    // this.setPaused();
+    this.condition = "paused";
   }
 
-  //! Это значит что мы играем.
+  // Это значит что мы играем.
   // включает игру
   setPlaying() {
     // condition (состояние) играем
     this.condition = "playing";
   }
 
-  //!Это значит что игра на паузе.
+  //Это значит что игра на паузе.
   setPaused() {
     this.condition = "paused";
   }
