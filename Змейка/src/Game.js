@@ -60,6 +60,7 @@ class Game {
     if (this.status.isPaused()) {
       // ставим статус что "играть"
       this.status.setPlaying();
+      console.log("start");
       // перемен tickIdentifier = вызов метода setInterval (вызов функц через интервал), для фун.doTick, через 1 сек деленую на скорость змейки.
       this.tickIdentifier = setInterval(
         // метод setInterval будет вызывать объект windows, но для дальнейшей работы, методом bind, создаем новую функцию doTick, в самом Game
@@ -79,12 +80,44 @@ class Game {
     if (this.status.isPlaying()) {
       // ставим статус "пауза"
       this.status.setPaused();
+      console.log("paus");
       //* рефакторинг +. более понятное назв функции(вызов зациклиного обновления)
       this.stopGame();
       //* рефакторинг -. оборачиваем вызов зациклиного обновления в отдельную функц stopGame
       // останавливаем игру (остановл вызов фун tickIdentifier)
       // clearInterval(this.tickIdentifier);
     }
+  }
+
+  /**
+   * Метод устанавливает границы поля
+   */
+  speeding() {
+    // for (let x = 0; x < 100; x++) {
+    // if (start()) {
+    // if (this.status.isPaused() || this.status.setPaused()) {
+    // if ((this.status.condition = "paused")) {
+    // ??? не раб изменен стиля после повтор нажатия
+    if (this.status.condition === "paused") {
+      this.board.addBoard();
+      console.log("вкл борт");
+      // ??? не раб вкл метода при нажат на кнопку
+      this.snake.stepZero();
+    }
+    // if (pause()) {
+    // if (this.status.isPlaying() || this.status.setPlaying()) {
+    // if ((this.status.condition = "playing")) {
+    if (this.status.condition === "playing") {
+      this.board.addBoardSup();
+      console.log("вкл суп");
+      this.snake.stepZero();
+    }
+    // }
+    // if (this.status.setSpeed()) {
+    // this.status.setSpeed();
+    // this.board.addBoard();
+    // this.snake.stepZero();
+    // }
   }
 
   /**
@@ -99,6 +132,28 @@ class Game {
   doTick() {
     // метод меняет координаты змейки(делает шаг)
     this.snake.performStep();
+
+    // ??? не раб вкл метода при нажат на кнопку
+    // this.snake.stepZero();
+
+    //??? не раб , перебивает паузу, не раб кнопка проверка на вхождение в стенку
+    // if (this.board.addBoard() || this.board.addBoardSup()) {
+    // if (this.status.isSpeed()) {
+    // if (this.status.setSpeed()) {
+    //   // this.isGameLost();
+    //   console.log(3);
+    //   // this.snake.stepZero();
+    // this.snake.stepZero();
+    // }
+
+    // if (this.isGameLost()) {
+    //   return;
+    // }
+
+    // if (this.status.isSpeed()) {
+    //   this.snake.stepZero();
+    // }
+
     //* рефакторинг -.на каждом шаге вывод текущего счёта. нет смысла т.к. счёт меняется когда змейка ест
     // this.score.setCurrent(this.snake.body.length);
     //* рефакторинг +. проверка наступания на себя, если да то, остановка игры, вывод смс проигрыша, возвр. результ
@@ -204,20 +259,26 @@ class Game {
   /**
   // // * @deprecated Метод больше не используется, т.к. теперь змейка может проходить через стены.
    *
-   * Метод проверяет проиграна ли игра, останавливает игру. В случае проигрыша, выводит сообщение о проигрыше.
+   * Метод проверяет врезались ли в стену, останавливает игру, выводит смс о проигрыше.
    * @returns {boolean} если мы шагнули в стену, тогда true, иначе false.
    */
   isGameLost() {
     // если мы шагнули в стену
-    // в board в метод isNextStepToWall передаём коорд тела змейки равые [0]
+    // в board в метод isNextStepToWall передаём коорд тела змейки равные [0]
     if (this.board.isNextStepToWall(this.snake.body[0])) {
-      this.stopGame();
-      // останавливаем метод tickIdentifier
+      // if (this.board.isNextStepToWall === this.snake.body[0]) {
+      // return this.snake.body.length == this.settings.winLength;
       // clearInterval(this.tickIdentifier);
+      this.stopGame();
       // вывод сообщения через метод setMessage
       this.setMessage("Вы врезались в стену");
       return true;
     }
+    // if (this.isGameWon()) {
+    //   this.stopGame();
+    //   this.setMessage("Вы выиграли");
+    //   return;
+    // }
     // иначе ложь
     return false;
   }

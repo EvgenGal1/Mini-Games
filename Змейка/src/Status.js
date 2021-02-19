@@ -32,4 +32,23 @@ class Status {
   isPaused() {
     return this.condition === "paused";
   }
+
+  // вкл
+  // ??? не раб кнопка
+  setSpeed() {
+    this.condition = "speedi";
+  }
+  // провер на вкл
+
+  /**
+   *
+   *
+   * @returns
+   * @memberof Status
+   */
+  isSpeed() {
+    if (this.condition === "paused") {
+      return this.condition === "speedi";
+    }
+  }
 }

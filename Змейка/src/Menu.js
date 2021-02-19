@@ -5,6 +5,8 @@ class Controls {
     this.startBtnEl = document.getElementById("startBtn");
     // получаем button id=pauseBtn
     this.pauseBtnEl = document.getElementById("pauseBtn");
+
+    this.speedBtnEl = document.getElementById("speedBtn");
   }
 
   //* рефакторинг +. перед. объ Game со start и pause
@@ -39,6 +41,13 @@ class Controls {
     //* рефакторинг -.
     // // кнопке пауза назнач. обработку клика для запуска функции pauseBtnClickHandler
     // this.pauseBtnEl.addEventListener("click", pauseBtnClickHandler);
+
+    // ??? не раб кнопка
+    this.speedBtnEl.addEventListener(
+      "click",
+      this.game.speeding.bind(this.game)
+    );
+
     //* рефакторинг +.
     // слушаем событие keydown (нажатие "на кнопку вниз") - выполн функц pressKeyHandler(направляет змейку по кнопкам), bind(this)(привязанную к Game)
     // document.addEventListener("keydown", this.pressKeyHandler.bind(this));

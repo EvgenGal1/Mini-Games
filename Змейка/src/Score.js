@@ -2,6 +2,7 @@ class Score {
   constructor() {
     this.currentEl = document.querySelector(".current");
     this.toWinEl = document.querySelector(".toWin");
+    this.speedEl = document.querySelector(".curSpeed");
   }
 
   /**
@@ -44,5 +45,9 @@ class Score {
     this.toWinEl.textContent = points;
     //* рефакторинг -.
     // this.toWinEl.textContent = text;
+  }
+
+  renderCurrentSpeed(speed) {
+    this.speedEl.textContent = speed;
   }
 }

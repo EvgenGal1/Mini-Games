@@ -107,28 +107,61 @@ class Snake {
         break;
     }
 
-    // настройки ухода за стенку
-    // //если голова уходит за правый край
-    // if (newHeadCoords.x > this.settings.colsCount) {
-    //   newHeadCoords.x = 1;
+    // ??? не раб вкл метода при нажат на кнопку
+    // this.stepZero(){
+    // this.snake.stepZero(){
+    if (newHeadCoords.x > this.settings.colsCount) {
+      newHeadCoords.x = 1;
+    }
+    //если голова уходит за нижний край
+    if (newHeadCoords.y > this.settings.rowsCount) {
+      newHeadCoords.y = 1;
+    }
+    //если голова уходит за левый край
+    if (newHeadCoords.x == 0) {
+      newHeadCoords.x = this.settings.colsCount;
+    }
+    //если голова уходит за верхний край
+    if (newHeadCoords.y == 0) {
+      newHeadCoords.y = this.settings.rowsCount;
+    }
     // }
-    // //если голова уходит за нижний край
-    // if (newHeadCoords.y > this.settings.rowsCount) {
-    //   newHeadCoords.y = 1;
-    // }
-    // //если голова уходит за левый край
-    // if (newHeadCoords.x == 0) {
-    //   newHeadCoords.x = this.settings.colsCount;
-    // }
-    // //если голова уходит за верхний край
-    // if (newHeadCoords.y == 0) {
-    //   newHeadCoords.y = this.settings.rowsCount;
-    // }
+    this.stepZero();
 
     // в dody добавляем в начале (новую ячейку)
     this.body.unshift(newHeadCoords);
     // удаляем в конце(последнию ячейку)
     this.body.pop();
+  }
+
+  // ??? не раб вкл метода при нажат на кнопку
+  /**
+   *! Настройки ухода за стенку
+   *
+   * @memberof Snake
+   */
+  stepZero() {
+    // берем текущие коорд головы (в массиве первый элемент[0])
+    let currentHeadCoords = this.body[0];
+    //* рефакторинг +. синтаксис деструкторизации. коротко.
+    // копируем коорд. в переменную из объ. currentHeadCoords
+    let newHeadCoords = { ...currentHeadCoords };
+    // если голова уходит за правый край(коорд. Х > наст. Х, то коорд. стан. 1, т.е. появл. с др. стороны)
+    if (newHeadCoords.x > this.settings.colsCount) {
+      newHeadCoords.x = 1;
+    }
+    //если голова уходит за нижний край
+    if (newHeadCoords.y > this.settings.rowsCount) {
+      newHeadCoords.y = 1;
+    }
+    //если голова уходит за левый край
+    if (newHeadCoords.x == 0) {
+      newHeadCoords.x = this.settings.colsCount;
+    }
+    //если голова уходит за верхний край
+    if (newHeadCoords.y == 0) {
+      newHeadCoords.y = this.settings.rowsCount;
+    }
   }
 
   /**

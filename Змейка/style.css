@@ -13,6 +13,9 @@ button {
   outline: none;
   cursor: pointer;
 }
+button#startBtn {
+  margin-left: 5px;
+}
 
 button:hover {
   background: #009641;
@@ -23,15 +26,23 @@ button:active {
   color: black;
 }
 /* стиль таблицы */
-#game {
+.gameTbl {
   border-collapse: collapse;
-  margin: 30px 0;
-  min-height: 484px;
+  margin: 15px 5px;
+  min-height: 500px;
+}
+/* стиль границы поля */
+.gameBoard {
+  outline: 2px solid #ff8800;
+}
+/* стиль границы поля при игре */
+.gameBoardSup {
+  outline: 4px solid red;
 }
 /* стиль ячейки */
 td {
-  width: 20px;
-  height: 20px;
+  width: 20.5px;
+  height: 20.5px;
   border: 1px solid #eee;
 }
 /* цвет еды */
@@ -40,7 +51,8 @@ td {
 }
 /* цвет змейки */
 .snakeBody {
-  background: #520000;
+  background: #335200;
+  border: 1.5px solid #00d021;
 }
 /* стиль результата */
 #message {
@@ -50,10 +62,16 @@ td {
   font-weight: bold;
 }
 
-.score {
+.dates {
+  display: flex;
+}
+
+.score,
+.speed {
   color: white;
   font-size: 30px;
   font-family: sans-serif;
+  margin: 10px;
 }
 
 .current {
@@ -62,7 +80,13 @@ td {
 }
 
 .toWin {
-  font-size: 1.5em;
+  /* font-size: 1em; */
   color: #920066;
+  font-weight: bold;
+}
+
+.curSpeed {
+  /* font-size: 1em; */
+  color: #aa1b1b;
   font-weight: bold;
 }

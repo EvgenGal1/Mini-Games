@@ -85,6 +85,16 @@ class Board {
     document.querySelector(".food").classList.remove("food");
   }
 
+  addBoard() {
+    const gameTbl = document.querySelector(".gameTbl");
+    gameTbl.classList.add("gameBoard");
+  }
+
+  addBoardSup() {
+    const gameTbl = document.querySelector(".gameTbl");
+    gameTbl.classList.add("gameBoardSup");
+  }
+
   //* рефакторинг +.
   /** Метод очищает игровое поле от змейки. */
   clearSnake() {
@@ -218,4 +228,12 @@ class Board {
     // // иначе ложь
     // return false;
   }
+
+  // isNextStepToWall() {
+  //   // перемен. nexttd = в метод getCellEl (получить элемент ячейки) передаем коорд Х и Y. получаем теги "td"
+  //   let nextTd = this.getCellEl(coordinate.x, coordinate.y);}
+  //   // перемен. snakeBodyElems = у Board, В МЕТОД getSnakeBodyElems (получить элементы тела змейки) передаем массив с координатами из snake.body. Делаем это по сылке (this.snake) на объект Snake
+  //   const snakeBodyElems = this.getSnakeBodyElems(this.snake.body);
+
+  //   return this.snake.body.length == this.settings.winLength;
 }

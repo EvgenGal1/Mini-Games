@@ -70,11 +70,11 @@ class Board {
    * Метод очищает игровое поле.
    */
   // clearBoard() {
-  //   // константа tdElems = получаем все теги "td",
+  // константа tdElems = получаем все теги "td",
   //   const tdElems = document.querySelectorAll("td");
-  //   // перебираем циклом forEach все теги td
+  // перебираем циклом forEach все теги td
   //   tdElems.forEach(function (td) {
-  //     // выставляем класс как пустую строку
+  // выставляем класс как пустую строку
   //     td.className = "";
   //   });
   // }
@@ -83,6 +83,16 @@ class Board {
   /** Метод очищает игровое поле от еды. */
   clearFood() {
     document.querySelector(".food").classList.remove("food");
+  }
+
+  addBoard() {
+    const gameTbl = document.querySelector(".gameTbl");
+    gameTbl.classList.add("gameBoard");
+  }
+
+  addBoardSup() {
+    const gameTbl = document.querySelector(".gameTbl");
+    gameTbl.classList.add("gameBoardSup");
   }
 
   //* рефакторинг +.
@@ -162,9 +172,9 @@ class Board {
    */
   // принимает рандомные координаты от setNewFood() {}, и дает им класс food
   // renderFood(coords) {
-  //   // перемен. foodCell = получаем ячейку таблицы (getCellEl) по принятым коорд
+  // перемен. foodCell = получаем ячейку таблицы (getCellEl) по принятым коорд
   //   const foodCell = this.getCellEl(coords.x, coords.y);
-  //   // приписываем класс
+  // приписываем класс
   //   foodCell.classList.add("food");
   // }
 
@@ -197,7 +207,7 @@ class Board {
   }
 
   /**
-   * @deprecated Метод больше не используется, т.к. теперь змейка может проходить через стены.
+  //  // *@deprecated Метод больше не используется, т.к. теперь змейка может проходить через стены.
    *
    * Является ли следующий шаг, шагом в стену.
    * @param {Object} nextCellCoords - координаты ячейки, куда змейка собирается сделать шаг.
@@ -205,18 +215,27 @@ class Board {
    * @param {number} nextCellCoords.y
    * @returns {boolean}
    */
-  // в таблице нумерация идет с 1. в правого верхнего края. по гориз Х, по вертик Y
-  // isNextStepToWall(nextCellCoords) {
-  //   // переменная nextCell = получаем ячейку таблицы по коорд
-  //   let nextCell = this.getCellEl(nextCellCoords.x, nextCellCoords.y);
-  //   // если коорд идентичны null
-  //   if (nextCell === null) {
-  //     // возврат истина
-  //     return true;
-  //   }
-  //   // иначе ложь
-  //   return false;
-  // }
+  // в таблице нумерация идет с 1. с правого верхнего края. по гориз Х, по вертик Y
+  isNextStepToWall(nextCellCoords) {
+    // переменная nextCell = получаем ячейку таблицы по коорд
+    let nextCell = this.getCellEl(nextCellCoords.x, nextCellCoords.y);
+    return nextCell === null;
+    // если коорд идентичны null
+    // if (nextCell === null) {
+    //   // возврат истина
+    //   return true;
+    // }
+    // // иначе ложь
+    // return false;
+  }
+
+  // isNextStepToWall() {
+  //   // перемен. nexttd = в метод getCellEl (получить элемент ячейки) передаем коорд Х и Y. получаем теги "td"
+  //   let nextTd = this.getCellEl(coordinate.x, coordinate.y);}
+  //   // перемен. snakeBodyElems = у Board, В МЕТОД getSnakeBodyElems (получить элементы тела змейки) передаем массив с координатами из snake.body. Делаем это по сылке (this.snake) на объект Snake
+  //   const snakeBodyElems = this.getSnakeBodyElems(this.snake.body);
+
+  //   return this.snake.body.length == this.settings.winLength;
 }
 
 //* рефакторинг -. удален целый класс
@@ -352,6 +371,7 @@ class Game {
     if (this.status.isPaused()) {
       // ставим статус что "играть"
       this.status.setPlaying();
+      console.log("start");
       // перемен tickIdentifier = вызов метода setInterval (вызов функц через интервал), для фун.doTick, через 1 сек деленую на скорость змейки.
       this.tickIdentifier = setInterval(
         // метод setInterval будет вызывать объект windows, но для дальнейшей работы, методом bind, создаем новую функцию doTick, в самом Game
@@ -371,12 +391,44 @@ class Game {
     if (this.status.isPlaying()) {
       // ставим статус "пауза"
       this.status.setPaused();
+      console.log("paus");
       //* рефакторинг +. более понятное назв функции(вызов зациклиного обновления)
       this.stopGame();
       //* рефакторинг -. оборачиваем вызов зациклиного обновления в отдельную функц stopGame
       // останавливаем игру (остановл вызов фун tickIdentifier)
       // clearInterval(this.tickIdentifier);
     }
+  }
+
+  /**
+   * Метод устанавливает границы поля
+   */
+  speeding() {
+    // for (let x = 0; x < 100; x++) {
+    // if (start()) {
+    // if (this.status.isPaused() || this.status.setPaused()) {
+    // if ((this.status.condition = "paused")) {
+    // ??? не раб изменен стиля после повтор нажатия
+    if (this.status.condition === "paused") {
+      this.board.addBoard();
+      console.log("вкл борт");
+      // ??? не раб вкл метода при нажат на кнопку
+      this.snake.stepZero();
+    }
+    // if (pause()) {
+    // if (this.status.isPlaying() || this.status.setPlaying()) {
+    // if ((this.status.condition = "playing")) {
+    if (this.status.condition === "playing") {
+      this.board.addBoardSup();
+      console.log("вкл суп");
+      this.snake.stepZero();
+    }
+    // }
+    // if (this.status.setSpeed()) {
+    // this.status.setSpeed();
+    // this.board.addBoard();
+    // this.snake.stepZero();
+    // }
   }
 
   /**
@@ -391,6 +443,28 @@ class Game {
   doTick() {
     // метод меняет координаты змейки(делает шаг)
     this.snake.performStep();
+
+    // ??? не раб вкл метода при нажат на кнопку
+    // this.snake.stepZero();
+
+    //??? не раб , перебивает паузу, не раб кнопка проверка на вхождение в стенку
+    // if (this.board.addBoard() || this.board.addBoardSup()) {
+    // if (this.status.isSpeed()) {
+    // if (this.status.setSpeed()) {
+    //   // this.isGameLost();
+    //   console.log(3);
+    //   // this.snake.stepZero();
+    // this.snake.stepZero();
+    // }
+
+    // if (this.isGameLost()) {
+    //   return;
+    // }
+
+    // if (this.status.isSpeed()) {
+    //   this.snake.stepZero();
+    // }
+
     //* рефакторинг -.на каждом шаге вывод текущего счёта. нет смысла т.к. счёт меняется когда змейка ест
     // this.score.setCurrent(this.snake.body.length);
     //* рефакторинг +. проверка наступания на себя, если да то, остановка игры, вывод смс проигрыша, возвр. результ
@@ -494,24 +568,31 @@ class Game {
 
   //* рефакторинг -. Устаревший метод
   /**
-   * @deprecated Метод больше не используется, т.к. теперь змейка может проходить через стены.
+  // // * @deprecated Метод больше не используется, т.к. теперь змейка может проходить через стены.
    *
-   * Метод проверяет проиграна ли игра, останавливает игру. В случае проигрыша, выводит сообщение о проигрыше.
+   * Метод проверяет врезались ли в стену, останавливает игру, выводит смс о проигрыше.
    * @returns {boolean} если мы шагнули в стену, тогда true, иначе false.
    */
-  // isGameLost() {
-  // если мы шагнули в стену
-  // в board в метод isNextStepToWall передаём коорд тела змейки равые [0]
-  // if (this.board.isNextStepToWall(this.snake.body[0])) {
-  // останавливаем метод tickIdentifier
-  // clearInterval(this.tickIdentifier);
-  // вывод сообщения через метод setMessage
-  //   this.setMessage("Вы проиграли");
-  //   return true;
-  // }
-  // иначе ложь
-  //   return false;
-  // }
+  isGameLost() {
+    // если мы шагнули в стену
+    // в board в метод isNextStepToWall передаём коорд тела змейки равные [0]
+    if (this.board.isNextStepToWall(this.snake.body[0])) {
+      // if (this.board.isNextStepToWall === this.snake.body[0]) {
+      // return this.snake.body.length == this.settings.winLength;
+      // clearInterval(this.tickIdentifier);
+      this.stopGame();
+      // вывод сообщения через метод setMessage
+      this.setMessage("Вы врезались в стену");
+      return true;
+    }
+    // if (this.isGameWon()) {
+    //   this.stopGame();
+    //   this.setMessage("Вы выиграли");
+    //   return;
+    // }
+    // иначе ложь
+    return false;
+  }
 
   /**
    * В зависимости от нажатой кнопки (вверх, вниз, влево, вправо) будет вызываться соответствующий метод.
@@ -570,7 +651,7 @@ window.addEventListener("load", () => {
 
   // Передача настроек
   //* рефакторинг +. свои настр. в перемен
-  const initialSettings = { speed: 5, winLength: 10 };
+  const initialSettings = { speed: 5, winLength: 7 };
 
   //  в классе settings метод init (установка начальных значений). в виде объекта передаем настройки для нашей игры(скорость, длина для выйгрыша)
   settings.init(initialSettings);
@@ -604,9 +685,12 @@ window.addEventListener("load", () => {
   score.renderCurrentScore(snake.body.length);
   //* рефакторинг +. в классе controls(эл. управл.), вызов слуш.событ.
   controls.addControlsEventListeners();
-  //* рефакторинг -. была часть запусков
+  //* рефакторинг -. была часть запусков, расбросаное управление
   // метод обработчика сотытия клика
   // game.run();
+
+  // score.renderCurrentSpeed(initialSettings.winLength);
+  score.renderCurrentSpeed(initialSettings.speed);
 });
 
 // изучить принципы SOLID
@@ -649,6 +733,8 @@ class Controls {
     this.startBtnEl = document.getElementById("startBtn");
     // получаем button id=pauseBtn
     this.pauseBtnEl = document.getElementById("pauseBtn");
+
+    this.speedBtnEl = document.getElementById("speedBtn");
   }
 
   //* рефакторинг +. перед. объ Game со start и pause
@@ -683,6 +769,13 @@ class Controls {
     //* рефакторинг -.
     // // кнопке пауза назнач. обработку клика для запуска функции pauseBtnClickHandler
     // this.pauseBtnEl.addEventListener("click", pauseBtnClickHandler);
+
+    // ??? не раб кнопка
+    this.speedBtnEl.addEventListener(
+      "click",
+      this.game.speeding.bind(this.game)
+    );
+
     //* рефакторинг +.
     // слушаем событие keydown (нажатие "на кнопку вниз") - выполн функц pressKeyHandler(направляет змейку по кнопкам), bind(this)(привязанную к Game)
     // document.addEventListener("keydown", this.pressKeyHandler.bind(this));
@@ -697,6 +790,7 @@ class Score {
   constructor() {
     this.currentEl = document.querySelector(".current");
     this.toWinEl = document.querySelector(".toWin");
+    this.speedEl = document.querySelector(".curSpeed");
   }
 
   /**
@@ -740,6 +834,10 @@ class Score {
     //* рефакторинг -.
     // this.toWinEl.textContent = text;
   }
+
+  renderCurrentSpeed(speed) {
+    this.speedEl.textContent = speed;
+  }
 }
 
 //! если в файле только один класс то его имя пишут с большой буквы (хорошая практика  - один файл - один класс)
@@ -762,7 +860,7 @@ class Settings {
   //* рефакторинг +. синтаксис деструкторизации - позвол вызывать метод без передачи парам(иначе undefined)
   // {... .....} = переданые сво-ва объ., формируются в параметры функции. эти значения по умолч. перзапишут то что есть в объ которому передаём
   // (= {} если ничего не передано будет пустой объект)
-  init({ rowsCount = 21, colsCount = 21, speed = 2, winLength = 50 } = {}) {
+  init({ rowsCount = 21, colsCount = 21, speed = 1, winLength = 50 } = {}) {
     //* рефакторинг -.
     // init(params) {
     // объект настроек игры по умолчанию
@@ -818,7 +916,7 @@ class Settings {
 
     // проверка на выйгрышную длину
     //* рефакторинг +.
-    if (winLength < 5 || winLength > 50) {
+    if (winLength < 2 || winLength > 50) {
       throw new Error(
         "Неверные настройки, значение winLength должно быть в диапазоне [5, 50]."
       );
@@ -944,7 +1042,9 @@ class Snake {
         break;
     }
 
-    //если голова уходит за правый край
+    // ??? не раб вкл метода при нажат на кнопку
+    // this.stepZero(){
+    // this.snake.stepZero(){
     if (newHeadCoords.x > this.settings.colsCount) {
       newHeadCoords.x = 1;
     }
@@ -960,11 +1060,43 @@ class Snake {
     if (newHeadCoords.y == 0) {
       newHeadCoords.y = this.settings.rowsCount;
     }
+    // }
+    this.stepZero();
 
     // в dody добавляем в начале (новую ячейку)
     this.body.unshift(newHeadCoords);
     // удаляем в конце(последнию ячейку)
     this.body.pop();
+  }
+
+  // ??? не раб вкл метода при нажат на кнопку
+  /**
+   *! Настройки ухода за стенку
+   *
+   * @memberof Snake
+   */
+  stepZero() {
+    // берем текущие коорд головы (в массиве первый элемент[0])
+    let currentHeadCoords = this.body[0];
+    //* рефакторинг +. синтаксис деструкторизации. коротко.
+    // копируем коорд. в переменную из объ. currentHeadCoords
+    let newHeadCoords = { ...currentHeadCoords };
+    // если голова уходит за правый край(коорд. Х > наст. Х, то коорд. стан. 1, т.е. появл. с др. стороны)
+    if (newHeadCoords.x > this.settings.colsCount) {
+      newHeadCoords.x = 1;
+    }
+    //если голова уходит за нижний край
+    if (newHeadCoords.y > this.settings.rowsCount) {
+      newHeadCoords.y = 1;
+    }
+    //если голова уходит за левый край
+    if (newHeadCoords.x == 0) {
+      newHeadCoords.x = this.settings.colsCount;
+    }
+    //если голова уходит за верхний край
+    if (newHeadCoords.y == 0) {
+      newHeadCoords.y = this.settings.rowsCount;
+    }
   }
 
   /**
@@ -1023,6 +1155,25 @@ class Status {
    */
   isPaused() {
     return this.condition === "paused";
+  }
+
+  // вкл
+  // ??? не раб кнопка
+  setSpeed() {
+    this.condition = "speedi";
+  }
+  // провер на вкл
+
+  /**
+   *
+   *
+   * @returns
+   * @memberof Status
+   */
+  isSpeed() {
+    if (this.condition === "paused") {
+      return this.condition === "speedi";
+    }
   }
 }
 

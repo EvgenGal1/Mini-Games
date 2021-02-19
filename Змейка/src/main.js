@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
 
   // Передача настроек
   //* рефакторинг +. свои настр. в перемен
-  const initialSettings = { speed: 5, winLength: 15 };
+  const initialSettings = { speed: 5, winLength: 7 };
 
   //  в классе settings метод init (установка начальных значений). в виде объекта передаем настройки для нашей игры(скорость, длина для выйгрыша)
   settings.init(initialSettings);
@@ -54,9 +54,12 @@ window.addEventListener("load", () => {
   score.renderCurrentScore(snake.body.length);
   //* рефакторинг +. в классе controls(эл. управл.), вызов слуш.событ.
   controls.addControlsEventListeners();
-  //* рефакторинг -. была часть запусков
+  //* рефакторинг -. была часть запусков, расбросаное управление
   // метод обработчика сотытия клика
   // game.run();
+
+  // score.renderCurrentSpeed(initialSettings.winLength);
+  score.renderCurrentSpeed(initialSettings.speed);
 });
 
 // изучить принципы SOLID
