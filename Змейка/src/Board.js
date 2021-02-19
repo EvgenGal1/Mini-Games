@@ -151,6 +151,8 @@ class Board {
     return this.boardEl.querySelector(`tr:nth-child(${y}) td:nth-child(${x})`);
   }
 
+  //! ??? Настройки - скорость, бортик, супер бортик, препятствия, голод, обманки, отрава, время еды
+
   /**
    * Метод проверяет съела ли змейка еду.
    * @returns {boolean} true если змейка находится на еде, иначе false.
@@ -228,12 +230,4 @@ class Board {
     // // иначе ложь
     // return false;
   }
-
-  // isNextStepToWall() {
-  //   // перемен. nexttd = в метод getCellEl (получить элемент ячейки) передаем коорд Х и Y. получаем теги "td"
-  //   let nextTd = this.getCellEl(coordinate.x, coordinate.y);}
-  //   // перемен. snakeBodyElems = у Board, В МЕТОД getSnakeBodyElems (получить элементы тела змейки) передаем массив с координатами из snake.body. Делаем это по сылке (this.snake) на объект Snake
-  //   const snakeBodyElems = this.getSnakeBodyElems(this.snake.body);
-
-  //   return this.snake.body.length == this.settings.winLength;
 }
