@@ -4,16 +4,23 @@ import "./index.css";
 // !
 console.log("1");
 
-// Square - классовый компонент (Клетка) - рендерит по одному элементу <button>, добав. в метод render на {this.props.value} для числа в квадр, измен тег кнп для отбраж. «клик» в консоли, + конструктор к классу чтобы инициал и сохран сост, измен render для отображ текущего значения из состояния при клике, заменим обработчик onClick this.setState({value: 'X'}),
+// Square - классовый компонент (Клетка) - рендерит по одному элементу <button>
+// добав. в метод render на {this.props.value} для числа в квадр
+// измен тег кнп для отбраж. «клик» в консоли
+// + конструктор к классу чтобы инициал и сохран сост
+// измен render для отображ текущего значения из состояния при клике
+// заменим обработчик onClick this.setState({value: 'X'})
+// убир констр(Board хран сост игры)измен onClick и state(приним проп1 и проп2)
 class Square extends React.Component {
   // + констр для инициал и сохран сост
-  constructor(props) {
-    // super всегда при объяв констр подкласса
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
+  // constructor(props) {
+  // super всегда при объяв констр подкласса. все класс.компон. с констр. начин с super(props)
+  //   super(props);
+  //   this.state = {
+  //     value: null,
+  //   };
+  // }
+  // убир констр(Board хран сост игры)
   render() {
     // !
     console.log("8.1 S-1");
@@ -26,14 +33,18 @@ class Square extends React.Component {
           //   // !
           //   console.log("клик");
           // }
-          // Заменим обработчик onClick - this.setState({value: 'X'}). вызывая this.setState, React, перерендерит Square при клике <button>. this.state.value станет X
-          this.setState({ value: "X" })
+          // заменим обработчик onClick - this.setState({value: 'X'}). вызывая this.setState, React, перерендерит Square при клике <button>. this.state.value станет X
+          // this.setState({ value: "Х" })
+          // измен onClick(приним проп2)
+          this.props.onClick()
         }
       >
         {/* добав. в render - this.props.value - число внутри каждого отрендеренного квадрата */}
         {/* {this.props.value} */}
         {/* измен render для отображ текущего значения из состояния - this.state.value*/}
-        {this.state.value}
+        {/* {this.state.value} */}
+        {/* измен state(приним проп1)  */}
+        {this.props.value}
       </button>
     );
   }
@@ -41,13 +52,45 @@ class Square extends React.Component {
 // !
 console.log("2");
 
-// Board - классовый компонент (Поле) - рендерит 9 компонентов Square, передаем данные(проп) из родит Board в дочер Square,
+// Board - классовый компонент (Поле) - рендерит 9 компонентов Square
+// передаем данные(проп) из родит Board в дочер Square
+// +констр с 9 эл.(squares квадр) со знач null для хран сост игры в родителе
+// измен метод renderSquare чтобы читать данные из массива squares для передачи в кажд Square текущ значен(проп1 value: X,O,null)
+// измен метод renderSquare для передачт fn(handleClick проп2) в Square чтоб вызывал при клике по нему(будет обнов Board)
+// процес - onClick из DOM <button> указ React устан обработчик события - клик вызовет onClick из Square render() - onClick вызовет this.props.onClick(), проп onClick в Board - Board передаст в Square onClick={() => this.handleClick(i)}, Square при клике вызывает handleClick(i) у Board
+// соглашение об именах — on[Имя события] для пропсов, отвечающих за события, и handle[Имя события] для методов обрабатывающих события.
+// + метод handleClick
+// теперь состояние хран в Board(позволит опред победителя), при изменен Board перерендер компонентов Square. Square получ все значения из Board и уведом о клик. Square управляемый.
+// в handleClick .slice() создаёт копии массива для 
 class Board extends React.Component {
+  // +констр с squares
+  constructor(props) {
+    super(props);
+    this.state = {
+      // fill - измен все эл массива (не обязат)от нач до конеч
+      squares: Array(9).fill(null),
+    };
+  }
+  // + метод handleClick
+  handleClick(i){
+    // slice - Возвращает копию массива (не обязат)от нач до конеч
+    const squares = this.state.squares.slice()
+    squares[i] = 'Х';
+    this.setState({squares: squares});
+  }
   renderSquare(i) {
     // !
     console.log("7.3 B-3");
-    // передаем данные(проп) из Board в Square.
-    return <Square value={i} />;
+    // передаем данные(проп) из Board в Square(вниз).
+    // return <Square value={i} />;
+    // измен метод renderSquare чтобы читать данные из массива squares(проп1)
+    // измен метод renderSquare для передачт fn()handleClick в Square(проп2)
+    return (
+      <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
   }
   render() {
     // !
