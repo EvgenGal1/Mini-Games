@@ -8,7 +8,7 @@ ol,
 ul {
   /* padding-left: 30px; */
   padding: 5px;
-    margin: 5px;
+  margin: 5px;
 }
 
 .board-row {
@@ -22,7 +22,7 @@ ul {
 
 .status {
   display: flex;
-  margin-bottom: 10px;
+  margin: 10px;
   color: #00f;
   font-weight: 700;
 }
@@ -56,7 +56,11 @@ ul {
   background: #4e4e4e;
   display: flex;
   flex-direction: row;
-  flex-direction: column;
+  /* flex-direction: column; */
+  align-items: center;
+  height: 247px;
+  /* justify-content: space-evenly; */
+  justify-content: center;
   align-items: center;
 }
 
@@ -64,9 +68,18 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 15px;
 }
 
 .game-info {
   /* margin-left: 20px; */
   width: 20%;
+  margin: 15px;
+}
+.game-info div{
+  color: #2df326
+}
+li::marker {
+  color: #f00;
+  margin-right: 5px;
 }
