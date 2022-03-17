@@ -12,7 +12,9 @@ function flipcard() {
     isCardFlipped = false;
     secondcard = this;
     // !!! не раб - Uncaught TypeError: Cannot read properties of undefined (reading 'dataset')
-    if (firstcard.dataset.name === secondcard.dataset.name) {
+    console.log(firstcard.dataset.nam);
+    console.log(secondcard.dataset.nam);
+    if (firstcard.dataset.nam === secondcard.dataset.nam) {
       // if (firstcard.data.name === secondcard.data.name) {
       // if (firstcard.data === secondcard.data) {
       firstcard.removeEventListener("click", flipcard);
