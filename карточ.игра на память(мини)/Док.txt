@@ -1,6 +1,0 @@
-По взаимодействовать
-https://www.youtube.com/watch?v=LIXfkqkkeOg&t=1s
-
-!!! Не раб - Uncaught TypeError: Cannot read properties of undefined (reading 'dataset')
-
-Карточки переворачиваются все. Отбор на пара не раб
