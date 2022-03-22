@@ -4,6 +4,7 @@
 https://www.youtube.com/watch?v=ZCKohZwGZMw&t
 1.
 Установка $$ npx create-react-app magic-memory - появились все файлы для проета с кодом (нужно редачить по видео!)
-Запуск проект $$ npm run start - сборка, открытие в браузере
+Запуск проекта $$ npm run start - сборка, открытие в браузере
 Можно удалить, для веса, папку node_modules. Востановить $$ npm install
 2.
+В App.js внесена перетасовка карт (shuffleCards). По клику на button получаемлучаем 2 массива src img и randomно перетасовываем его с присвойкой id переворота
