@@ -78,40 +78,40 @@ $(function () {
     $(".c3").text(text.substring(2, 3));
     $(".c4").text(text.substring(3, 4));
 
-    // If won game(Если игра выиграна)
+    // If won game (`Если выиграл игру`)
     if (text == "nice") {
       increase("flip_won");
       decrease("flip_abandoned");
     }
 
-    // If lost game(Если проиграна игра)
+    // If lost game (`Если проиграна игра`)
     else if (text == "fail") {
       increase("flip_lost");
       decrease("flip_abandoned");
     }
 
-    // Update stats(Обновить статистику)
+    // Update stats (`Обновить статистику`)
     updateStats();
   }
 
-  /* LOAD GAME ACTIONS(ЗАГРУЗИТЬ ИГРОВЫЕ ДЕЙСТВИЯ) */
+  /* LOAD GAME ACTIONS */ `ЗАГРУЗИТЬ ИГРОВЫЕ ДЕЙСТВИЯ */`;
 
-  // Init localStorage(Инициируем локальное хранилище)
+  // Init localStorage (`Инициировать локальное хранилище`)
   if (!get("flip_won") && !get("flip_lost") && !get("flip_abandoned")) {
-    //Overall Game stats
+    //Overall Game stats (`Общая статистика игр`)
     set("flip_won", 0);
     set("flip_lost", 0);
     set("flip_abandoned", 0);
-    //Best times
+    //Best times (`Лучшие времена`)
     set("flip_casual", "-:-");
     set("flip_medium", "-:-");
     set("flip_hard", "-:-");
-    //Cards stats
+    //Cards stats (`Статистика карт`)
     set("flip_matched", 0);
     set("flip_wrong", 0);
   }
 
-  // Fill stats(Заполнить статистику)
+  // Fill stats (`Заполнить статистику`)
   if (
     get("flip_won") > 0 ||
     get("flip_lost") > 0 ||
@@ -120,7 +120,7 @@ $(function () {
     updateStats();
   }
 
-  // Toggle start screen cards(Переключить карточки начального экрана)
+  // Toggle start screen cards (`Переключить карточки начального экрана`)
   $('.logo .card:not(".twist")').on("click", function (e) {
     $(this)
       .toggleClass("active")
@@ -132,7 +132,7 @@ $(function () {
     }
   });
 
-  // Start game(старт игры)
+  // Start game (`Начать игру`)
   $(".play").on("click", function () {
     increase("flip_abandoned");
     $(".info").fadeOut();
@@ -141,7 +141,7 @@ $(function () {
       timer = 1000,
       level = $(this).data("level");
 
-    // Set game timer and difficulty(Установить таймер и сложность игры)
+    // Set game timer and difficulty (`Установить таймер и сложность игры`)
     if (level == 8) {
       difficulty = "casual";
       timer *= level * 6;
@@ -159,7 +159,7 @@ $(function () {
       var startGame = $.now(),
         obj = [];
 
-      // Create and add shuffled cards to game(Создавайте и добавляйте перетасованные карты в игру)
+      // Create and add shuffled cards to game (`Создавайте и добавляйте перетасованные карты в игру`)
       for (i = 0; i < level; i++) {
         obj.push(i);
       }
@@ -185,7 +185,7 @@ $(function () {
         ).appendTo("#g");
       }
 
-      // Set card actions(Установить действия карты)
+      // Set card actions (`Установить действия карты`)
       $("#g .card").on({
         mousedown: function () {
           if ($("#g").attr("data-paused") == 1) {
@@ -201,23 +201,23 @@ $(function () {
                 thisCard
                   .parents(".card")
                   .toggleClass("active card found")
-                  .empty(); //yey
+                  .empty(); //yey (`да`)
                 increase("flip_matched");
 
-                // Win game
+                // Win game (`Выиграть игру`)
                 if (!$("#g .card").length) {
                   var time = $.now() - startGame;
                   if (
                     get("flip_" + difficulty) == "-:-" ||
                     get("flip_" + difficulty) > time
                   ) {
-                    set("flip_" + difficulty, time); // increase best score
+                    set("flip_" + difficulty, time); // increase best score (`увеличить лучший результат`)
                   }
 
                   startScreen("nice");
                 }
               } else {
-                $("#g .card.active").removeClass("active"); // fail
+                $("#g .card.active").removeClass("active"); // fail (`потерпеть неудачу`)
                 increase("flip_wrong");
               }
             }, 401);
@@ -225,7 +225,7 @@ $(function () {
         },
       });
 
-      // Add timer bar(Добавить панель таймера)
+      // Add timer bar (`Добавить панель таймера`)
       $('<i class="timer"></i>')
         .prependTo("#g")
         .css({
@@ -234,18 +234,18 @@ $(function () {
         .one(
           "webkitAnimationEnd oanimationend msAnimationEnd animationend",
           function (e) {
-            startScreen("fail"); // fail game
+            startScreen("fail"); // fail game (`провальная игра`)
           }
         );
 
-      // Set keyboard (p)ause and [esc] actions(Установить клавиатуру (p)ause и действия [esc])
+      // Set keyboard (p)ause and [esc] actions (`Установить клавиатуру (p)ause и действия [esc]`)
       $(window)
         .off()
         .on("keyup", function (e) {
-          // Pause game. (p)
+          // Pause game. (p) (`Пауза игры. (п)`)
           if (e.keyCode == 80) {
             if ($("#g").attr("data-paused") == 1) {
-              //was paused, now resume
+              // was paused, now resume (`был приостановлен, теперь возобновить`)
               $("#g").attr("data-paused", "0");
               $(".timer").css("animation-play-state", "running");
               $(".pause").remove();
@@ -255,10 +255,10 @@ $(function () {
               $('<div class="pause"></div>').appendTo("body");
             }
           }
-          // Abandon game. (ESC)
+          // Abandon game. (ESC) (`Отказаться от игры. (ESC)`)
           if (e.keyCode == 27) {
             startScreen("flip");
-            // If game was paused
+            // If game was paused (`Если игра была приостановлена`)
             if ($("#g").attr("data-paused") == 1) {
               $("#g").attr("data-paused", "0");
               $(".pause").remove();

@@ -1,0 +1,9 @@
+Запись в https://github.com/EvgenGal1/JS-1-mini-game
+
+По видео |
+https://www.youtube.com/watch?v=ZCKohZwGZMw&t
+1.
+Установка $$ npx create-react-app magic-memory - появились все файлы для проета с кодом (нужно редачить по видео!)
+Запуск проект $$ npm run start - сборка, открытие в браузере
+Можно удалить, для веса, папку node_modules. Востановить $$ npm install
+2.

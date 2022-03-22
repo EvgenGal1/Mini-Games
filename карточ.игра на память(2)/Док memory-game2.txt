@@ -1,3 +1,10 @@
-По видео
-https://www.youtube.com/watch?v=ZniVgo8U7ek
+Запись в https://github.com/EvgenGal1/JS-1-mini-game
 
+По видео | 2 - раб. много функц
+https://www.youtube.com/watch?v=ZniVgo8U7ek
++++ Нужно дораб перезапуск, счетчик, размеры игры
+
+По видео | mini - не раб. мало вункций (удалён от 19.03.22. коммит c735067bd61201834bebe0a1de67c9cad67af1c6)
+https://www.youtube.com/watch?v=LIXfkqkkeOg&t=164s
+!!! Не раб - Uncaught TypeError: Не удается прочитать свойства неопределенного (чтение «набора данных»)
+Карточки переворачиваются все. Сбор на пара не раб
