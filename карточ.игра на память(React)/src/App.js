@@ -41,12 +41,26 @@ function App() {
   console.log(cards, turns);
 
   return (
+    // возвращаем div.App с заголовком, кнп с атр запуск fn()shuffleCards, div.card-grid
     <div className="App">
       <h1>Magic Match</h1>
       {/* <button >New Game</button> */}
       {/* 2. по клик вызов shuffleCards*/}
       <button onClick={shuffleCards}>New Game</button>
-      {/* до редачить */}
+
+      {/* 3. */}
+      <div className="card-grid">
+        {cards.map((card) => (
+          <div className="card" key={card.id}>
+            <div>
+              <img className="front" src={card.src} alt="card fonts" />
+              <img className="back" src="./img/cover.png" alt="card back" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* до редачить. 0 */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

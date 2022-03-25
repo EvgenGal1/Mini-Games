@@ -1,10 +1,15 @@
 Запись в https://github.com/EvgenGal1/JS-1-mini-game
 
-По видео |
+По видео | 3. в рад img.front приходит img.back
 https://www.youtube.com/watch?v=ZCKohZwGZMw&t
-1.
-Установка $$ npx create-react-app magic-memory - появились все файлы для проета с кодом (нужно редачить по видео!)
-Запуск проекта $$ npm run start - сборка, открытие в браузере
-Можно удалить, для веса, папку node_modules. Востановить $$ npm install
-2.
-В App.js внесена перетасовка карт (shuffleCards). По клику на button получаемлучаем 2 массива src img и randomно перетасовываем его с присвойкой id переворота
+1. Настройки и запуск. 
+  Установка $$ npx create-react-app magic-memory - появились все файлы для проекта с кодом (нужно редачить по видео!)
+  Запуск проекта $$ npm run start - сборка, открытие в браузере
+  Можно удалить, для веса, папку node_modules. Востановить $$ npm install
+2. Перетасовка карт. 
+  В App.js внесена перетасовка карт (shuffleCards). 
+  По клику на button получаем 2 массива src img и рандомно перетасовываем его с присвойкой id переворота для каждого
+3. Создание сетки карт Grid.
+  Добавлени div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card, img.back.src.cover.png
+  Выстраиваем card по Grid. На кнп обновл.
+  !!! не раб - в рад img.front приходит img.back
