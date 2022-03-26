@@ -13,3 +13,6 @@ https://www.youtube.com/watch?v=ZCKohZwGZMw&t
   Добавлени div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card, img.back.src.cover.png
   Выстраиваем card по Grid. На кнп обновл.
   !!! не раб - в рад img.front приходит img.back
+4. Создание компонента карты
+  Переместили div.card в компонент SingleCard.js и .css. Передаем пропс? в fn()SingleCard с card и id
+5. Выбор карты
