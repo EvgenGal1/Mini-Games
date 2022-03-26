@@ -1,0 +1,14 @@
+.card {
+  position: relative;
+  /* пришлось прописать width и height */
+  width: 200px;
+  height: 400px;
+}
+.card img {
+  width: 100%;
+  /* пришлось прописать height */
+  height: 200px;
+  display: block;
+  border: 2px solid #fff;
+  border-radius: 6px;
+}

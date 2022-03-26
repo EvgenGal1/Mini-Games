@@ -8,11 +8,15 @@ https://www.youtube.com/watch?v=ZCKohZwGZMw&t
   Можно удалить, для веса, папку node_modules. Востановить $$ npm install
 2. Перетасовка карт. 
   В App.js внесена перетасовка карт (shuffleCards). 
+  + 2 массива? [cards/turns, set..] = useState
   По клику на button получаем 2 массива src img и рандомно перетасовываем его с присвойкой id переворота для каждого
 3. Создание сетки карт Grid.
   Добавлени div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card, img.back.src.cover.png
   Выстраиваем card по Grid. На кнп обновл.
   !!! не раб - в рад img.front приходит img.back
 4. Создание компонента карты
-  Переместили div.card в компонент SingleCard.js и .css. Передаем пропс? в fn()SingleCard с card и id
+  Переместили div.card в компонент SingleCard.js с .css. Передаем пропс? в fn()SingleCard div.card c id
 5. Выбор карты
+  На img.front вешаем onClick.handleClick`ручкаКлик`. В fn()SingleCard передаём handleChoice`ручкаВыбор`. 
+  + 2 массива? [choiceOne/Two, setChoice..] = useState
+  При клик на img.front выведет к консоль card, е/и choiceOne`выбор один` то setChoiceTwo`установить выбор два` с card иначе setChoiceOne с card

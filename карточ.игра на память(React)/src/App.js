@@ -2,6 +2,8 @@
 import "./App.css";
 // 2. импорт (себе) useState (`использовать состояние`) из react. useState - Возвращает значение с сохранением состояния и функцию для его обновления
 import { useState } from "react";
+// 4. компонент SingleCard
+import SingleCard from "./components/SingleCard";
 
 // массив src img
 const cardImages = [
@@ -18,10 +20,14 @@ const cardImages = [
 ];
 
 function App() {
-  // 2. перем. массива cards и setCards (`набор карт`) приравниваем к useState с массивом
+  // 2. перем. массива cards и setCards (`набор карт`) приравниваем к useState(`использование состояния` возвращ знач с сохран сост и fn() для обраб) с массивом.
+  // ??? разобраться что за массивы
   const [cards, setCards] = useState([]);
   // 2. перем. массива turns (`переворот`) и setTurns (`набор переворотов`) приравниваем к useState с 0
   const [turns, setTurns] = useState(0);
+  // 5. массивы `выборОдин`, `установитьВыборОдин`
+  const [choiceOne, setChoiceOne] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
 
   // 2. shuffle cards (`тасовать карты`)
   const shuffleCards = () => {
@@ -40,6 +46,12 @@ function App() {
   // в консоль выводим по 2 эл карты src img и их id переворота
   console.log(cards, turns);
 
+  // 5. handle a choice `сделать выбор`. вывод в clg card, е/и choiceOne`выбор один` то `установить выбор два` иначе один
+  const handleChoice = (card) => {
+    console.log(card);
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  };
+
   return (
     // возвращаем div.App с заголовком, кнп с атр запуск fn()shuffleCards, div.card-grid
     <div className="App">
@@ -48,15 +60,13 @@ function App() {
       {/* 2. по клик вызов shuffleCards*/}
       <button onClick={shuffleCards}>New Game</button>
 
-      {/* 3. */}
+      {/* 3. Добыв div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card,  img.back.src.cover.png */}
       <div className="card-grid">
         {cards.map((card) => (
-          <div className="card" key={card.id}>
-            <div>
-              <img className="front" src={card.src} alt="card fonts" />
-              <img className="back" src="./img/cover.png" alt="card back" />
-            </div>
-          </div>
+          // 4. div.card убрали в SingleCard.js
+          // в компонент SingleCard передаём card с id
+          // 5. передаём handleChoice
+          <SingleCard key={card.id} card={card} handleChoice={handleChoice} />
         ))}
       </div>
 
