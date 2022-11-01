@@ -1,7 +1,7 @@
 // import logo from "./logo.svg";
 import "./App.css";
 // 2. импорт (себе) useState (`использовать состояние`) из react. useState - Возвращает значение с сохранением состояния и функцию для его обновления
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // 4. компонент SingleCard
 import SingleCard from "./components/SingleCard";
 
@@ -20,14 +20,18 @@ const cardImages = [
 ];
 
 function App() {
-  // 2. перем. массива cards и setCards (`набор карт`) приравниваем к useState(`использование состояния` возвращ знач с сохран сост и fn() для обраб) с массивом.
+  // 2. масс.сост. перетасовынных карт
   // ??? разобраться что за массивы
   const [cards, setCards] = useState([]);
-  // 2. перем. массива turns (`переворот`) и setTurns (`набор переворотов`) приравниваем к useState с 0
+  // 2. сост. числа переворотов
   const [turns, setTurns] = useState(0);
-  // 5. массивы `выборОдин`, `установитьВыборОдин`
+  // 5. сост. карт - `выборОдин` и `выборДва`
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+
+  // в консоль выводим по 2 эл карты src img и их id переворота
+  // console.log("cards ", cards);
+  // console.log("turns ", turns);
 
   // 2. shuffle cards (`тасовать карты`)
   const shuffleCards = () => {
@@ -38,18 +42,48 @@ function App() {
       // map (Вызывает определенную функцию обратного вызова для каждого элемента массива и возвращает массив, содержащий результаты). Вызов fn для card, созд массив и random проставл id
       .map((card) => ({ ...card, id: Math.random() }));
 
-    // для набора карт вызов shuffledCards с 2мя дублями массива src img, рандомным пербором и рандомной проставкой id
+    // для набора карт вызов shuffledCards с 2мя дублями массива src.img, рандомным пербором и рандомной проставкой id
     setCards(shuffledCards);
+    // сброс числа переворотов
     setTurns(0);
   };
 
-  // в консоль выводим по 2 эл карты src img и их id переворота
-  console.log(cards, turns);
+  // 6. Сравните 2 выбранных карты
+  useEffect(
+    () => {
+      // сравн.ток. е/и есть оба значения
+      if (choiceOne && choiceTwo) {
+        // при совпад. путей
+        if (choiceOne.src === choiceTwo.src) {
+          console.log("карты совпадают ", choiceOne.src, " = ", choiceTwo.src);
+          // вызов сброса
+          resetTurn();
+        } else {
+          console.log(
+            "карты НЕ совпадают ",
+            choiceOne.src,
+            " != ",
+            choiceTwo.src
+          );
+          resetTurn();
+        }
+      }
+    },
+    // обе карты в масс.зависим. для отслеж.измен.
+    [choiceOne, choiceTwo]
+  );
 
-  // 5. handle a choice `сделать выбор`. вывод в clg card, е/и choiceOne`выбор один` то `установить выбор два` иначе один
+  // 5. `сделать выбор`. вывод карты, е/и choiceOne`выбор один` true то запись в `выбор два` иначе в один
   const handleChoice = (card) => {
-    console.log(card);
+    // ? менят выбраную карту
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  };
+
+  // 6. Сбросить выбора карт и увелич. число оборотов
+  const resetTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns((prevTurns) => prevTurns + 1);
   };
 
   return (

@@ -32,13 +32,13 @@ $(function () {
         "<b>" +
         get("flip_abandoned") +
         "</b><i>Abandoned</i></span></h2>" +
-        "<ul><li><b>Best Casual:</b> <span>" +
+        "<ul><li><b>Лучш. лёгкий:</b> <span>" +
         toTime(get("flip_casual")) +
         "</span></li>" +
-        "<li><b>Best Medium:</b> <span>" +
+        "<li><b>Лучш. средний:</b> <span>" +
         toTime(get("flip_medium")) +
         "</span></li>" +
-        "<li><b>Best Hard:</b> <span>" +
+        "<li><b>Лучш. Тяжёлый:</b> <span>" +
         toTime(get("flip_hard")) +
         "</span></li></ul>" +
         "<ul><li><b>Total Flips:</b> <span>" +

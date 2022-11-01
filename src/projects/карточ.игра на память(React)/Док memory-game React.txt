@@ -20,3 +20,4 @@ https://www.youtube.com/watch?v=ZCKohZwGZMw&t
   На img.front вешаем onClick.handleClick`ручкаКлик`. В fn()SingleCard передаём handleChoice`ручкаВыбор`. 
   + 2 массива? [choiceOne/Two, setChoice..] = useState
   При клик на img.front выведет к консоль card, е/и choiceOne`выбор один` то setChoiceTwo`установить выбор два` с card иначе setChoiceOne с card
+6. 

@@ -2,7 +2,7 @@ import "./SingleCard.css";
 
 // в fn()SingleCard принимаем div.card с id, handleChoice `выбор обработки`,
 export default function SingleCard({ card, handleChoice }) {
-  // 5. fn()handleClick`ручкаRлик` запуск при клик на img.back
+  // 5. выбор карты по клик (вызов в fn()обраб.Выбор - см.)
   const handleClick = () => {
     handleChoice(card);
   };
@@ -16,6 +16,7 @@ export default function SingleCard({ card, handleChoice }) {
         <img
           className="back"
           src="./img/cover.png"
+          // 6. выбор карты по клик
           onClick={handleClick}
           alt="card back"
         />
