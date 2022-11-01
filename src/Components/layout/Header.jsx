@@ -64,6 +64,28 @@ export function Header() {
                   NewPro
                 </NavLink>
               </span>
+              {/* MemoryCardGames */}
+              <span className="menu-top__items m-t-items">
+                <NavLink
+                  to="/MemoryCardGames"
+                  className="m-t-items__navlink activ-prob"
+                >
+                  Memory
+                </NavLink>
+                <ul className="m-t-items__ul m-t-its-ul">
+                  <li className="m-t-its-ul__li">
+                    <Link to="/MemoryReact" className="">
+                      MemoryReact
+                    </Link>
+                  </li>
+                  {/* <li className="m-t-its-ul__li">
+                    <Link to="/Prob2" className="">
+                      Prob2
+                    </Link>
+                  </li> */}
+                </ul>
+              </span>
+              {/* Prob0 */}
               <span className="menu-top__items m-t-items">
                 <NavLink to="/Prob0" className="m-t-items__navlink activ-prob">
                   Prob0
@@ -82,6 +104,7 @@ export function Header() {
                   </li>
                 </ul>
               </span>
+              {/* Me */}
               <span className="menu-top__items m-t-items">
                 <NavLink to="AboutMe" className="m-t-items__navlink">
                   AboutMe
