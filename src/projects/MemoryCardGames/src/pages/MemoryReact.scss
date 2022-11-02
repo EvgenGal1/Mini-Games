@@ -1,0 +1,55 @@
+// @import "../../../../styles/mixins.scss";
+
+.MemoryReact {
+  * {
+    margin: 0;
+  }
+  // отбратные отступы(чуть больше от просветов) чтоб компенсировать mergin у main
+  margin: -1.2% -3.2%;
+  font-size: 1.5em;
+  text-align: center;
+  // background: #1b1523;
+  background: #3f285e;
+  color: #fff;
+  font-family: Raleway, sans-serif;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+  h1 {
+    font-size: 1.5em;
+    @include adaptiv-value-all("margin", 45, 5, 0, 0, 45, 5);
+  }
+}
+.MemoryReact {
+  // max-width: 860px;
+  // margin: 40px auto;
+  /* text-align: center; */
+}
+.btn-single {
+  padding: 1% 2%;
+  border-radius: 30px;
+  font-size: 22px;
+  font-weight: bold;
+  background: #555;
+  cursor: pointer;
+  line-height: 23px;
+  border: 2px solid #555;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 01);
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    color: gold;
+    box-shadow: 0 8px 10px #000000;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 01);
+    transform: translateY(0);
+  }
+}
+.card-grid {
+  margin: 40px 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+}

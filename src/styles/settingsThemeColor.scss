@@ -176,80 +176,102 @@ body[data-theme="light"] {
 // СТИЛИ ПРОЕКТОВ
 :root {
   body {
-    // выбор по атребуту для примен. стилей когда стран. откр. не в родителе (по общ. имени класса)
-    div[class^="UlbiTV"] {
-      /* &_DrADr */
-      .boards .board,
-      /* &_DrADr  */.item,
-      .card {
-        background-color: var(--ui-bg);
-        border-color: var(--bord-hr);
+    .MemoryReact {
+      background-color: var(--ui-bg);
+      background-color: var(--fon-dark);
+      // transition: background-color 500ms linear, color 200ms linear;
+
+      h1 {
+        color: var(--act-light);
+        color: var(--txt-leght);
       }
-      // &_DrADr {
-      .item,
-      .card {
+
+      button {
+        color: var(--txt-col);
+        color: var(--act-dark);
+        // transition: background-color 500ms linear, color 200ms linear;
+
         &:hover {
-          background-color: var(--ui-act-col);
+          color: var(--act-light);
+          background-color: var(--el-dark);
+          // transition: background-color 500ms linear, color 200ms linear;
         }
       }
-      // }
     }
-    //
-    .BegPrj {
-      &_Modal {
-        .modal {
-          background-color: var(--ui-bg);
-        }
-      }
-      &_Quiz {
-        div[class$="__content"] {
-          background-color: var(--ui-bg);
-          .progress,
-          ul li {
-            background-color: var(--act-bg);
-          }
-          ul li {
-            // border-color: var(--act-bg);
-            // border-color: #000;
-            // border: 2px solid var(--bord-hr);
-          }
-        }
-      }
-      &_Users div[class*="__content"] {
-        background-color: var(--act-bg);
-        background-color: var(--ui-bg);
-        .users-list {
-          li {
-            p {
-              color: var(--txt-col);
-            }
-            h3 {
-              color: var(--txt-leght);
-            }
-            &:hover {
-              background-color: var(--act-bg-hov);
-              h3 {
-                color: var(--txt-dark);
-              }
-            }
-          }
-        }
-        button {
-          color: var(--txt-col);
-          &:hover {
-            // background-color: var(--el-dark);
-          }
-        }
-      }
-      // }
-    }
-    //
-    .sw3btn-radio__dark:checked ~ .sw3btn-slider {
-      background-color: var(--act-dark);
-    }
-    .sw3btn-radio__neutral:checked ~ .sw3btn-slider {
-      background-color: var(--MelonYellow);
-    }
+    //   // выбор по атребуту для примен. стилей когда стран. откр. не в родителе (по общ. имени класса)
+    //   div[class^="UlbiTV"] {
+    //     /* &_DrADr */
+    //     .boards .board,
+    //     /* &_DrADr  */.item,
+    //     .card {
+    //       background-color: var(--ui-bg);
+    //       border-color: var(--bord-hr);
+    //     }
+    //     // &_DrADr {
+    //     .item,
+    //     .card {
+    //       &:hover {
+    //         background-color: var(--ui-act-col);
+    //       }
+    //     }
+    //     // }
+    //   }
+    //   //
+    //   .BegPrj {
+    //     &_Modal {
+    //       .modal {
+    //         background-color: var(--ui-bg);
+    //       }
+    //     }
+    //     &_Quiz {
+    //       div[class$="__content"] {
+    //         background-color: var(--ui-bg);
+    //         .progress,
+    //         ul li {
+    //           background-color: var(--act-bg);
+    //         }
+    //         ul li {
+    //           // border-color: var(--act-bg);
+    //           // border-color: #000;
+    //           // border: 2px solid var(--bord-hr);
+    //         }
+    //       }
+    //     }
+    //     &_Users div[class*="__content"] {
+    //       background-color: var(--act-bg);
+    //       background-color: var(--ui-bg);
+    //       .users-list {
+    //         li {
+    //           p {
+    //             color: var(--txt-col);
+    //           }
+    //           h3 {
+    //             color: var(--txt-leght);
+    //           }
+    //           &:hover {
+    //             background-color: var(--act-bg-hov);
+    //             h3 {
+    //               color: var(--txt-dark);
+    //             }
+    //           }
+    //         }
+    //       }
+    //       button {
+    //         color: var(--txt-col);
+    //         &:hover {
+    //           // background-color: var(--el-dark);
+    //         }
+    //       }
+    //     }
+    //     // }
+    //   }
+    //   //
+    //   .sw3btn-radio__dark:checked ~ .sw3btn-slider {
+    //     background-color: var(--act-dark);
+    //   }
+    //   .sw3btn-radio__neutral:checked ~ .sw3btn-slider {
+    //     background-color: var(--MelonYellow);
+    //   }
   }
 }
 

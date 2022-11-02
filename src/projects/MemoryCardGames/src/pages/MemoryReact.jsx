@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 // 4. компонент SingleCard
 import SingleCard from "../components/SingleCard";
 
+// import "./MemoryReact.scss";
+
 export const MemoryReact = () => {
   // массив src img
   const cardImages = [
@@ -86,31 +88,28 @@ export const MemoryReact = () => {
   };
   return (
     <div className="MemoryReact">
-      <div className="MemoryReact__descript">MemoryReact__descript</div>
+      <div className="MemoryReact__descript">{/* MemoryReact__descript */}</div>
       <div className="MemoryReact__content">
         {/* // возвращаем div.App с заголовком, кнп с атр запуск fn()shuffleCards, div.card-grid */}
-        <div className="App">
-          <h1>Magic Match</h1>
-          {/* <button >New Game</button> */}
-          {/* 2. по клик вызов shuffleCards*/}
-          <button onClick={shuffleCards}>New Game</button>
+        <h1>Magic Match</h1>
+        {/* <button >New Game</button> */}
+        {/* 2. по клик вызов shuffleCards*/}
+        <button className="btn-single" onClick={shuffleCards}>
+          New Game
+        </button>
 
-          {/* 3. Добыв div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card,  img.back.src.cover.png */}
-          <div className="card-grid">
-            {cards.map((card) => (
-              // 4. div.card убрали в SingleCard.js
-              // в компонент SingleCard передаём card с id
-              // 5. передаём handleChoice
-              <SingleCard
-                key={card.id}
-                card={card}
-                handleChoice={handleChoice}
-              />
-            ))}
-          </div>
+        {/* 3. Добыв div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card,  img.back.src.cover.png */}
+        <div className="card-grid">
+          {cards.map((card) => (
+            // 4. div.card убрали в SingleCard.js
+            // в компонент SingleCard передаём card с id
+            // 5. передаём handleChoice
+            <SingleCard key={card.id} card={card} handleChoice={handleChoice} />
+          ))}
+        </div>
 
-          {/* до редачить. 0 */}
-          {/* <header className="App-header">
+        {/* до редачить. 0 */}
+        {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -124,7 +123,6 @@ export const MemoryReact = () => {
           Learn React
         </a>
       </header> */}
-        </div>
       </div>
     </div>
   );

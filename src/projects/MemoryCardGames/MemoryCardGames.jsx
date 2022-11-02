@@ -10,6 +10,7 @@ export const MemoryCardGames = () => {
         <div className="MemoryCardGames__descript">MemoryCardGames 1</div>
         <div className="MemoryCardGames__content">MemoryCardGames 2</div>
       </div>
+      <hr />
       <div className="MemoryCardGames__nav">
         <nav>
           <NavLink to="MemoryReact">MemoryReact</NavLink>

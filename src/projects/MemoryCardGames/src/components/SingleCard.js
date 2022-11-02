@@ -1,4 +1,4 @@
-import "./SingleCard.css";
+import "./SingleCard.scss";
 
 // в fn()SingleCard принимаем div.card с id, handleChoice `выбор обработки`,
 export default function SingleCard({ card, handleChoice }) {

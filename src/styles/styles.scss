@@ -170,7 +170,7 @@ $md5NoErr: 576px;
 // @import "./themeModesSettingsBtns.scss";
 // @import "./themeModesSettingsVars.scss";
 // изменения стилей Темы (theme) при нажате на переключатели в Доп.Меню (новое)
-// @import "./settingsThemeColor.scss";
+@import "./settingsThemeColor.scss";
 // стили scroll bara (полоса прокрутки)
 @import "./scrollBar.scss";
 // стили spoler|accordion на scss для раскрытия блока
@@ -195,3 +195,5 @@ $md5NoErr: 576px;
 @import "./projects.scss";
 // общие стили Главных Компонентов (header, main, footer)
 @import "../Components/layout/Router.scss";
+
+@import "../projects/MemoryCardGames/src/pages/MemoryReact.scss";

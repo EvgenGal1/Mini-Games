@@ -104,12 +104,14 @@ div {
   // для div в которых есть параграф|h1 и братский div
   // div:has(p):has(+ div),
   // div:has(h1):has(+ div) {
-  div:has(+ div):not(:first-child) {
+  // div:has(+ div):not(:first-child) {
+  div:has(+ div) {
     &:has(div),
     &:has(h1),
     &:has(p) {
       line-height: 22px;
-      @include adaptiv-val("margin-top", 10, 2);
+      // @include adaptiv-val("margin-top", 10, 2);
+      @include adaptiv-val("margin-bottom", 10, 2);
     }
   }
   // для div.__descript где есть параграф|h1 и братский div
