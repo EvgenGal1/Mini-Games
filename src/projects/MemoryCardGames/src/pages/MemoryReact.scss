@@ -6,11 +6,12 @@
   }
   // отбратные отступы(чуть больше от просветов) чтоб компенсировать mergin у main
   margin: -1.2% -3.2%;
+  padding: 0px 3%;
   font-size: 1.5em;
   text-align: center;
   // background: #1b1523;
   background: #3f285e;
-  color: #fff;
+  color: #ccc;
   font-family: Raleway, sans-serif;
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
@@ -51,5 +52,31 @@
   margin: 40px 0 40px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
+}
+
+.progress {
+  width: 100%;
+  height: 10px;
+  position: relative;
+  padding: 0px;
+  border-radius: 30px;
+  background-color: #888888;
+  margin-bottom: 25px;
+  &:hover::before {
+    content: "Прогресс";
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    font-size: 10px;
+  }
+  &__inner {
+    height: 100%;
+    border-radius: 30px;
+    width: 80%;
+    background: #d8c415;
+    transition: all 0.3s ease-in-out;
+    background: linear-gradient(90deg, #f1cd00 0%, #a10303 100%);
+  }
 }

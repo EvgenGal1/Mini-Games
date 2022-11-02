@@ -1,14 +1,33 @@
+// общие .cl расположения
 .card {
   position: relative;
-  /* пришлось прописать width и height */
-  width: 200px;
-  height: 400px;
 }
 .card img {
   width: 100%;
-  /* пришлось прописать height */
-  height: 200px;
   display: block;
   border: 2px solid #fff;
   border-radius: 6px;
+}
+// классы гл.карт для поворота с аним.
+// по умолч. гл.карты повернуты на 90град. для невидимости
+.card .front {
+  position: absolute;
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+  background: #4b0000;
+}
+// при .cl поворота разворачиваем анфас
+.flipped .front {
+  transform: rotate(0deg);
+  transition-delay: 0.2s;
+}
+// классы рубашки карты
+.card .back {
+  transition: all ease-in 0.2s;
+  transition-delay: 0.2s;
+}
+// при .cl поворота разворачиваем анфас
+.flipped .back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
 }

@@ -92,11 +92,11 @@ body[data-theme="light"] {
 // ОБЩИЕ СТИЛИ
 :root {
   body {
+    background-color: var(--fon-dark) !important;
     // цвет рамки для всех кроме ссылок и списков
     *:not(a):not(ul) {
       border-color: var(--bord-hr) !important;
     }
-    background-color: var(--fon-dark);
     hr {
       border-color: var(--bord-hr);
     }
