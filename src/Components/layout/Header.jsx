@@ -10,20 +10,26 @@ import { Switcher3btnTheme } from "../ui/Switcher3btnTheme";
 
 export function Header() {
   // ЛОГИКА Опред.Кобин.Клвш. для вывода Доп.Меню
-  // стат. показа Доп.Меню
-  const [pressCombine, setPressCombine] = useState(false);
+  // стат. показа Доп.Меню из LS
+  const [pressCombine, setPressCombine] = useState(() => {
+    const saved = localStorage.getItem("--dopMenu");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
   // массив букв после хука (возвращ true е/и переданные и нажатые равны)
   const combinePress = useAllKeysPress({
     userKeys: ["d", "o", "p", "m", "n"],
-    order: true,
+    // order: true,
   });
-
+  // отслеж. измен.с записью в LS
   useEffect(() => {
-    if (combinePress === true) {
+    if ((combinePress || pressCombine) === true) {
       setPressCombine(true);
+      localStorage.setItem("--dopMenu", JSON.stringify(true));
+    } else if ((combinePress || pressCombine) === false) {
+      setPressCombine(false);
+      localStorage.setItem("--dopMenu", JSON.stringify(false));
     }
-    // ??? не раб - перерендер
-    // console.log("combinePress : " + combinePress);
   }, [combinePress, pressCombine]);
 
   // ЛОГИКА переключателя Цветовых Тем (dark/light/natural)
