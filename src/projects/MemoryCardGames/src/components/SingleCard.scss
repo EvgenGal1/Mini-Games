@@ -13,6 +13,7 @@
 .card .front {
   position: absolute;
   transform: rotateY(90deg);
+  transform: rotateY(55deg);
   transition: all ease-in 0.2s;
   background: #4b0000;
 }

@@ -21,62 +21,100 @@
   }
 }
 .MemoryReact {
-  // max-width: 860px;
-  // margin: 40px auto;
-  /* text-align: center; */
-}
-.btn-single {
-  padding: 1% 2%;
-  border-radius: 30px;
-  font-size: 22px;
-  font-weight: bold;
-  background: #555;
-  cursor: pointer;
-  line-height: 23px;
-  border: 2px solid #555;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 01);
-  transition: all 0.1s ease-in-out;
-
-  &:hover {
-    color: gold;
-    box-shadow: 0 8px 10px #000000;
-    transform: translateY(-1px);
+  .card-grid {
+    margin: 40px 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
   }
 
-  &:active {
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 01);
-    transform: translateY(0);
-  }
-}
-.card-grid {
-  margin: 40px 0 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 20px;
-}
-
-.progress {
-  width: 100%;
-  height: 10px;
-  position: relative;
-  padding: 0px;
-  border-radius: 30px;
-  background-color: #888888;
-  margin-bottom: 25px;
-  &:hover::before {
-    content: "Прогресс";
-    position: absolute;
-    left: 50%;
-    top: 0px;
-    font-size: 10px;
-  }
-  &__inner {
-    height: 100%;
+  .progress {
+    width: 100%;
+    height: 10px;
+    position: relative;
+    padding: 0px;
     border-radius: 30px;
-    width: 80%;
-    background: #d8c415;
-    transition: all 0.3s ease-in-out;
-    background: linear-gradient(90deg, #f1cd00 0%, #a10303 100%);
+    background-color: #888888;
+    margin-bottom: 25px;
+    &:hover::before {
+      content: "Прогресс";
+      position: absolute;
+      left: 50%;
+      top: 0px;
+      font-size: 10px;
+    }
+    &__inner {
+      height: 100%;
+      border-radius: 30px;
+      width: 80%;
+      background: #d8c415;
+      transition: all 0.3s ease-in-out;
+      background: linear-gradient(90deg, #f1cd00 0%, #a10303 100%);
+    }
+  }
+
+  // секундомер ----------------------------------------------------------------------------------
+  .stop-watch {
+    // height: 85vh;
+    // width: 23vw;
+    background-color: #0d0c1b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .timer {
+    margin: 3rem 0;
+    margin: 20px 0px;
+    // width: 100%;
+    // display: flex;
+    // height: 12%;
+    // justify-content: center;
+    // align-items: center;
+  }
+
+  .digits {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 3rem;
+    font-size: 25px;
+    color: #f5f5f5;
+  }
+
+  .mili-sec {
+    color: #e42a2a;
+  }
+  .Control-Buttons {
+    margin: 3rem 0;
+    margin: 0 0 20px 0px;
+    // width: 100%;
+    // box-sizing: border-box;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+  }
+
+  .btn-grp {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .btn {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 10vw;
+    height: 5vh;
+    border-radius: 14px;
+    margin: 0px 6px;
+    display: flex;
+    border: 2px solid #e42a2a;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #f5f5f5;
+  }
+
+  .btn-one {
+    background-color: #e42a2a;
   }
 }
