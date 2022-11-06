@@ -79,19 +79,26 @@ export const MemoryReact = () => {
   // 10. стат. разрешения переворота (при 2х откр.картах)
   const [disabled, setDisabled] = useState(false);
 
-  //  ----------------------------------------------------------------------------------
+  // Таймер ----------------------------------------------------------------------------------
+  // старт таймера
   const [isActiveS, setIsActiveS] = useState(false);
+  // пайза
   const [isPausedS, setIsPausedS] = useState(true);
+  // таймер
   const [timeS, setTimeS] = useState(0);
+  // откр. 1ой карты (старт таймера)
   const [openOneCard, setOpenOneCard] = useState(false);
   //  ----------------------------------------------------------------------------------
 
-  // EG. сост. верные повороты
+  // EG. ----------------------------------------------------------------------------------
+  // сост. верные повороты
   const [truTurns, setTruTurns] = useState(0);
   // вычисляем % прогреса ч/з шаг, кол-во вопросов и округление
   const percentTage = Math.round((truTurns / cardImages.length) * 100);
   // сост. показа настроек
   const [settingGame, setSettingGame] = useState(false);
+  // результат
+  const [result, setResult] = useState(false);
 
   // 2. ЗАПУСК ИГРЫ (`тасовать карты`)
   const shuffleCards = () => {
@@ -184,7 +191,7 @@ export const MemoryReact = () => {
     shuffleCards();
   }, []);
   //  ----------------------------------------------------------------------------------
-  // !!! https://translated.turbopages.org/proxy_u/en-ru.ru.6bf96d30-6363dfd4-ac966505-74722d776562/https/www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
+  // !!! https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
   // React.useEffect(() => {
   //   let interval = null;
 
@@ -217,7 +224,6 @@ export const MemoryReact = () => {
     setTimeS(0);
   };
   // отслеж. для секундомера
-  console.log("isPausedS ", isPausedS);
   useEffect(() => {
     if (choiceOne) {
       console.log("1 ", 1);
@@ -292,22 +298,28 @@ export const MemoryReact = () => {
           onClikBtn={shuffleCards}
         />
         {/* 3. Добыв div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card,  img.back.src.cover.png */}
-        <div className="card-grid">
-          {cards.map((card) => (
-            // 4. div.card убрали в SingleCard.js
-            // в компонент SingleCard передаём card с id
-            // 5. передаём handleChoice
-            // 8. флаг переворота карты = е/и эл.итерац. = 1му|2ум выбору, или они равны
-            // 10. флаг `отключения` от переворота (для задержки при 2х откр.картах)
-            <SingleCard
-              key={card.id}
-              card={card}
-              handleChoice={handleChoice}
-              flipped={card === choiceOne || card === choiceTwo || card.matched}
-              disabled={disabled}
-            />
-          ))}
-        </div>
+        {result ? (
+          <div>Выйграно со временем: {timeS}</div>
+        ) : (
+          <div className="card-grid">
+            {cards.map((card) => (
+              // 4. div.card убрали в SingleCard.js
+              // в компонент SingleCard передаём card с id
+              // 5. передаём handleChoice
+              // 8. флаг переворота карты = е/и эл.итерац. = 1му|2ум выбору, или они равны
+              // 10. флаг `отключения` от переворота (для задержки при 2х откр.картах)
+              <SingleCard
+                key={card.id}
+                card={card}
+                handleChoice={handleChoice}
+                flipped={
+                  card === choiceOne || card === choiceTwo || card.matched
+                }
+                disabled={disabled}
+              />
+            ))}
+          </div>
+        )}
         <div
           className="settingGame"
           // style={styleSett}
