@@ -12,7 +12,11 @@ const styleSettGame = {
   Experts: { marginBottom: "20px" /* paddingBottom: "10px" */ },
 };
 
-function TimeSr(props) {
+const Result = (props) => {
+  return <div className="result"></div>;
+};
+
+function Timer(props) {
   return (
     <div className="timer">
       <span className="digits">
@@ -99,6 +103,8 @@ export const MemoryReact = () => {
   const [settingGame, setSettingGame] = useState(false);
   // результат
   const [result, setResult] = useState(false);
+  // ? спойлер на настройки
+  const [openClass, setOpenClass] = useState("section");
 
   // 2. ЗАПУСК ИГРЫ (`тасовать карты`)
   const shuffleCards = () => {
@@ -118,8 +124,12 @@ export const MemoryReact = () => {
     setTurns(0);
     // сброс числа верных карт
     setTruTurns(0);
-    // handleStart();
+    // сброс результата
+    setResult(false);
+    // ? сброс в начало (вроде не нужна)
     handleReset();
+    // закрыть "Больше"
+    setOpenClass("section");
   };
 
   // 6. сравнение 2х выбранных карты
@@ -138,7 +148,7 @@ export const MemoryReact = () => {
             return prevCards.map((card) => {
               // е/и пути эл.итерац. и выбраных карт совпадают
               if (card.src === choiceOne.src) {
-                console.log("truTurns 0 ", truTurns);
+                // console.log("truTurns 0 ", truTurns);
                 // EG. к верным картам + 1
                 // setTruTurns((prevTurns) => prevTurns + 1); // прибавлял по 2 и 4 числа
                 setTruTurns(truTurns + 1);
@@ -181,15 +191,17 @@ export const MemoryReact = () => {
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
-    setTurns((prevTurns) => prevTurns + 1);
     // 10. вкл. возмж. перреворота др.карт
     setDisabled(false);
+    // ? описать
+    setTurns((prevTurns) => prevTurns + 1);
   };
 
   // 11. авто запуск игры
   useEffect(() => {
     shuffleCards();
   }, []);
+
   //  ----------------------------------------------------------------------------------
   // !!! https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
   // React.useEffect(() => {
@@ -226,17 +238,18 @@ export const MemoryReact = () => {
   // отслеж. для секундомера
   useEffect(() => {
     if (choiceOne) {
-      console.log("1 ", 1);
+      // console.log("1 ", 1);
       setOpenOneCard(true);
+      setResult(false);
       handleStart();
     }
-    console.log("truTurns ", truTurns);
+    // console.log("truTurns ", truTurns);
     let interval = null;
     // console.log("cardImages.length ", cardImages.length);
     // console.log("truTurns.length ", truTurns.length);
     // if (choiceOne) {
     if (openOneCard && isPausedS === false) {
-      console.log("2 ", 2);
+      // console.log("2 ", 2);
       handleStart();
       interval = setInterval(() => {
         setTimeS((timeS) => timeS + 10);
@@ -246,9 +259,11 @@ export const MemoryReact = () => {
     //   clearInterval(interval);
     // }
     if (cardImages.length === truTurns) {
-      console.log("9 ", 9);
+      // console.log("9 ", 9);
       handlePauseResume();
-      console.log("isPausedS ", isPausedS);
+      setOpenClass("section open");
+      // console.log("isPausedS ", isPausedS);
+      setResult(true);
       setOpenOneCard(false);
       // handleReset();
     }
@@ -272,7 +287,7 @@ export const MemoryReact = () => {
       <div className="MemoryReact__descript">{/* MemoryReact__descript */}</div>
       <div></div>
       <div className="stop-watch">
-        <TimeSr timeS={timeS} />
+        <Timer timeS={timeS} />
         <ControlButtons
           active={isActiveS}
           isPausedS={isPausedS}
@@ -290,53 +305,55 @@ export const MemoryReact = () => {
         {/* <button className="btn-single" onClick={shuffleCards}>
           Новая игра
         </button> */}
-        <BtnSingle
-          name1={"Новая Игра"}
-          // name2={"Меньше"}
-          // stBtn={settingGame}
-          // setStBtn={setSettingGame}
-          onClikBtn={shuffleCards}
-        />
+        <BtnSingle name1={"Новая Игра"} onClikBtn={shuffleCards} />
         {/* 3. Добыв div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card,  img.back.src.cover.png */}
-        {result ? (
-          <div>Выйграно со временем: {timeS}</div>
-        ) : (
-          <div className="card-grid">
-            {cards.map((card) => (
-              // 4. div.card убрали в SingleCard.js
-              // в компонент SingleCard передаём card с id
-              // 5. передаём handleChoice
-              // 8. флаг переворота карты = е/и эл.итерац. = 1му|2ум выбору, или они равны
-              // 10. флаг `отключения` от переворота (для задержки при 2х откр.картах)
-              <SingleCard
-                key={card.id}
-                card={card}
-                handleChoice={handleChoice}
-                flipped={
-                  card === choiceOne || card === choiceTwo || card.matched
-                }
-                disabled={disabled}
-              />
-            ))}
+        {/* {result ? (
+          <div>
+            Выйграно со временем:
+            <Timer timeS={timeS} />
           </div>
-        )}
+        ) : ( */}
+        <div className="card-grid">
+          {cards.map((card) => (
+            // 4. div.card убрали в SingleCard.js
+            // в компонент SingleCard передаём card с id
+            // 5. передаём handleChoice
+            // 8. флаг переворота карты = е/и эл.итерац. = 1му|2ум выбору, или они равны
+            // 10. флаг `отключения` от переворота (для задержки при 2х откр.картах)
+            <SingleCard
+              key={card.id}
+              card={card}
+              handleChoice={handleChoice}
+              flipped={card === choiceOne || card === choiceTwo || card.matched}
+              disabled={disabled}
+            />
+          ))}
+        </div>
+        {/* )} */}
         <div
           className="settingGame"
           // style={styleSett}
           style={styleSettGame.Experts}
         >
-          {settingGame ? (
+          {/* {settingGame ? (
             <>
-              {/* 11. кол-во повторов */}
-              <p className="turns">Общее количество повторов: {turns}</p>
-              <br />
-              <div className="progress">
-                {/* <p>Прогресс успешных</p> */}
-                <div
-                  // отраж прогрес бар в %
-                  style={{ width: `${percentTage}%` }}
-                  className="progress__inner"
-                ></div>
+              11. кол-во повторов
+              <div className="result">
+                <div>Игрок : {`пока пусто`}</div>
+                <div className="turns">Общее количество повторов: {turns}</div>
+                <div>
+                  Выйграно со временем:
+                  <Timer timeS={timeS} />
+                </div>
+                <br />
+                <div className="progress">
+                  <p>Прогресс успешных</p>
+                  <div
+                    отраж прогрес бар в %
+                    style={{ width: `${percentTage}%` }}
+                    className="progress__inner"
+                  ></div>
+                </div>
               </div>
             </>
           ) : (
@@ -347,7 +364,40 @@ export const MemoryReact = () => {
             name2={"Больше"}
             stBtn={settingGame}
             setStBtn={setSettingGame}
-          />
+          /> */}
+          <div className={`prob1__descript ${openClass}`}>
+            {/* <button onClick={() => setOpenSpol(!handleClick)}> 
+                      {toggle ? "- стар + нов" : "+ нов - стар"}
+                    </button> */}
+            <h1
+              onClick={() =>
+                setOpenClass(
+                  openClass === "section" ? "section open" : "section"
+                )
+              }
+            >
+              {settingGame ? "Меньше" : "Больше"}
+            </h1>
+            <div className="result">
+              <div>Игрок : {`пока пусто`}</div>
+              <div className="turns">Общее количество шагов: {turns}</div>
+              <div className="turns">
+                Необходимое кол-во шагов: {cardImages.length}
+              </div>
+              <div>
+                Выйграно со временем:
+                <Timer timeS={timeS} />
+              </div>
+              <div className="progress">
+                {/* <p>Прогресс успешных</p> */}
+                <div
+                  // отраж прогрес бар в %
+                  style={{ width: `${percentTage}%` }}
+                  className="progress__inner"
+                ></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
