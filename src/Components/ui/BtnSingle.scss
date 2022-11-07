@@ -1,8 +1,11 @@
+// @import "../../styles/mixins.scss"; // ??? не раб - подкл. mixin не выходит в Комп.
+
 .btn-single {
-  padding: 1% 2%;
   padding: 10px 12px;
+  padding: 0.5% 1%;
   border-radius: 30px;
   font-size: 18px;
+  // @include adaptiv-font(24, 12);
   font-weight: bold;
   background: #555;
   cursor: pointer;

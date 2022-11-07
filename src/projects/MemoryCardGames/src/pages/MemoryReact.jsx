@@ -12,9 +12,20 @@ const styleSettGame = {
   Experts: { marginBottom: "20px" /* paddingBottom: "10px" */ },
 };
 
-const Result = (props) => {
-  return <div className="result"></div>;
-};
+// массив src img
+const cardImages = [
+  // 7. + св-во `соответствует` с false для сравнения 2х карт
+  { src: require("../img/card1-1.png"), matched: false },
+  { src: require("../img/card2-1.png"), matched: false },
+  // { src: require("../img/card3-1.png"), matched: false },
+  // { src: require("../img/card4-1.png"), matched: false },
+  // { src: require("../img/card5-1.png"), matched: false },
+  // { src: require("../img/card6-1.png"), matched: false },
+  // { src: require("../img/card7-1.png"), matched: false },
+  // { src: require("../img/card8-1.png"), matched: false },
+  // { src: require("../img/card9-1.png"), matched: false },
+  // { src: require("../img/card10-1.png"), matched: false },
+];
 
 function Timer(props) {
   return (
@@ -32,46 +43,77 @@ function Timer(props) {
   );
 }
 
-function ControlButtons(props) {
-  const StartButton = (
-    <div className="btn btn-one btn-start" onClick={props.handleStart}>
-      Start
-    </div>
-  );
-  const ActiveButtons = (
-    <div className="btn-grp">
-      <div className="btn btn-two" onClick={props.handleReset}>
-        Reset
-      </div>
-      <div className="btn btn-one" onClick={props.handlePauseResume}>
-        {props.isPausedS ? "Resume" : "Pause"}
-      </div>
-    </div>
-  );
-
+// ??? не раб - пропсы не проходят. разобраться/адекватно перекинуть
+const Result = (openClass, setOpenClass, turns, timeS, percentTage) => {
   return (
-    <div className="Control-Buttons">
-      <div>{props.active ? ActiveButtons : StartButton}</div>
+    <div className="result">
+      <div className="settingGame" style={styleSettGame.Experts}>
+        <div className={`prob1__descript ${openClass}`}>
+          <h1
+            onClick={() =>
+              setOpenClass(openClass === "section" ? "section open" : "section")
+            }
+          >
+            {openClass === "section" ? "Больше" : "Меньше"}
+          </h1>
+          <div className="result">
+            <div className="attribut">
+              Игрок : <span className="digits">{`пока пусто`}</span>
+            </div>
+            <div className="attribut">
+              Общее количество шагов: <span className="digits">{turns}</span>
+            </div>
+            <div className="attribut">
+              Необходимое кол-во шагов:{" "}
+              <span className="digits">{cardImages.length}</span>
+            </div>
+            <div className="attribut">
+              Выйграно со временем:
+              <Timer timeS={timeS} />
+            </div>
+            <div className="progress">
+              {/* <p>Прогресс успешных</p> */}
+              <div
+                // отраж прогрес бар в %
+                style={{ width: `${percentTage}%` }}
+                className="progress__inner"
+              ></div>
+            </div>
+          </div>
+          <div>
+            Доработка:
+            <p>
+              Ввести систему игроков. Скорее всего проверка зареганых userов,
+              если нет то noName. Результат вноситься в массив ~10 лучших.
+            </p>
+            <p>
+              Продумать добавление ника к noName (когда?, нужно ли?, как? -
+              promt, forma)
+            </p>
+            <p>
+              Массив лучше хран./откр. отдельно. В массиве лучших, 10 позиций,
+              каждый имеет:
+            </p>
+            <p>
+              ник(редачить), общ.счёт, раскрыв.(время,кол-во общ. и точных
+              ходов, может кол-во игр).
+            </p>
+            <p>
+              Придумать высчитывание общего счёта (~ время(ms) + (общ.х -
+              точн.х))
+            </p>
+            <p>
+              В конце каждой игры, перебор./сортиров масс. на камс. кол-во счета
+              из всех + 1
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export const MemoryReact = () => {
-  // массив src img
-  const cardImages = [
-    // 7. + св-во `соответствует` с false для сравнения 2х карт
-    { src: require("../img/card1-1.png"), matched: false },
-    { src: require("../img/card2-1.png"), matched: false },
-    // { src: require("../img/card3-1.png"), matched: false },
-    // { src: require("../img/card4-1.png"), matched: false },
-    // { src: require("../img/card5-1.png"), matched: false },
-    // { src: require("../img/card6-1.png"), matched: false },
-    // { src: require("../img/card7-1.png"), matched: false },
-    // { src: require("../img/card8-1.png"), matched: false },
-    // { src: require("../img/card9-1.png"), matched: false },
-    // { src: require("../img/card10-1.png"), matched: false },
-  ];
-
   // 2. масс.сост. перетасовынных карт
   // ??? разобраться что за массивы
   const [cards, setCards] = useState([]);
@@ -83,10 +125,10 @@ export const MemoryReact = () => {
   // 10. стат. разрешения переворота (при 2х откр.картах)
   const [disabled, setDisabled] = useState(false);
 
-  // Таймер ----------------------------------------------------------------------------------
-  // старт таймера
-  const [isActiveS, setIsActiveS] = useState(false);
-  // пайза
+  // секундомер ----------------------------------------------------------------------------------
+  // старт таймера (запус через пай=узу на откр первой карты)
+  // const [isActiveS, setIsActiveS] = useState(false);
+  // пауза
   const [isPausedS, setIsPausedS] = useState(true);
   // таймер
   const [timeS, setTimeS] = useState(0);
@@ -101,12 +143,12 @@ export const MemoryReact = () => {
   const percentTage = Math.round((truTurns / cardImages.length) * 100);
   // сост. показа настроек
   const [settingGame, setSettingGame] = useState(false);
-  // результат
+  // ? результат (ч/з спойлер)
   const [result, setResult] = useState(false);
-  // ? спойлер на настройки
+  // спойлер на настройки
   const [openClass, setOpenClass] = useState("section");
 
-  // 2. ЗАПУСК ИГРЫ (`тасовать карты`)
+  // 2. ЗАПУСК ИГРЫ (`тасовать карты`) ----------------------------------------------------------------------------------
   const shuffleCards = () => {
     // перем shuffleCards (`тасовать карты`) это массив который с помошью spread (... оператора расширения) создаёт 2 копии массива src img
     const shuffledCards = [...cardImages, ...cardImages]
@@ -126,7 +168,7 @@ export const MemoryReact = () => {
     setTruTurns(0);
     // сброс результата
     setResult(false);
-    // ? сброс в начало (вроде не нужна)
+    // сброс в начало
     handleReset();
     // закрыть "Больше"
     setOpenClass("section");
@@ -141,14 +183,12 @@ export const MemoryReact = () => {
         setDisabled(true);
         // при совпад. путей у обеих карт
         if (choiceOne.src === choiceTwo.src) {
-          // console.log("карты совпадают ", choiceOne.src, " = ", choiceTwo.src);
           // 7. в fn установки карт передаём предыдущ.сост.
           setCards((prevCards) => {
             // перебор пред.сост.
             return prevCards.map((card) => {
               // е/и пути эл.итерац. и выбраных карт совпадают
               if (card.src === choiceOne.src) {
-                // console.log("truTurns 0 ", truTurns);
                 // EG. к верным картам + 1
                 // setTruTurns((prevTurns) => prevTurns + 1); // прибавлял по 2 и 4 числа
                 setTruTurns(truTurns + 1);
@@ -165,7 +205,6 @@ export const MemoryReact = () => {
         }
         // е/и пути не совпали
         else {
-          // console.log("карты НЕ совпадают ",choiceOne.src," != ", choiceTwo.src);
           // задержка для показа разных картах
           setTimeout(
             () =>
@@ -176,9 +215,8 @@ export const MemoryReact = () => {
         }
       }
     },
-    // обе карты в масс.зависим. для отслеж.измен.
+    // обе карты и верно откр.карты в масс.зависим. для отслеж.измен.
     [choiceOne, choiceTwo, truTurns]
-    //  React Hook Eaffect имеет недостающую зависимость: «Truturns».Либо включите его, либо удалите массив зависимостей.Вы также можете заменить несколько переменных UsESTATE на пользовательский EDERUCER, если «SETACLARS» требует текущего значения «Truturns».
   );
 
   // 5. `сделать выбор`. вывод карты, е/и choiceOne`выбор один` true то запись в `выбор два` иначе в один
@@ -202,67 +240,38 @@ export const MemoryReact = () => {
     shuffleCards();
   }, []);
 
-  //  ----------------------------------------------------------------------------------
-  // !!! https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
-  // React.useEffect(() => {
-  //   let interval = null;
-
-  //   if (isActiveS && isPausedS === false) {
-  //     interval = setInterval(() => {
-  //       setTimeS((timeS) => timeS + 10);
-  //     }, 10);
-  //   } else {
-  //     clearInterval(interval);
-  //   }
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [isActiveS, isPausedS]);
-
+  // секундомер ----------------------------------------------------------------------------------
   const handleStart = () => {
-    setIsActiveS(true);
+    // setIsActiveS(true);
     setIsPausedS(false);
   };
-
   const handlePauseResume = () => {
     // setIsPausedS(!isPausedS);
     // setIsPausedS(false);
     setIsPausedS(true);
   };
-  //  Функция «handlepauseresume» делает зависимости от использования крючков (в строке 254) на каждом рендере.Чтобы исправить это, оберните определение «handlepauseresume» в свой собственный крючок usecallback ().
   const handleReset = () => {
     setIsPausedS(true);
-    setIsActiveS(false);
+    // setIsActiveS(false);
     setTimeS(0);
   };
   // отслеж. для секундомера
   useEffect(() => {
     if (choiceOne) {
-      // console.log("1 ", 1);
       setOpenOneCard(true);
       setResult(false);
       handleStart();
     }
-    // console.log("truTurns ", truTurns);
     let interval = null;
-    // console.log("cardImages.length ", cardImages.length);
-    // console.log("truTurns.length ", truTurns.length);
-    // if (choiceOne) {
     if (openOneCard && isPausedS === false) {
-      // console.log("2 ", 2);
       handleStart();
       interval = setInterval(() => {
         setTimeS((timeS) => timeS + 10);
       }, 10);
     }
-    // else {
-    //   clearInterval(interval);
-    // }
     if (cardImages.length === truTurns) {
-      // console.log("9 ", 9);
       handlePauseResume();
       setOpenClass("section open");
-      // console.log("isPausedS ", isPausedS);
       setResult(true);
       setOpenOneCard(false);
       // handleReset();
@@ -271,7 +280,7 @@ export const MemoryReact = () => {
       clearInterval(interval);
     };
   }, [
-    isActiveS,
+    // isActiveS,
     isPausedS,
     cardImages.length,
     choiceOne,
@@ -279,40 +288,15 @@ export const MemoryReact = () => {
     truTurns,
     // handlePauseResume,
   ]);
-  // React Hook Eaffect имеет отсутствующие зависимости: «cardimages.length», «выбор», «openonecard» и «truturns».Либо включите их, либо удалите массив зависимостей.
-  //  ----------------------------------------------------------------------------------
 
   return (
     <div className="MemoryReact">
       <div className="MemoryReact__descript">{/* MemoryReact__descript */}</div>
-      <div></div>
-      <div className="stop-watch">
-        <Timer timeS={timeS} />
-        <ControlButtons
-          active={isActiveS}
-          isPausedS={isPausedS}
-          handleStart={handleStart}
-          handlePauseResume={handlePauseResume}
-          handleReset={handleReset}
-        />
-      </div>
       <div className="MemoryReact__content">
-        {/* //  ---------------------------------------------------------------------------------- */}
-        {/* // возвращаем div.App с заголовком, кнп с атр запуск fn()shuffleCards, div.card-grid */}
         <h1>Magic Match</h1>
-        {/* <button >New Game</button> */}
         {/* 2. по клик вызов shuffleCards*/}
-        {/* <button className="btn-single" onClick={shuffleCards}>
-          Новая игра
-        </button> */}
         <BtnSingle name1={"Новая Игра"} onClikBtn={shuffleCards} />
-        {/* 3. Добыв div.card-grid, где для кажой card + div.card.key.card.id > img.front.src.card,  img.back.src.cover.png */}
-        {/* {result ? (
-          <div>
-            Выйграно со временем:
-            <Timer timeS={timeS} />
-          </div>
-        ) : ( */}
+        {/* 3. Добыв div.card-grid, где для кажой card + div */}
         <div className="card-grid">
           {cards.map((card) => (
             // 4. div.card убрали в SingleCard.js
@@ -329,46 +313,15 @@ export const MemoryReact = () => {
             />
           ))}
         </div>
-        {/* )} */}
-        <div
-          className="settingGame"
-          // style={styleSett}
-          style={styleSettGame.Experts}
-        >
-          {/* {settingGame ? (
-            <>
-              11. кол-во повторов
-              <div className="result">
-                <div>Игрок : {`пока пусто`}</div>
-                <div className="turns">Общее количество повторов: {turns}</div>
-                <div>
-                  Выйграно со временем:
-                  <Timer timeS={timeS} />
-                </div>
-                <br />
-                <div className="progress">
-                  <p>Прогресс успешных</p>
-                  <div
-                    отраж прогрес бар в %
-                    style={{ width: `${percentTage}%` }}
-                    className="progress__inner"
-                  ></div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <></>
-          )}
-          <BtnSingle
-            name1={"Меньше"}
-            name2={"Больше"}
-            stBtn={settingGame}
-            setStBtn={setSettingGame}
-          /> */}
+        {/* <Result
+          openClass={openClass}
+          setOpenClass={setOpenClass}
+          turns={turns}
+          timeS={timeS}
+          percentTage={percentTage}
+        /> */}
+        <div className="settingGame" style={styleSettGame.Experts}>
           <div className={`prob1__descript ${openClass}`}>
-            {/* <button onClick={() => setOpenSpol(!handleClick)}> 
-                      {toggle ? "- стар + нов" : "+ нов - стар"}
-                    </button> */}
             <h1
               onClick={() =>
                 setOpenClass(
@@ -376,15 +329,20 @@ export const MemoryReact = () => {
                 )
               }
             >
-              {settingGame ? "Меньше" : "Больше"}
+              {openClass === "section" ? "Больше" : "Меньше"}
             </h1>
             <div className="result">
-              <div>Игрок : {`пока пусто`}</div>
-              <div className="turns">Общее количество шагов: {turns}</div>
-              <div className="turns">
-                Необходимое кол-во шагов: {cardImages.length}
+              <div className="attribut">
+                Игрок : <span className="digits">{`пока пусто`}</span>
               </div>
-              <div>
+              <div className="attribut">
+                Общее количество шагов: <span className="digits">{turns}</span>
+              </div>
+              <div className="attribut">
+                Необходимое кол-во шагов:{" "}
+                <span className="digits">{cardImages.length}</span>
+              </div>
+              <div className="attribut">
                 Выйграно со временем:
                 <Timer timeS={timeS} />
               </div>
@@ -396,6 +354,33 @@ export const MemoryReact = () => {
                   className="progress__inner"
                 ></div>
               </div>
+            </div>
+            <div>
+              Доработка:
+              <p>
+                Ввести систему игроков. Скорее всего проверка зареганых userов,
+                если нет то noName. Результат вноситься в массив ~10 лучших.
+              </p>
+              <p>
+                Продумать добавление ника к noName (когда?, нужно ли?, как? -
+                promt, forma)
+              </p>
+              <p>
+                Массив лучше хран./откр. отдельно. В массиве лучших, 10 позиций,
+                каждый имеет:
+              </p>
+              <p>
+                ник(редачить), общ.счёт, раскрыв.(время,кол-во общ. и точных
+                ходов, может кол-во игр).
+              </p>
+              <p>
+                Придумать высчитывание общего счёта (~ время(ms) + (общ.х -
+                точн.х))
+              </p>
+              <p>
+                В конце каждой игры, перебор./сортиров масс. на камс. кол-во
+                счета из всех + 1
+              </p>
             </div>
           </div>
         </div>
