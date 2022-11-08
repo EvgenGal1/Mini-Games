@@ -14,18 +14,18 @@
   position: absolute;
   transform: rotateY(90deg);
   // transform: rotateY(55deg);
-  transition: all ease-in 0.2s;
+  transition: all ease-in 0.1s;
   background: #4b0000;
 }
 // при .cl поворота разворачиваем анфас
 .flipped .front {
   transform: rotate(0deg);
-  transition-delay: 0.2s;
+  transition-delay: 0.1s;
 }
 // классы рубашки карты
 .card .back {
-  transition: all ease-in 0.2s;
-  transition-delay: 0.2s;
+  transition: all ease-in 0.1s;
+  transition-delay: 0.1s;
 }
 // при .cl поворота разворачиваем анфас
 .flipped .back {

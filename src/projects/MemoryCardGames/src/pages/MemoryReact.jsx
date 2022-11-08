@@ -3,15 +3,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 // 4. компонент `Одиночная карта`
 import SingleCard from "../components/SingleCard";
-
+// UI один.кнп.
 import { BtnSingle } from "../../../../Components/ui/BtnSingle";
 
-// import "./MemoryReact.scss";
+// import "./MemoryReact.scss"; // попытка использ.mixin напрямую - не получ. - падает в ошб. иза неизвестн.формул mixin (steles.scss подкл. и в index.js и в html)
+
 // встроенные стили
 const styleSettGame = {
   Experts: { marginBottom: "20px" /* paddingBottom: "10px" */ },
 };
-
 // массив src img
 const cardImages = [
   // 7. + св-во `соответствует` с false для сравнения 2х карт
@@ -27,87 +27,47 @@ const cardImages = [
   // { src: require("../img/card10-1.png"), matched: false },
 ];
 
-function Timer(props) {
+// секундомер
+function StopWatch(props) {
   return (
     <div className="timer">
       <span className="digits">
-        {("0" + Math.floor((props.timeS / 60000) % 60)).slice(-2)}:
+        {("0" + Math.floor((props.time / 60000) % 60)).slice(-2)}:
       </span>
       <span className="digits">
-        {("0" + Math.floor((props.timeS / 1000) % 60)).slice(-2)}.
+        {("0" + Math.floor((props.time / 1000) % 60)).slice(-2)}.
       </span>
       <span className="digits mili-sec">
-        {("0" + ((props.timeS / 10) % 100)).slice(-2)}
+        {("0" + ((props.time / 10) % 100)).slice(-2)}
       </span>
     </div>
   );
 }
 
-// ??? не раб - пропсы не проходят. разобраться/адекватно перекинуть
-const Result = (openClass, setOpenClass, turns, timeS, percentTage) => {
+// Вывод результата
+const Result = ({ turns, time, percentTage }) => {
   return (
     <div className="result">
-      <div className="settingGame" style={styleSettGame.Experts}>
-        <div className={`prob1__descript ${openClass}`}>
-          <h1
-            onClick={() =>
-              setOpenClass(openClass === "section" ? "section open" : "section")
-            }
-          >
-            {openClass === "section" ? "Больше" : "Меньше"}
-          </h1>
-          <div className="result">
-            <div className="attribut">
-              Игрок : <span className="digits">{`пока пусто`}</span>
-            </div>
-            <div className="attribut">
-              Общее количество шагов: <span className="digits">{turns}</span>
-            </div>
-            <div className="attribut">
-              Необходимое кол-во шагов:{" "}
-              <span className="digits">{cardImages.length}</span>
-            </div>
-            <div className="attribut">
-              Выйграно со временем:
-              <Timer timeS={timeS} />
-            </div>
-            <div className="progress">
-              {/* <p>Прогресс успешных</p> */}
-              <div
-                // отраж прогрес бар в %
-                style={{ width: `${percentTage}%` }}
-                className="progress__inner"
-              ></div>
-            </div>
-          </div>
-          <div>
-            Доработка:
-            <p>
-              Ввести систему игроков. Скорее всего проверка зареганых userов,
-              если нет то noName. Результат вноситься в массив ~10 лучших.
-            </p>
-            <p>
-              Продумать добавление ника к noName (когда?, нужно ли?, как? -
-              promt, forma)
-            </p>
-            <p>
-              Массив лучше хран./откр. отдельно. В массиве лучших, 10 позиций,
-              каждый имеет:
-            </p>
-            <p>
-              ник(редачить), общ.счёт, раскрыв.(время,кол-во общ. и точных
-              ходов, может кол-во игр).
-            </p>
-            <p>
-              Придумать высчитывание общего счёта (~ время(ms) + (общ.х -
-              точн.х))
-            </p>
-            <p>
-              В конце каждой игры, перебор./сортиров масс. на камс. кол-во счета
-              из всех + 1
-            </p>
-          </div>
-        </div>
+      <div className="attribut">
+        Игрок : <span className="digits">{`пока пусто`}</span>
+      </div>
+      <div className="attribut">
+        Общее количество шагов: <span className="digits">{turns}</span>
+      </div>
+      <div className="attribut">
+        Необходимое кол-во шагов:{" "}
+        <span className="digits">{cardImages.length}</span>
+      </div>
+      <div className="attribut">
+        Выйграно со временем:
+        <StopWatch time={time} />
+      </div>
+      <div className="progress">
+        <div
+          // отраж прогрес бар в %
+          style={{ width: `${percentTage}%` }}
+          className="progress__inner"
+        ></div>
       </div>
     </div>
   );
@@ -130,20 +90,19 @@ export const MemoryReact = () => {
   // const [isActiveS, setIsActiveS] = useState(false);
   // пауза
   const [isPausedS, setIsPausedS] = useState(true);
-  // таймер
-  const [timeS, setTimeS] = useState(0);
+  // время секундомера
+  const [time, setTime] = useState(0);
   // откр. 1ой карты (старт таймера)
   const [openOneCard, setOpenOneCard] = useState(false);
-  //  ----------------------------------------------------------------------------------
 
   // EG. ----------------------------------------------------------------------------------
   // сост. верные повороты
   const [truTurns, setTruTurns] = useState(0);
   // вычисляем % прогреса ч/з шаг, кол-во вопросов и округление
   const percentTage = Math.round((truTurns / cardImages.length) * 100);
-  // сост. показа настроек
-  const [settingGame, setSettingGame] = useState(false);
-  // ? результат (ч/з спойлер)
+  // ? сост. показа настроек (ч/з спойлер)
+  // const [settingGame, setSettingGame] = useState(false);
+  // результат (ч/з спойлер)
   const [result, setResult] = useState(false);
   // спойлер на настройки
   const [openClass, setOpenClass] = useState("section");
@@ -210,7 +169,7 @@ export const MemoryReact = () => {
             () =>
               // 6. вызов сброса
               resetTurn(),
-            500
+            300
           );
         }
       }
@@ -242,18 +201,14 @@ export const MemoryReact = () => {
 
   // секундомер ----------------------------------------------------------------------------------
   const handleStart = () => {
-    // setIsActiveS(true);
     setIsPausedS(false);
   };
   const handlePauseResume = () => {
-    // setIsPausedS(!isPausedS);
-    // setIsPausedS(false);
     setIsPausedS(true);
   };
   const handleReset = () => {
     setIsPausedS(true);
-    // setIsActiveS(false);
-    setTimeS(0);
+    setTime(0);
   };
   // отслеж. для секундомера
   useEffect(() => {
@@ -266,7 +221,7 @@ export const MemoryReact = () => {
     if (openOneCard && isPausedS === false) {
       handleStart();
       interval = setInterval(() => {
-        setTimeS((timeS) => timeS + 10);
+        setTime((time) => time + 10);
       }, 10);
     }
     if (cardImages.length === truTurns) {
@@ -279,15 +234,7 @@ export const MemoryReact = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [
-    // isActiveS,
-    isPausedS,
-    cardImages.length,
-    choiceOne,
-    openOneCard,
-    truTurns,
-    // handlePauseResume,
-  ]);
+  }, [isPausedS, choiceOne, openOneCard, truTurns]);
 
   return (
     <div className="MemoryReact">
@@ -296,7 +243,7 @@ export const MemoryReact = () => {
         <h1>Magic Match</h1>
         {/* 2. по клик вызов shuffleCards*/}
         <BtnSingle name1={"Новая Игра"} onClikBtn={shuffleCards} />
-        {/* 3. Добыв div.card-grid, где для кажой card + div */}
+        {/* 3. Поле Игры. перебор cards где для кажой card + div.SingleCard */}
         <div className="card-grid">
           {cards.map((card) => (
             // 4. div.card убрали в SingleCard.js
@@ -313,15 +260,9 @@ export const MemoryReact = () => {
             />
           ))}
         </div>
-        {/* <Result
-          openClass={openClass}
-          setOpenClass={setOpenClass}
-          turns={turns}
-          timeS={timeS}
-          percentTage={percentTage}
-        /> */}
+        {/* Настройки/Результат  */}
         <div className="settingGame" style={styleSettGame.Experts}>
-          <div className={`prob1__descript ${openClass}`}>
+          <div className={`settingGame__content ${openClass}`}>
             <h1
               onClick={() =>
                 setOpenClass(
@@ -331,30 +272,13 @@ export const MemoryReact = () => {
             >
               {openClass === "section" ? "Больше" : "Меньше"}
             </h1>
-            <div className="result">
-              <div className="attribut">
-                Игрок : <span className="digits">{`пока пусто`}</span>
-              </div>
-              <div className="attribut">
-                Общее количество шагов: <span className="digits">{turns}</span>
-              </div>
-              <div className="attribut">
-                Необходимое кол-во шагов:{" "}
-                <span className="digits">{cardImages.length}</span>
-              </div>
-              <div className="attribut">
-                Выйграно со временем:
-                <Timer timeS={timeS} />
-              </div>
-              <div className="progress">
-                {/* <p>Прогресс успешных</p> */}
-                <div
-                  // отраж прогрес бар в %
-                  style={{ width: `${percentTage}%` }}
-                  className="progress__inner"
-                ></div>
-              </div>
-            </div>
+            <Result
+              openClass={openClass}
+              setOpenClass={setOpenClass}
+              turns={turns}
+              time={time}
+              percentTage={percentTage}
+            />
             <div>
               Доработка:
               <p>

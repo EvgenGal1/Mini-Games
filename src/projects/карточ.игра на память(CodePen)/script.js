@@ -5,9 +5,11 @@ $(function () {
   function get(key) {
     return localStorage.getItem(key);
   }
+  // увеличивать
   function increase(el) {
     set(el, parseInt(get(el)) + 1);
   }
+  // снижаться
   function decrease(el) {
     set(el, parseInt(get(el)) - 1);
   }
@@ -20,18 +22,19 @@ $(function () {
     }
   };
 
+  // Обновление статистики
   function updateStats() {
     $("#stats").html(
       '<div class="padded"><h2>Figures: <span>' +
         "<b>" +
         get("flip_won") +
-        "</b><i>Won</i>" +
+        "</b><i>Выиграл</i>" +
         "<b>" +
         get("flip_lost") +
-        "</b><i>Lost</i>" +
+        "</b><i>Потерял</i>" +
         "<b>" +
         get("flip_abandoned") +
-        "</b><i>Abandoned</i></span></h2>" +
+        "</b><i>Заброшенный</i></span></h2>" +
         "<ul><li><b>Лучш. лёгкий:</b> <span>" +
         toTime(get("flip_casual")) +
         "</span></li>" +
@@ -41,20 +44,21 @@ $(function () {
         "<li><b>Лучш. Тяжёлый:</b> <span>" +
         toTime(get("flip_hard")) +
         "</span></li></ul>" +
-        "<ul><li><b>Total Flips:</b> <span>" +
+        "<ul><li><b>Тотальные переворачивания:</b> <span>" +
         parseInt(
           (parseInt(get("flip_matched")) + parseInt(get("flip_wrong"))) * 2
         ) +
         "</span></li>" +
-        "<li><b>Matched Flips:</b> <span>" +
+        "<li><b>Соответствующие перевороты:</b> <span>" +
         get("flip_matched") +
         "</span></li>" +
-        "<li><b>Wrong Flips:</b> <span>" +
+        "<li><b>Неправильные переворачивания:</b> <span>" +
         get("flip_wrong") +
         "</span></li></ul></div>"
     );
   }
 
+  // перетасовать
   function shuffle(array) {
     var currentIndex = array.length,
       temporaryValue,
@@ -68,7 +72,7 @@ $(function () {
     }
     return array;
   }
-
+  // стартовый экран
   function startScreen(text) {
     $("#g").removeAttr("class").empty();
     $(".logo").fadeIn(250);
