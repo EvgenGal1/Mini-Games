@@ -27,8 +27,32 @@ const cardImages = [
   // { src: require("../img/card10-1.png"), matched: false },
 ];
 
+// пробы LS для игроков ----------------------------------------------------------------------------------
+// !!! https://stackoverflow.com/questions/19635077/adding-objects-to-array-in-localstorage
+// function recordResults({ time }) {
+const recordResults = ({ time }) => {
+  console.log("time aE ", time);
+  // Проанализируйте любой JSON, ранее хранящийся в Allentries
+  var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
+  if (existingEntries == null) existingEntries = [];
+  // if (existingEntries == null) existingEntries = [{}];
+  // var entryTitle = document.getElementById("entryTitle").value;
+  // var entryText = document.getElementById("entryText").value;
+  var entry = {
+    time: time,
+    // title: entryTitle,
+    // text: entryText,
+  };
+  localStorage.setItem("entry", JSON.stringify(entry));
+  // Сохраните Allentries обратно в местное хранение
+  existingEntries.push(entry);
+  localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+};
+// пробы LS для игроков ----------------------------------------------------------------------------------
+
 // секундомер
 function StopWatch(props) {
+  console.log("props.time ", props.time);
   return (
     <div className="timer">
       <span className="digits">
@@ -43,9 +67,37 @@ function StopWatch(props) {
     </div>
   );
 }
+// const StopWatch = ({ time }) => {
+//   console.log("props.time ", time);
+//   return (
+//     <div className="timer">
+//       <span className="digits">
+//         {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
+//       </span>
+//       <span className="digits">
+//         {("0" + Math.floor((time / 1000) % 60)).slice(-2)}.
+//       </span>
+//       <span className="digits mili-sec">
+//         {("0" + ((time / 10) % 100)).slice(-2)}
+//       </span>
+//     </div>
+//   );
+// };
 
 // Вывод результата
 const Result = ({ turns, time, percentTage }) => {
+  // const Result = ({ turns, time, percentTage: { percentTage } }) => {
+  // const Result = ({
+  //   turns: { turns },
+  //   time: { time },
+  //   percentTage: { percentTage },
+  // }) => {
+  // const Result = ({
+  //   memoValue: { turns },
+  //   memoValue: { time },
+  //   memoValue: { percentTage },
+  // }) => {
+  console.log("time R ", time);
   return (
     <div className="result">
       <div className="attribut">
@@ -60,7 +112,8 @@ const Result = ({ turns, time, percentTage }) => {
       </div>
       <div className="attribut">
         Выйграно со временем:
-        <StopWatch time={time} />
+        {/* <StopWatch time={time} /> */}
+        <StopWatchMemo time={time} />
       </div>
       <div className="progress">
         <div
@@ -72,6 +125,13 @@ const Result = ({ turns, time, percentTage }) => {
     </div>
   );
 };
+
+// пробы memo ----------------------------------------------------------------------------------
+// !!! https://habr.com/ru/company/timeweb/blog/684718/
+// const ChildMemo = React.memo(Child);
+const StopWatchMemo = React.memo(StopWatch);
+const ResultMemo = React.memo(Result);
+// пробы memo ----------------------------------------------------------------------------------
 
 export const MemoryReact = () => {
   // 2. масс.сост. перетасовынных карт
@@ -119,7 +179,7 @@ export const MemoryReact = () => {
     // 11. сброс карт на случай выбраной одной при новом старте
     setChoiceOne(null);
     setChoiceTwo(null);
-    // 2. для набора карт вызов shuffledCards с 2мя дублями массива src.img, рандомным пербором и рандомной проставкой id
+    // 2. для набора карт вызов shuffledCards с 2мя дублями массива src.img, рандомным перебором и рандомной проставкой id
     setCards(shuffledCards);
     // сброс числа переворотов
     setTurns(0);
@@ -195,9 +255,9 @@ export const MemoryReact = () => {
   };
 
   // 11. авто запуск игры
-  useEffect(() => {
-    shuffleCards();
-  }, []);
+  // useEffect(() => {
+  //   shuffleCards();
+  // }, []);
 
   // секундомер ----------------------------------------------------------------------------------
   const handleStart = () => {
@@ -229,12 +289,20 @@ export const MemoryReact = () => {
       setOpenClass("section open");
       setResult(true);
       setOpenOneCard(false);
+      recordResults({ time });
+      console.log("time uF S ", time);
       // handleReset();
     }
     return () => {
       clearInterval(interval);
     };
-  }, [isPausedS, choiceOne, openOneCard, truTurns]);
+  }, [isPausedS, choiceOne, openOneCard, truTurns, time]);
+
+  // memo ----------------------------------------------------------------------------------
+  const percentTageMemo = React.useMemo(
+    () => ({ percentTage: percentTage }),
+    []
+  );
 
   return (
     <div className="MemoryReact">
@@ -272,12 +340,14 @@ export const MemoryReact = () => {
             >
               {openClass === "section" ? "Больше" : "Меньше"}
             </h1>
-            <Result
-              openClass={openClass}
-              setOpenClass={setOpenClass}
+            {/* <Result turns={turns} time={time} percentTage={percentTage} /> */}
+            <ResultMemo
+              // // openClass={openClass}
+              // // setOpenClass={setOpenClass}
               turns={turns}
               time={time}
               percentTage={percentTage}
+              // percentTage={percentTageMemo}
             />
             <div>
               Доработка:
