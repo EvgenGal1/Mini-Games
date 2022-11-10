@@ -95,8 +95,6 @@ export const MemoryReact = () => {
   const [disabled, setDisabled] = useState(false);
 
   // секундомер ----------------------------------------------------------------------------------
-  // старт таймера (откл. - запус через паузу на откр первой карты)
-  // const [isActiveS, setIsActiveS] = useState(false);
   // пауза
   const [isPausedS, setIsPausedS] = useState(true);
   // время секундомера
@@ -109,12 +107,10 @@ export const MemoryReact = () => {
   const [truTurns, setTruTurns] = useState(0);
   // вычисляем % прогреса ч/з - верн.повороты / кол-во карт и * для округления
   const percentTage = Math.round((truTurns / cardImages.length) * 100);
-  // сост. показа настроек (откл. ч/з спойлер)
-  // const [settingGame, setSettingGame] = useState(false);
-  // результат (ч/з спойлер)(откл. - добав.кл. к openClass напрямую)
-  // const [result, setResult] = useState(false);
   // спойлер на настройки
   const [openClass, setOpenClass] = useState("section");
+  // признак залогированного usera
+  const [userNameLogin, setUserNameLogin] = useState(false);
 
   // 2. ЗАПУСК ИГРЫ (`тасовать карты`) ----------------------------------------------------------------------------------
   const shuffleCards = () => {
@@ -136,14 +132,10 @@ export const MemoryReact = () => {
     setTurns(0);
     // сброс числа верных карт
     setTruTurns(0);
-    // сброс результата (откл. - кл. папрямую к openClass)
-    // setResult(false);
-    // сброс в начало (откл. - раскидал время в старт, паузу в выигрыш)
-    handleReset();
     // закрыть "Больше"
     setOpenClass("section");
     // откл. паузу
-    // setIsPausedS(false);
+    setIsPausedS(true);
   };
 
   // 6. сравнение 2х выбранных карты
@@ -197,7 +189,7 @@ export const MemoryReact = () => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
-  // 6. Сбросить выбора карт и увелич. число оборотов
+  // 6. Сбросить выбор карт, вкл.поворота и увелич. число оборотов
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
@@ -213,122 +205,36 @@ export const MemoryReact = () => {
   // }, []);
 
   // секундомер ----------------------------------------------------------------------------------
-  // // откл лишние fn. логику раскидал напрямую.
-  // // const handleStart = () => {
-  // //   setIsPausedS(false);
-  // // };
-  // const handlePauseResume = () => {
-  //   // setIsPausedS(true);
-  //   setIsPausedS(false);
-  // };
-  // // const handleReset = () => {
-  // //   setIsPausedS(true);
-  // //   setTime(0);
-  // // };
-
-  // // отслеж. для секундомера
-  // useEffect(() => {
-  //   let interval = null; // проверить необходимость
-  //   if (choiceOne) {
-  //     console.log("isPausedS uF ", isPausedS);
-  //     setOpenOneCard(true);
-  //     // setIsPausedS(false);
-  //     handlePauseResume();
-  //   }
-  //   if (openOneCard && isPausedS === false) {
-  //     interval = setInterval(() => {
-  //       setTime((time) => time + 10);
-  //     }, 10);
-  //   } // лишняя проверка
-  //   if (cardImages.length === truTurns) {
-  //     setOpenOneCard(false);
-  //     setIsPausedS(true);
-  //     setOpenClass("section open");
-  //     // saveResult({time}); // вызов time в fn()
-  //     saveResult();
-  //   }
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [
-  //   // проверить необходимость оставшихся
-  //   // isPausedS,
-  //   openOneCard,
-  //   choiceOne,
-  //   time,
-  //   // truTurns,
-  //   /* saveResult, // выводит бесконечный prompt */
-  // ]);
-
-  // // отслеж. для секундомера
-  // useEffect(() => {
-  //   if (choiceOne) {
-  //     setOpenOneCard(true);
-  //     // setResult(false);
-  //     // handleStart();
-  //     setIsPausedS(false);
-  //   }
-  //   let interval = null;
-  //   if (openOneCard && isPausedS === false) {
-  //     // handleStart();
-  //     setIsPausedS(false);
-  //     interval = setInterval(() => {
-  //       setTime((time) => time + 10);
-  //     }, 10);
-  //   }
-  //   if (cardImages.length === truTurns) {
-  //     // handlePauseResume();
-  //     setOpenClass("section open");
-  //     setOpenOneCard(false);
-  //     setIsPausedS(true);
-  //     // setResult(true);
-  //     saveResult();
-  //     // handleReset();
-  //   }
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [, isPausedS, choiceOne, openOneCard /* truTurns */, , time]);
-
-  const handleStart = () => {
-    setIsPausedS(false);
-  };
-  const handlePauseResume = () => {
-    setIsPausedS(true);
-  };
-  const handleReset = () => {
-    setIsPausedS(true);
-    setTime(0);
-  };
   // отслеж. для секундомера
   useEffect(() => {
     if (choiceOne) {
       setOpenOneCard(true);
-      // setResult(false);
-      handleStart();
+      setIsPausedS(false);
     }
     let interval = null;
     if (openOneCard && isPausedS === false) {
-      handleStart();
+      setIsPausedS(false);
       interval = setInterval(() => {
         setTime((time) => time + 10);
       }, 10);
     }
     if (cardImages.length === truTurns) {
-      handlePauseResume();
-      setOpenClass("section open");
-      // setResult(true);
+      setIsPausedS(true);
       setOpenOneCard(false);
-      // recordResults({ time });
-      saveResult();
-      // handleReset();
+      setOpenClass("section open");
     }
     return () => {
       clearInterval(interval);
     };
-  }, [isPausedS, choiceOne, openOneCard, truTurns, time]);
+  }, [isPausedS, choiceOne, openOneCard, truTurns]);
 
   // LocalStorage для сохр. результатов игроков ----------------------------------------------------------------------------------
+  useEffect(() => {
+    if (cardImages.length === truTurns) {
+      saveResult();
+      // saveResult({ time });
+    }
+  }, [/* saveResult, time, */ truTurns]);
   // !!! https://codesandbox.io/s/competent-darwin-zg4p4?file=/src/App.js
   // !!! https://www.mousedc.ru/learning/522-massiv-steyt-react/
   // !!! https://www.cluemediator.com/usestate-with-an-array-in-react-hooks
@@ -337,33 +243,35 @@ export const MemoryReact = () => {
   const [saveUserResult, setSaveUserResult] = useState(
     JSON.parse(localStorage.getItem("saveUserResult")) || []
   );
-
   const saveResult = () => {
     // const saveResult = ({ time }) => { // вызов time в fn()
-    // const saveResult = React.useCallback(({ time }) => { // экспр.
+    // const saveResult = React.useCallback(({ time }) => { // экспр. совет eslint. не вывез настроек
     // const saveResult = React.useMemo((time) => { // не особо помогало
-    // if (cardImages.length === truTurns) { // доп.услов. вроде не нужно
     let includ = !saveUserResult.includes(time);
     // if (!saveUserResult.includes(time)) { // альтер.варик
     if (includ) {
       // setSaveUserResult([...saveUserResult, time]); // запись просто времени
-      // let userNamePromt = prompt("Введите имя"); // ??? не раб - двойной вывод. со сломан секундом. был один.
+      // let userNamePromt = prompt("Введите имя");
+      let userNameSave;
+      if (userNameLogin) {
+        userNameSave = userNameLogin;
+      } else {
+        userNameSave = prompt("Введите имя");
+      } // условие в перем.
       setSaveUserResult((prevItems) => [
         ...prevItems,
         {
           id_1: prevItems.length + 1, // к длине + 1 (1 для index 0)
-          // userName: userNamePromt,
-          // userName: prompt("Введите имя"),  // ??? не раб - откл. изза двойного рендера/вывода. разобратся в отслежив usEf
+          userName: userNameSave,
+          // userName: prompt("Введите имя"), // prompt напрямую
           time: time,
           // рандомные id: и key={}
           // id_2: new Date().getMilliseconds(), // 3 числа до 1к (милисек. от даты 01.01.1970)
           // id_3: Math.random().toString().substring(2, 5), // рандом 3 числа после нуля
-          // id_4:
-          //   prevItems.length + 1 + Math.random().toString().substring(2, 5), // к длине + 1 + рандом 3 цифры
+          // id_4: prevItems.length + 1 + Math.random().toString().substring(2, 5), // к длине + 1 + рандом 3 цифры
         },
       ]);
     }
-    // }
   };
   //   },
   //   [saveUserResult]
