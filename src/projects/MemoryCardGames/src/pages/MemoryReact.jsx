@@ -133,7 +133,7 @@ export const MemoryReact = () => {
     // сброс числа верных карт
     setTruTurns(0);
     // закрыть "Больше"
-    setOpenClass("section");
+    setOpenClass("section open");
     // откл. паузу
     setIsPausedS(true);
   };
@@ -235,9 +235,10 @@ export const MemoryReact = () => {
   // !!! https://stackoverflow.com/questions/19635077/adding-objects-to-array-in-localstorage
   // стат.получ.масс.результатов из LS (LocalStorage)
   let initialTemplateSaveLS = {
-    id_1: 99999,
-    userName: "userNameSaveLS",
-    time: 9999,
+    id_1: 0,
+    userName: "0",
+    // time: 9999,
+    time: cardImages.length * 2000,
   };
   const [saveUserResult, setSaveUserResult] = useState(
     JSON.parse(localStorage.getItem("saveUserResult")) || [
@@ -246,65 +247,7 @@ export const MemoryReact = () => {
     ]
   );
 
-  // мак/мин знач ------------------------------------------------------------
-  // let notless = ;
-  // var min = Math.min(...saveUserResult),
-  //   max = Math.max(...saveUserResult);
-  // console.log("min ", min);
-  // console.log("max ", max);
-  // function arrayMin(arr) {
-  //   return arr.reduce(function (p, v) {
-  //     return p < v ? p : v;
-  //   });
-  // }
-  // console.log("arrayMin ", arrayMin(saveUserResult));
-  // function arrayMax(arr) {
-  //   return arr.reduce(function (p, v) {
-  //     return p > v ? p : v;
-  //   });
-  // }
-  // console.log("arrayMin ", arrayMin(saveUserResult));
-  // let LSresult = JSON.parse(localStorage.getItem("saveUserResult"));
-  // console.log("LS ", LSresult);
-  // if (localStorage["saveUserResult"]) {
-  //   // получим из LocalStorage значение ключа «mykey» и преобразуем его с помощью метода JSON.parse() в объект
-  //   const newObj = JSON.parse(localStorage["mykey"]);
-  // }
-  // получить все ключи в alert
-  // let keys = Object.keys(localStorage);
-  // for (let key of keys) {
-  //   alert(`${key}: ${localStorage.getItem(key)}`);
-  // }
-  // перебирает localStorageпары ключ-значение
-  // Object.entries(localStorage).forEach(([key, value]) => {
-  // Object.entries(localStorage).forEach(([saveUserResult, value]) => {
-  //   console.log(`${saveUserResult} => ${value}`);
-  // });
-  // for (var i = 0; i < localStorage.length; i++) {
-  // $('body').append(localStorage.getItem(localStorage.key(i)));
-  // console.log("перебор ", localStorage.getItem(localStorage.key(i)));
-  // }
-  //
-  // Object.keys(localStorage).forEach(function (saveUserResult) {
-  //   // console.log("перебор 2 ", localStorage.getItem(saveUserResult));
-  // });
-  //
-  // function showItemsByKey() {
-  //   var typeofKey = null;
-  //   for (var key in localStorage) {
-  //     typeofKey = typeof localStorage[key];
-  //     // console.log("перебор 3 ", key, typeofKey);
-  //   }
-  // }
-  // showItemsByKey();
-  // не раб
-  // for (var key in window.localStorage) {
-  //   let val = localStorage.getItem(key);
-  //   let value = val.split(","); //splitting string inside array to get name
-  //   [key] = value[1]; // getting name from split string
-  // }
-  // мак/мин знач -----------------------------------------------------------
-
+  // ! много полезного - https://www.mousedc.ru/learning/523-forma-dobavlenie-udalenie-izmenenie-element-steyt-react/
   const saveResult = () => {
     // const saveResult = ({ time }) => { // вызов time в fn()
     // const saveResult = React.useCallback(({ time }) => { // экспр. совет eslint. не вывез настроек
@@ -344,37 +287,78 @@ export const MemoryReact = () => {
       // ! было оч. близко. проблемы в непереборе е/и масс. пуст. е/и добав в масс по умолч объ. то в ошб. - нет fn map или подобное
       // мак/мин знач ------------------------------------------------------------
       console.log("template ", templateSaveLS);
-      setSaveUserResult(
-        // ! анакатно прописывается только при ... в двух местах
-        ...saveUserResult.map((uRes) => {
-          // Array.prototype.map () ожидает возврата значения в конце функции стрелки.
-          console.log("uRes ", uRes);
-          // ! раб на всё не практично | undefine без стат.масс по умолчан
-          // if (uRes.time <= time || !uRes.time || !uRes || uRes) {
-          // ! сброс всего при превышении результата по умолч | undefine без стат.масс по умолчан
-          if (uRes.time >= time || !uRes.time) {
+      console.log("saveUserResult.length ", saveUserResult.length);
+      if (
+        saveUserResult.length === 0
+        // Array.isArray(saveUserResult) &&
+        // saveUserResult.length
+        // Lsnull === [] ||
+        // Lsnull === undefined ||
+        // saveUserResult === [] ||
+        // saveUserResult === undefined
+        // localStorage.getItem("saveUserResult") === []
+        // JSON.parse(localStorage.getItem("saveUserResult")) === []
+        // ||
+        // undefined ||
+        // null
+      ) {
+        // ! не заходит в условие
+        console.log("111 ", 111);
+        setSaveUserResult((saveUserResult) => [
+          ...saveUserResult,
+          templateSaveLS,
+        ]);
+        // setSaveUserResult(saveUserResult.length === 5);
+      } else {
+        console.log("222 ", 222);
+        if (saveUserResult.length === 3) {
+          console.log("saveUserResult.time ", saveUserResult.time);
+          // console.log("Max:", Math.max(...saveUserResult.time));
+        }
+        console.log("saveUserResult ", saveUserResult);
+        console.log("saveUserResult ", typeof saveUserResult);
+        // console.log("saveUserResult ", isArray[saveUserResult]);
+        setSaveUserResult(
+          // ! адакатно прописывается только при ... в двух местах
+          ...saveUserResult.map((uRes) => {
+            console.log("333 ", 333);
+            // Array.prototype.map () ожидает возврата значения в конце функции стрелки.
+            console.log("uRes ", uRes);
+            console.log("444 ", 444);
             console.log("time ", time);
             console.log("uRes.time ", uRes.time);
-            // uRes.time == time ? time : uRes;
-            // return time
-            // return { ...saveUserResult, templateSaveLS };
-            return [...saveUserResult, templateSaveLS];
-            // Ожидается, что назначение или функциональный вызов и вместо этого увидел выражение.
-          } else {
+            if (saveUserResult.length < 3 && uRes.time >= time) {
+              console.log("555 ", 555);
+              return [...saveUserResult, templateSaveLS];
+            }
+            if (saveUserResult.length === 3) {
+              console.log("6767 ", 6767);
+              // console.log("Max:", Math.max(...saveUserResult.time));
+              if (uRes.time <= time) {
+                console.log("666 ", 666);
+                // return [...saveUserResult, templateSaveLS];
+              } else if (uRes.time >= time) {
+                console.log("777 ", 777);
+                uRes = templateSaveLS;
+                // return [saveUserResult, templateSaveLS];
+              }
+            }
+            console.log("888 ", 888);
             // return uRes;
             // ! вроде запись выше не идёт
+            // return 1;
             return saveUserResult;
-          }
-        })
-        // saveUserResult.map((uRes) =>
-        //   uRes.time <= time || !uRes.time || !uRes ? templateSaveLS : uRes
-        // )
-      );
+          })
+        );
+      }
+
+      console.log("999 ", 999);
     }
   };
   //   },
   //   [saveUserResult]
   // );
+
   // вызов сохранения при выйгрыше
   useEffect(() => {
     if (cardImages.length === truTurns) {
