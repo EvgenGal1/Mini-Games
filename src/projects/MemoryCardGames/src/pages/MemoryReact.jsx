@@ -265,7 +265,8 @@ export const MemoryReact = () => {
         userNameSaveLS = prompt("Введите имя");
       } // условие в перем.
       let templateSaveLS = {
-        id_1: saveUserResult.length + 1,
+        id_1: saveUserResult.length, // при стате saveUserResult с умолчанием
+        // id_1: saveUserResult.length + 1, // при пустом стате saveUserResult
         userName: userNameSaveLS,
         time: time,
       };
@@ -320,38 +321,73 @@ export const MemoryReact = () => {
         // console.log("saveUserResult ", isArray[saveUserResult]);
         setSaveUserResult(
           // ! адакатно прописывается только при ... в двух местах
-          ...saveUserResult.map((uRes) => {
-            console.log("333 ", 333);
+          ...saveUserResult.map((uRes, index) => {
+            // console.log("333 ", 333);
+            console.log("444 ", 444);
             // Array.prototype.map () ожидает возврата значения в конце функции стрелки.
             console.log("uRes ", uRes);
-            console.log("444 ", 444);
             console.log("time ", time);
             console.log("uRes.time ", uRes.time);
             if (saveUserResult.length < 3 && uRes.time >= time) {
               console.log("555 ", 555);
               return [...saveUserResult, templateSaveLS];
             }
-            if (saveUserResult.length === 3) {
-              console.log("6767 ", 6767);
+            if (saveUserResult.length === 3 && uRes.time >= time) {
+              // console.log("6767 ", 6767);
               // console.log("Max:", Math.max(...saveUserResult.time));
-              if (uRes.time <= time) {
-                console.log("666 ", 666);
-                // return [...saveUserResult, templateSaveLS];
-              } else if (uRes.time >= time) {
-                console.log("777 ", 777);
-                uRes = templateSaveLS;
-                // return [saveUserResult, templateSaveLS];
-              }
+              // if (uRes.time <= time) {
+              // console.log("666 ", 666);
+              // setSaveUserResult([
+              //   ...saveUserResult.slice(0, index),
+              //   templateSaveLS,
+              //   ...saveUserResult.slice(index + 1),
+              // ]);
+              // return [saveUserResult.slice(0, index), templateSaveLS];
+              // setSaveUserResult([
+              //   ...saveUserResult.slice(0, index),
+              //   templateSaveLS,
+              // ]);
+              // return [saveUserResult, templateSaveLS];
+              // } else if (uRes.time >= time) {
+              console.log("777 ", 777);
+              console.log("index ", index);
+              // return (
+              // return
+              // return [...saveUserResult.splice(index, 1, templateSaveLS)]; // сброс но 4000
+              //setSaveUserResult([
+              // ]);
+              setSaveUserResult([
+                saveUserResult.splice(index, 1, templateSaveLS),
+              ]); // ~ измен. ВСЕ стат. но без LS
+              // return saveUserResult.splice(index, 1, templateSaveLS); // сброс но 4000
+              // saveUserResult.splice(index, 1, templateSaveLS); // ~ меняет значен но во всех подходящих и в LS  не обновляет
+              // Expected an assignment or function call and instead saw an expression.
+              console.log("saveUserResult 777", saveUserResult);
+              // );
+              // return;
+              // Множество .прототип .map () ожидает возвращаемого значения от функции стрелки.
+              // ...saveUserResult.slice(index),
+              // return setSaveUserResult([
+              //   ...saveUserResult.slice(2, index),
+              //   templateSaveLS,
+              //   // ...saveUserResult.slice(index),
+              // ]); // undefined
+              // return templateSaveLS;
+              // return uRes = templateSaveLS; // возвращ ток последн. результат
+              // uRes = templateSaveLS; // ничего не происходит
+              // return [saveUserResult, templateSaveLS]; // запись всех пред. в index 0, а последн. в index 1
+              // }
             }
             console.log("888 ", 888);
             // return uRes;
             // ! вроде запись выше не идёт
             // return 1;
+            // return [saveUserResult];
             return saveUserResult;
           })
         );
       }
-
+      console.log("saveUserResult 999", saveUserResult);
       console.log("999 ", 999);
     }
   };
@@ -374,7 +410,12 @@ export const MemoryReact = () => {
   // };
   // localStorage.setItem("saveUserResult", JSON.stringify(initialTemplateSaveLS));
   useEffect(() => {
-    localStorage.setItem("saveUserResult", JSON.stringify(saveUserResult));
+    setTimeout(() => {
+      async function f() {
+        localStorage.setItem("saveUserResult", JSON.stringify(saveUserResult));
+      }
+      f();
+    }, 3000);
   }, [saveUserResult]);
 
   // memo для отд. props. не получилось прописать ----------------------------------------------------------------------------------
@@ -405,6 +446,19 @@ export const MemoryReact = () => {
               flipped={card === choiceOne || card === choiceTwo || card.matched}
               disabled={disabled}
             />
+          ))}
+        </div>
+        {/* //  ---------------------------------------------------------------------------------- */}
+        <div>
+          {saveUserResult.map((card, id, index) => (
+            <div
+              // key={new Date().getMilliseconds()} // рядом повтор
+              key={Math.random().toString().substring(2, 5)}
+            >
+              <p>
+                {card.userName} - <span>{card.time}</span>
+              </p>
+            </div>
           ))}
         </div>
         {/* Настройки/Результат  */}
