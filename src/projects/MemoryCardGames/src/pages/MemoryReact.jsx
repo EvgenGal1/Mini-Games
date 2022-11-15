@@ -111,6 +111,20 @@ export const MemoryReact = () => {
   const [openClass, setOpenClass] = useState("section");
   // признак залогированного usera
   const [userNameLogin, setUserNameLogin] = useState(false);
+  // стат.получ.масс.результатов из LS (LocalStorage)
+  let initialTemplateSaveLS = {
+    id_1: 0,
+    userName: "0",
+    // time: 9999,
+    time: cardImages.length * 2000,
+  };
+  const [saveUserResult, setSaveUserResult] = useState(
+    JSON.parse(localStorage.getItem("saveUserResult")) ||
+      [
+        // []
+        // initialTemplateSaveLS, // ! без стал прилетать undefine
+      ]
+  );
 
   // 2. ЗАПУСК ИГРЫ (`тасовать карты`) ----------------------------------------------------------------------------------
   const shuffleCards = () => {
@@ -233,19 +247,6 @@ export const MemoryReact = () => {
   // !!! https://www.mousedc.ru/learning/522-massiv-steyt-react/
   // !!! https://www.cluemediator.com/usestate-with-an-array-in-react-hooks
   // !!! https://stackoverflow.com/questions/19635077/adding-objects-to-array-in-localstorage
-  // стат.получ.масс.результатов из LS (LocalStorage)
-  let initialTemplateSaveLS = {
-    id_1: 0,
-    userName: "0",
-    // time: 9999,
-    time: cardImages.length * 2000,
-  };
-  const [saveUserResult, setSaveUserResult] = useState(
-    JSON.parse(localStorage.getItem("saveUserResult")) || [
-      // []
-      initialTemplateSaveLS, // ! без стал прилетать undefine
-    ]
-  );
 
   // ! много полезного - https://www.mousedc.ru/learning/523-forma-dobavlenie-udalenie-izmenenie-element-steyt-react/
   const saveResult = () => {
@@ -255,141 +256,147 @@ export const MemoryReact = () => {
     // let includ = !saveUserResult.includes(time);
     // if (!saveUserResult.includes(time)) { // альтер.варик
     // if (includ) {
-    if (saveUserResult) {
-      // setSaveUserResult([...saveUserResult, time]); // запись просто времени
-      // let userNamePromt = prompt("Введите имя");
-      let userNameSaveLS;
-      if (userNameLogin) {
-        userNameSaveLS = userNameLogin;
-      } else {
-        userNameSaveLS = prompt("Введите имя");
-      } // условие в перем.
-      let templateSaveLS = {
-        id_1: saveUserResult.length, // при стате saveUserResult с умолчанием
-        // id_1: saveUserResult.length + 1, // при пустом стате saveUserResult
-        userName: userNameSaveLS,
-        time: time,
-      };
-      // setSaveUserResult((saveUserResult) => [
-      //   ...saveUserResult,
-      //   templateSaveLS,
-      //   // коммит
-      //   // { templateSaveLS },
-      //   // {
-      //   //   id_1: saveUserResult.length + 1, // к длине + 1 (1 для index 0)
-      //   //   userName: userNameSaveLS, // userName: prompt("Введите имя"), // prompt напрямую
-      //   //   time: time,
-      //   // рандомные id: и key={}
-      //   // id_2: new Date().getMilliseconds(), // 3 числа до 1к (милисек. от даты 01.01.1970)
-      //   // id_3: Math.random().toString().substring(2, 5), // рандом 3 числа после нуля
-      //   // id_4: prevItems.length + 1 + Math.random().toString().substring(2, 5), // к длине + 1 + рандом 3 цифры
-      //   // },
-      // ]);
-      // ! было оч. близко. проблемы в непереборе е/и масс. пуст. е/и добав в масс по умолч объ. то в ошб. - нет fn map или подобное
-      // мак/мин знач ------------------------------------------------------------
-      console.log("template ", templateSaveLS);
-      console.log("saveUserResult.length ", saveUserResult.length);
-      if (
-        saveUserResult.length === 0
-        // Array.isArray(saveUserResult) &&
-        // saveUserResult.length
-        // Lsnull === [] ||
-        // Lsnull === undefined ||
-        // saveUserResult === [] ||
-        // saveUserResult === undefined
-        // localStorage.getItem("saveUserResult") === []
-        // JSON.parse(localStorage.getItem("saveUserResult")) === []
-        // ||
-        // undefined ||
-        // null
-      ) {
-        // ! не заходит в условие
-        console.log("111 ", 111);
-        setSaveUserResult((saveUserResult) => [
-          ...saveUserResult,
-          templateSaveLS,
-        ]);
-        // setSaveUserResult(saveUserResult.length === 5);
-      } else {
-        console.log("222 ", 222);
-        if (saveUserResult.length === 3) {
-          console.log("saveUserResult.time ", saveUserResult.time);
-          // console.log("Max:", Math.max(...saveUserResult.time));
-        }
-        console.log("saveUserResult ", saveUserResult);
-        console.log("saveUserResult ", typeof saveUserResult);
-        // console.log("saveUserResult ", isArray[saveUserResult]);
-        setSaveUserResult(
-          // ! адакатно прописывается только при ... в двух местах
-          ...saveUserResult.map((uRes, index) => {
-            // console.log("333 ", 333);
-            console.log("444 ", 444);
-            // Array.prototype.map () ожидает возврата значения в конце функции стрелки.
-            console.log("uRes ", uRes);
-            console.log("time ", time);
-            console.log("uRes.time ", uRes.time);
-            if (saveUserResult.length < 3 && uRes.time >= time) {
-              console.log("555 ", 555);
-              return [...saveUserResult, templateSaveLS];
-            }
-            if (saveUserResult.length === 3 && uRes.time >= time) {
-              // console.log("6767 ", 6767);
-              // console.log("Max:", Math.max(...saveUserResult.time));
-              // if (uRes.time <= time) {
-              // console.log("666 ", 666);
-              // setSaveUserResult([
-              //   ...saveUserResult.slice(0, index),
-              //   templateSaveLS,
-              //   ...saveUserResult.slice(index + 1),
-              // ]);
-              // return [saveUserResult.slice(0, index), templateSaveLS];
-              // setSaveUserResult([
-              //   ...saveUserResult.slice(0, index),
-              //   templateSaveLS,
-              // ]);
-              // return [saveUserResult, templateSaveLS];
-              // } else if (uRes.time >= time) {
-              console.log("777 ", 777);
-              console.log("index ", index);
-              // return (
-              // return
-              // return [...saveUserResult.splice(index, 1, templateSaveLS)]; // сброс но 4000
-              //setSaveUserResult([
-              // ]);
-              setSaveUserResult([
-                saveUserResult.splice(index, 1, templateSaveLS),
-              ]); // ~ измен. ВСЕ стат. но без LS
-              // return saveUserResult.splice(index, 1, templateSaveLS); // сброс но 4000
-              // saveUserResult.splice(index, 1, templateSaveLS); // ~ меняет значен но во всех подходящих и в LS  не обновляет
-              // Expected an assignment or function call and instead saw an expression.
-              console.log("saveUserResult 777", saveUserResult);
-              // );
-              // return;
-              // Множество .прототип .map () ожидает возвращаемого значения от функции стрелки.
-              // ...saveUserResult.slice(index),
-              // return setSaveUserResult([
-              //   ...saveUserResult.slice(2, index),
-              //   templateSaveLS,
-              //   // ...saveUserResult.slice(index),
-              // ]); // undefined
-              // return templateSaveLS;
-              // return uRes = templateSaveLS; // возвращ ток последн. результат
-              // uRes = templateSaveLS; // ничего не происходит
-              // return [saveUserResult, templateSaveLS]; // запись всех пред. в index 0, а последн. в index 1
-              // }
-            }
-            console.log("888 ", 888);
-            // return uRes;
-            // ! вроде запись выше не идёт
-            // return 1;
-            // return [saveUserResult];
-            return saveUserResult;
-          })
-        );
-      }
-      console.log("saveUserResult 999", saveUserResult);
-      console.log("999 ", 999);
+    // if (saveUserResult) {
+    // setSaveUserResult([...saveUserResult, time]); // запись просто времени
+    // let userNamePromt = prompt("Введите имя");
+    let userNameSaveLS;
+    if (userNameLogin) {
+      userNameSaveLS = userNameLogin;
+    } else {
+      userNameSaveLS = prompt("Введите имя");
+    } // условие в перем.
+    let templateSaveLS = {
+      id_1: saveUserResult.length, // при стате saveUserResult с умолчанием
+      // id_1: saveUserResult.length + 1, // при пустом стате saveUserResult
+      userName: userNameSaveLS,
+      time: time,
+    };
+    // setSaveUserResult((saveUserResult) => [
+    //   ...saveUserResult,
+    //   templateSaveLS,
+    //   // коммит
+    //   // { templateSaveLS },
+    //   // {
+    //   //   id_1: saveUserResult.length + 1, // к длине + 1 (1 для index 0)
+    //   //   userName: userNameSaveLS, // userName: prompt("Введите имя"), // prompt напрямую
+    //   //   time: time,
+    //   // рандомные id: и key={}
+    //   // id_2: new Date().getMilliseconds(), // 3 числа до 1к (милисек. от даты 01.01.1970)
+    //   // id_3: Math.random().toString().substring(2, 5), // рандом 3 числа после нуля
+    //   // id_4: prevItems.length + 1 + Math.random().toString().substring(2, 5), // к длине + 1 + рандом 3 цифры
+    //   // },
+    // ]);
+    // ! было оч. близко. проблемы в непереборе е/и масс. пуст. е/и добав в масс по умолч объ. то в ошб. - нет fn map или подобное
+    // мак/мин знач ------------------------------------------------------------
+    console.log("template ", templateSaveLS);
+    console.log("saveUserResult.length ", saveUserResult.length);
+    if (
+      saveUserResult.length === 0
+      // Array.isArray(saveUserResult) &&
+      // saveUserResult.length
+      // Lsnull === [] ||
+      // Lsnull === undefined ||
+      // saveUserResult === [] ||
+      // saveUserResult === undefined
+      // localStorage.getItem("saveUserResult") === []
+      // JSON.parse(localStorage.getItem("saveUserResult")) === []
+      // ||
+      // undefined ||
+      // null
+    ) {
+      // ! не заходит в условие
+      console.log("111 ", 111);
+      setSaveUserResult((saveUserResult) => [
+        ...saveUserResult,
+        templateSaveLS,
+      ]);
+      // setSaveUserResult(saveUserResult.length === 5);
+    } else {
+      console.log("222 ", 222);
+      // if (saveUserResult.length === 3) {
+      //   console.log("saveUserResult.time ", saveUserResult.time);
+      //   // console.log("Max:", Math.max(...saveUserResult.time));
+      // }
+      console.log("saveUserResult ", saveUserResult);
+      console.log("saveUserResult ", typeof saveUserResult);
+      // console.log("saveUserResult ", isArray[saveUserResult]);
+      setSaveUserResult(
+        // ! адакатно прописывается только при ... в двух местах
+        ...saveUserResult.map((uRes, index) => {
+          // console.log("333 ", 333);
+          console.log("444 ", 444);
+          // Array.prototype.map () ожидает возврата значения в конце функции стрелки.
+          console.log("uRes ", uRes);
+          console.log("time ", time);
+          console.log("uRes.time ", uRes.time);
+          if (saveUserResult.length < 3 && uRes.time >= time) {
+            console.log("555 ", 555);
+            // Ожидается, что назначение или функциональный вызов и вместо этого увидел выражение
+            // return templateSaveLS;
+            return [...saveUserResult, templateSaveLS];
+          }
+          if (saveUserResult.length === 3 && uRes.time >= time) {
+            // console.log("6767 ", 6767);
+            // console.log("Max:", Math.max(...saveUserResult.time));
+            // if (uRes.time <= time) {
+            // console.log("666 ", 666);
+            console.log("777 ", 777);
+            console.log("index ", index);
+            saveUserResult.splice(index, 1, templateSaveLS);
+            // return [
+            //   // ...saveUserResult.splice(index, 1, templateSaveLS),
+            //   ...saveUserResult,
+            // ];
+            // return [saveUserResult.slice(0, index), templateSaveLS];
+            // setSaveUserResult([
+            //   ...saveUserResult.slice(0, index),
+            //   templateSaveLS,
+            // ]);
+            // return [saveUserResult, templateSaveLS];
+            // } else if (uRes.time >= time) {
+            // return (
+            // return [
+            // saveUserResult.splice(index, 1, templateSaveLS);
+            // ]; // сброс но 4000
+            //setSaveUserResult([
+            // ]);
+            // return [...saveUserResult];
+            // setSaveUserResult([
+            //   saveUserResult.splice(index, 1, templateSaveLS),
+            // ]); // ~ измен. ВСЕ стат. но без LS
+            // return saveUserResult.splice(index, 1, templateSaveLS); // сброс но 4000
+            // saveUserResult.splice(index, 1, templateSaveLS); // ~ меняет значен но во всех подходящих и в LS  не обновляет
+            // Expected an assignment or function call and instead saw an expression.
+            console.log("saveUserResult 777", saveUserResult);
+            // );
+            // return;
+            // Множество .прототип .map () ожидает возвращаемого значения от функции стрелки.
+            // ...saveUserResult.slice(index),
+            // return setSaveUserResult([
+            //   ...saveUserResult.slice(2, index),
+            //   templateSaveLS,
+            //   // ...saveUserResult.slice(index),
+            // ]); // undefined
+            // return templateSaveLS;
+            // return uRes = templateSaveLS; // возвращ ток последн. результат
+            // uRes = templateSaveLS; // ничего не происходит
+            // return [saveUserResult, templateSaveLS]; // запись всех пред. в index 0, а последн. в index 1
+            // }
+          }
+          console.log("888 ", 888);
+          // return uRes;
+          // return [...uRes];
+          // ! вроде запись выше не идёт
+          // return 1;
+          // return saveUserResult;
+          return [...saveUserResult];
+          // return saveUserResult;
+        })
+      );
     }
+    console.log("saveUserResult 999", saveUserResult);
+    console.log("999 ", 999);
+    // }
   };
   //   },
   //   [saveUserResult]
@@ -410,12 +417,12 @@ export const MemoryReact = () => {
   // };
   // localStorage.setItem("saveUserResult", JSON.stringify(initialTemplateSaveLS));
   useEffect(() => {
-    setTimeout(() => {
-      async function f() {
-        localStorage.setItem("saveUserResult", JSON.stringify(saveUserResult));
-      }
-      f();
-    }, 3000);
+    async function f() {
+      // setTimeout(() => {
+      localStorage.setItem("saveUserResult", JSON.stringify(saveUserResult));
+      // }, 1000);
+    }
+    f();
   }, [saveUserResult]);
 
   // memo для отд. props. не получилось прописать ----------------------------------------------------------------------------------
