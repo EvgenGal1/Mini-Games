@@ -17,14 +17,14 @@ const cardImages = [
   // 7. + св-во `соответствует` с false для сравнения 2х карт
   { src: require("../img/card1-1.png"), matched: false },
   { src: require("../img/card2-1.png"), matched: false },
-  // { src: require("../img/card3-1.png"), matched: false },
-  // { src: require("../img/card4-1.png"), matched: false },
-  // { src: require("../img/card5-1.png"), matched: false },
-  // { src: require("../img/card6-1.png"), matched: false },
-  // { src: require("../img/card7-1.png"), matched: false },
-  // { src: require("../img/card8-1.png"), matched: false },
-  // { src: require("../img/card9-1.png"), matched: false },
-  // { src: require("../img/card10-1.png"), matched: false },
+  { src: require("../img/card3-1.png"), matched: false },
+  { src: require("../img/card4-1.png"), matched: false },
+  { src: require("../img/card5-1.png"), matched: false },
+  { src: require("../img/card6-1.png"), matched: false },
+  { src: require("../img/card7-1.png"), matched: false },
+  { src: require("../img/card8-1.png"), matched: false },
+  { src: require("../img/card9-1.png"), matched: false },
+  { src: require("../img/card10-1.png"), matched: false },
 ];
 
 // секундомер

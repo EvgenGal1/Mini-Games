@@ -15,6 +15,8 @@ import { NewPro } from "../../projects/NewPro/NewPro";
 // CardMemoryGameCodePen
 import { MemoryCardGames } from "../../projects/MemoryCardGames/MemoryCardGames";
 import { MemoryReact } from "../../projects/MemoryCardGames/src/pages/MemoryReact";
+// GameOfFifteen
+import { GameOfFifteen } from "../../projects/GameOfFifteen/GameOfFifteen";
 
 export function Router() {
   return (
@@ -22,8 +24,11 @@ export function Router() {
       <Route path="/" element={<Layout />}>
         <Route index element={<NewPro />} />
         <Route path="NewPro" element={<NewPro />} />
+        {/* MemoryCardGames */}
         <Route path="MemoryCardGames/*" element={<MemoryCardGames />} />
         <Route path="MemoryReact" element={<MemoryReact />} />
+        {/* GameOfFifteen */}
+        <Route path="GameOfFifteen/*" element={<GameOfFifteen />} />
         <Route path="Prob0/*" element={<Prob0 />} />
         <Route path="Prob1" element={<Prob1 />} />
         <Route path="Prob2" element={<Prob2 />} />
