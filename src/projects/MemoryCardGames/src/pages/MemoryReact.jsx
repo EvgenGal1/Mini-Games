@@ -125,6 +125,9 @@ export const MemoryReact = () => {
         // initialTemplateSaveLS, // ! без стал прилетать undefine
       ]
   );
+  // массив минимального времени
+  // var arrMaxTime = [];
+  const [arrMaxTime, setArrMaxTime] = useState([]);
 
   // 2. ЗАПУСК ИГРЫ (`тасовать карты`) ----------------------------------------------------------------------------------
   const shuffleCards = () => {
@@ -249,6 +252,7 @@ export const MemoryReact = () => {
   // !!! https://stackoverflow.com/questions/19635077/adding-objects-to-array-in-localstorage
 
   // ! много полезного - https://www.mousedc.ru/learning/523-forma-dobavlenie-udalenie-izmenenie-element-steyt-react/
+  // ! https://www.mousedc.ru/learning/523-forma-dobavlenie-udalenie-izmenenie-element-steyt-react/
   const saveResult = () => {
     // const saveResult = ({ time }) => { // вызов time в fn()
     // const saveResult = React.useCallback(({ time }) => { // экспр. совет eslint. не вывез настроек
@@ -271,6 +275,10 @@ export const MemoryReact = () => {
       userName: userNameSaveLS,
       time: time,
     };
+    // массив минимального времени
+    // var arrMaxTime = [];
+    var max = Math.max(arrMaxTime);
+    console.log("max 1", max);
     // setSaveUserResult((saveUserResult) => [
     //   ...saveUserResult,
     //   templateSaveLS,
@@ -290,59 +298,68 @@ export const MemoryReact = () => {
     // мак/мин знач ------------------------------------------------------------
     console.log("template ", templateSaveLS);
     console.log("saveUserResult.length ", saveUserResult.length);
-    if (
-      saveUserResult.length === 0
-      // Array.isArray(saveUserResult) &&
-      // saveUserResult.length
-      // Lsnull === [] ||
-      // Lsnull === undefined ||
-      // saveUserResult === [] ||
-      // saveUserResult === undefined
-      // localStorage.getItem("saveUserResult") === []
-      // JSON.parse(localStorage.getItem("saveUserResult")) === []
-      // ||
-      // undefined ||
-      // null
-    ) {
+    if (saveUserResult.length === 0) {
       // ! не заходит в условие
       console.log("111 ", 111);
+      setArrMaxTime([...arrMaxTime, time]);
       setSaveUserResult((saveUserResult) => [
         ...saveUserResult,
         templateSaveLS,
       ]);
       // setSaveUserResult(saveUserResult.length === 5);
     } else {
-      console.log("222 ", 222);
+      // console.log("222 ", 222);
       // if (saveUserResult.length === 3) {
       //   console.log("saveUserResult.time ", saveUserResult.time);
       //   // console.log("Max:", Math.max(...saveUserResult.time));
       // }
       console.log("saveUserResult ", saveUserResult);
-      console.log("saveUserResult ", typeof saveUserResult);
+      // console.log("saveUserResult ", typeof saveUserResult);
       // console.log("saveUserResult ", isArray[saveUserResult]);
       setSaveUserResult(
         // ! адакатно прописывается только при ... в двух местах
         ...saveUserResult.map((uRes, index) => {
+          // var arrMaxTime = [];
+          // var max = Math.max(uRes.time);
+          // console.log("max ", max);
           // console.log("333 ", 333);
           console.log("444 ", 444);
           // Array.prototype.map () ожидает возврата значения в конце функции стрелки.
           console.log("uRes ", uRes);
-          console.log("time ", time);
-          console.log("uRes.time ", uRes.time);
-          if (saveUserResult.length < 3 && uRes.time >= time) {
+          console.log("uRes.time - time ", uRes.time, " - ", time);
+          // if (saveUserResult.length < 3 && uRes.time >= time) { // е/и есть начальное значение
+          if (saveUserResult.length < 3) {
+            setArrMaxTime([...arrMaxTime, time]);
             console.log("555 ", 555);
             // Ожидается, что назначение или функциональный вызов и вместо этого увидел выражение
             // return templateSaveLS;
             return [...saveUserResult, templateSaveLS];
           }
           if (saveUserResult.length === 3 && uRes.time >= time) {
+            console.log("666 ", 666);
+            // let maxLet = uRes.index где uRes.time = max;
+            // let maxLet = uRes.time = max ? uRes.index : '';
+            let max = Math.max(...arrMaxTime);
+            if (uRes.time === max) {
+              let maxInd = uRes.time === max ? uRes.index : "";
+              setArrMaxTime([...arrMaxTime.splice(index, 1, time)]);
+              console.log("777 ", 777);
+              console.log("index maxInd ", index, maxInd);
+              saveUserResult.splice(index, 1, templateSaveLS);
+              // return saveUserResult.splice(maxInd, 1, templateSaveLS);
+            }
+            // ! добавить уловие е/и uRes.time===time
+            // let templateSaveLS2 = {
+            //   id_1: saveUserResult.length, // при стате saveUserResult с умолчанием
+            //   // id_1: saveUserResult.length + 1, // при пустом стате saveUserResult
+            //   userName: userNameSaveLS,
+            //   time: max,
+            // };
             // console.log("6767 ", 6767);
             // console.log("Max:", Math.max(...saveUserResult.time));
             // if (uRes.time <= time) {
             // console.log("666 ", 666);
-            console.log("777 ", 777);
-            console.log("index ", index);
-            saveUserResult.splice(index, 1, templateSaveLS);
+            // saveUserResult.splice(index, 1, templateSaveLS.time===max);
             // return [
             //   // ...saveUserResult.splice(index, 1, templateSaveLS),
             //   ...saveUserResult,
@@ -367,7 +384,8 @@ export const MemoryReact = () => {
             // return saveUserResult.splice(index, 1, templateSaveLS); // сброс но 4000
             // saveUserResult.splice(index, 1, templateSaveLS); // ~ меняет значен но во всех подходящих и в LS  не обновляет
             // Expected an assignment or function call and instead saw an expression.
-            console.log("saveUserResult 777", saveUserResult);
+            console.log("saveUserResult 4-7", saveUserResult);
+            // return [...saveUserResult];
             // );
             // return;
             // Множество .прототип .map () ожидает возвращаемого значения от функции стрелки.
@@ -383,24 +401,32 @@ export const MemoryReact = () => {
             // return [saveUserResult, templateSaveLS]; // запись всех пред. в index 0, а последн. в index 1
             // }
           }
+          console.log("saveUserResult 888", saveUserResult);
           console.log("888 ", 888);
           // return uRes;
           // return [...uRes];
           // ! вроде запись выше не идёт
           // return 1;
-          // return saveUserResult;
-          return [...saveUserResult];
-          // return saveUserResult;
+          return saveUserResult;
+          // return [...saveUserResult];
         })
       );
     }
+    var max2 = Math.max(...arrMaxTime);
+    console.log("max 2", max2);
     console.log("saveUserResult 999", saveUserResult);
     console.log("999 ", 999);
     // }
   };
-  //   },
-  //   [saveUserResult]
-  // );
+
+  if (cardImages.length === truTurns) {
+    setTimeout(() => {
+      var max3 = Math.max(...arrMaxTime);
+      console.log("max 3", max3);
+      console.log("saveUserResult +++", saveUserResult);
+      console.log("+++++ ");
+    }, 1000);
+  }
 
   // вызов сохранения при выйгрыше
   useEffect(() => {
@@ -418,12 +444,16 @@ export const MemoryReact = () => {
   // localStorage.setItem("saveUserResult", JSON.stringify(initialTemplateSaveLS));
   useEffect(() => {
     async function f() {
-      // setTimeout(() => {
-      localStorage.setItem("saveUserResult", JSON.stringify(saveUserResult));
-      // }, 1000);
+      setTimeout(() => {
+        localStorage.setItem("saveUserResult", JSON.stringify(saveUserResult));
+      }, 1000);
     }
     f();
-  }, [saveUserResult]);
+
+    // console.log("arrMaxTime ", arrMaxTime);
+    // var max2 = Math.max(...arrMaxTime);
+    // console.log("max 2", max2);
+  }, [saveUserResult /* setSaveUserResult */, arrMaxTime]);
 
   // memo для отд. props. не получилось прописать ----------------------------------------------------------------------------------
   // const percentTageMemo = React.useMemo(
@@ -456,18 +486,20 @@ export const MemoryReact = () => {
           ))}
         </div>
         {/* //  ---------------------------------------------------------------------------------- */}
-        <div>
-          {saveUserResult.map((card, id, index) => (
-            <div
-              // key={new Date().getMilliseconds()} // рядом повтор
-              key={Math.random().toString().substring(2, 5)}
-            >
-              <p>
-                {card.userName} - <span>{card.time}</span>
-              </p>
-            </div>
-          ))}
-        </div>
+        {cardImages.length === truTurns && (
+          <div>
+            {saveUserResult.map((card, id, index) => (
+              <div
+                // key={new Date().getMilliseconds()} // рядом повтор
+                key={Math.random().toString().substring(2, 5)}
+              >
+                <p>
+                  {card.userName} - <span>{card.time}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
         {/* Настройки/Результат  */}
         <div className="settingGame" style={styleSettGame.Experts}>
           <div className={`settingGame__content ${openClass}`}>
