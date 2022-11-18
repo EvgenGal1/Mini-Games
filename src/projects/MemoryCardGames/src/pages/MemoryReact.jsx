@@ -485,7 +485,7 @@ export const MemoryReact = () => {
             />
           ))}
         </div>
-        {/* //  ---------------------------------------------------------------------------------- */}
+        {/* // список победителей */}
         {cardImages.length === truTurns && (
           <div>
             {saveUserResult.map((card, id, index) => (

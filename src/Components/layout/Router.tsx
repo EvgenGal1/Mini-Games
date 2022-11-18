@@ -15,8 +15,10 @@ import { NewPro } from "../../projects/NewPro/NewPro";
 // CardMemoryGameCodePen
 import { MemoryCardGames } from "../../projects/MemoryCardGames/MemoryCardGames";
 import { MemoryReact } from "../../projects/MemoryCardGames/src/pages/MemoryReact";
-// GameOfFifteen
-import { GameOfFifteen } from "../../projects/GameOfFifteen/GameOfFifteen";
+// Fifteen
+import { Fifteen } from "../../projects/Fifteen/Fifteen";
+import { FifteenFromEL } from "../../projects/Fifteen/src/pages/FifteenFromEL";
+import { FifteenFromBM } from "../../projects/Fifteen/src/pages/FifteenFromBM";
 
 export function Router() {
   return (
@@ -27,8 +29,11 @@ export function Router() {
         {/* MemoryCardGames */}
         <Route path="MemoryCardGames/*" element={<MemoryCardGames />} />
         <Route path="MemoryReact" element={<MemoryReact />} />
-        {/* GameOfFifteen */}
-        <Route path="GameOfFifteen/*" element={<GameOfFifteen />} />
+        {/* Fifteen */}
+        <Route path="Fifteen/*" element={<Fifteen />} />
+        <Route path="FifteenFromEL" element={<FifteenFromEL />} />
+        <Route path="FifteenFromBM" element={<FifteenFromBM />} />
+        {/* стандарт */}
         <Route path="Prob0/*" element={<Prob0 />} />
         <Route path="Prob1" element={<Prob1 />} />
         <Route path="Prob2" element={<Prob2 />} />

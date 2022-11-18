@@ -2,7 +2,7 @@
 
 .btn-single {
   padding: 10px 12px;
-  padding: 0.5% 1%;
+  // padding: 0.5% 1%;
   border-radius: 30px;
   font-size: 18px;
   // @include adaptiv-font(24, 12);
@@ -17,7 +17,7 @@
   &:hover {
     color: gold;
     box-shadow: 0 8px 10px #000000;
-    transform: translateY(-1px);
+    transform: translateY(-3px);
   }
 
   &:active {

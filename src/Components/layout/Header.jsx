@@ -70,14 +70,26 @@ export function Header() {
                   NewPro
                 </NavLink>
               </span>
-              {/* GameOfFifteen */}
+              {/* Fifteen */}
               <span className="menu-top__items m-t-items">
                 <NavLink
-                  to="/GameOfFifteen"
+                  to="/Fifteen"
                   className="m-t-items__navlink activ-prob"
                 >
-                  GameOfFifteen
+                  Fifteen
                 </NavLink>
+                <ul className="m-t-items__ul m-t-its-ul">
+                  <li className="m-t-its-ul__li">
+                    <Link to="/FifteenFromEL" className="">
+                      FifteenFromEL
+                    </Link>
+                  </li>
+                  <li className="m-t-its-ul__li">
+                    <Link to="/FifteenFromBM" className="">
+                      FifteenFromBM
+                    </Link>
+                  </li>
+                </ul>
               </span>
               {/* MemoryCardGames */}
               <span className="menu-top__items m-t-items">

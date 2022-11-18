@@ -176,7 +176,8 @@ body[data-theme="light"] {
 // СТИЛИ ПРОЕКТОВ
 :root {
   body {
-    .MemoryReact {
+    .MemoryReact,
+    .Fifteen {
       background-color: var(--ui-bg);
       background-color: var(--fon-dark);
       // transition: background-color 500ms linear, color 200ms linear;
@@ -184,11 +185,17 @@ body[data-theme="light"] {
       h1 {
         color: var(--act-light);
         color: var(--txt-leght);
+        &:hover {
+          color: var(--act-light);
+        }
       }
 
       button {
         color: var(--txt-col);
         color: var(--act-dark);
+        &.item {
+          color: var(--txt-col);
+        }
         // transition: background-color 500ms linear, color 200ms linear;
 
         &:hover {
