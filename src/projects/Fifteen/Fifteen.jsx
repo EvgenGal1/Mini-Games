@@ -18,12 +18,12 @@ export const Fifteen = () => {
               target="_blank"
               rel="noreferrer"
             >
-              по видео Елены Литвиновой (на JS)
+              по видео <b>Елены Литвиновой</b> (на JS)
             </a>
           </li>
           <li>
             <a href="!" target="_blank" rel="noreferrer">
-              Из GitHub biggieman на React, Redux
+              Из GitHub <b>biggieman</b> на React, Redux
             </a>
           </li>
           <li>
