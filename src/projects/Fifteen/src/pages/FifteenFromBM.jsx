@@ -24,6 +24,7 @@ store.subscribe(() => {
   const state = store.getState();
 
   if (state.present.win || !state.present.started) {
+    // очистка промежуточных результатов из LS
     clearState();
   } else {
     saveState(state);
