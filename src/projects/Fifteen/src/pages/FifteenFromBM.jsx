@@ -12,7 +12,7 @@ import {
   clearState,
 } from "./FifteenFromBM/store/localStorage";
 
-import "./FifteenFromBM.css";
+import "./FifteenFromBM.scss";
 
 const persistedState = loadState();
 const store = createStore(rootReducer, persistedState);

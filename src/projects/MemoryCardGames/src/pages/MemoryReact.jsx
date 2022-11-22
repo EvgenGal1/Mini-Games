@@ -469,7 +469,7 @@ export const MemoryReact = () => {
         {/* 2. по клик вызов shuffleCards*/}
         <BtnSingle name1={"Новая Игра"} onClikBtn={shuffleCards} />
         {/* 3. Поле Игры. перебор cards где для кажой card + div.SingleCard */}
-        <div className="card-grid">
+        <div className="card-grid container">
           {cards.map((card) => (
             // 4. div.card убрали в SingleCard.js
             // в компонент SingleCard передаём card с id
