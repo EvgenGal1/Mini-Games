@@ -1,6 +1,7 @@
 import { isRightCoordPosition } from "./gridFinder";
 
-export const generateGrid = (rMax = 4, cMax = 4) => {
+// ^ возврат - rMax,cMax сменить с 2 на 4
+export const generateGrid = (rMax = 2, cMax = 2) => {
   let size = rMax * cMax;
   let plain = new Array(size).fill(0).map((_, i) => i);
 
@@ -22,7 +23,8 @@ export const generateGrid = (rMax = 4, cMax = 4) => {
   return grid;
 };
 
-export default (rMax = 4, cMax = 4) => {
+// ^ возврат - rMax,cMax сменить с 2 на 4
+export default (rMax = 2, cMax = 2) => {
   let state = {};
 
   state.grid = generateGrid(rMax, cMax);
