@@ -24,6 +24,8 @@ body {
 
 .tiles {
   background: #8a6642;
+  background: var(--act-light);
+  background: var(--act-light);
   .tile {
     background: #59351f;
     &.tile--done {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Tile.css";
+import "./Tile.scss";
 
 const Tile = ({ onClick, coord, value, done }) => {
   let style = {

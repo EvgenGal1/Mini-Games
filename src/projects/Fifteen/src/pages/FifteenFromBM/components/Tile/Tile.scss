@@ -1,0 +1,42 @@
+.Fifteen {
+  .tile {
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* ^ возврат - width,height сменить с 50 на 25% */
+    width: 25%;
+    height: 25%;
+    /* width: 50%;
+  height: 50%; */
+    transition: left 0.3s ease-in-out, top 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .tile {
+    border: 1px solid #dee2e6;
+    background-color: var(--light);
+    background: var(--act-light);
+    // background: var(--act-light);
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .tile.tile--empty {
+    background-color: var(--white);
+    background-color: var(--ui-act-col);
+    border: 1px solid transparent;
+    z-index: 1;
+  }
+
+  .tile.tile--done {
+    color: var(--orange);
+  }
+
+  .tile__inner {
+    font-size: 3rem;
+    font-weight: 300;
+  }
+}
