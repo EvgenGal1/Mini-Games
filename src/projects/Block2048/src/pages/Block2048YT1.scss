@@ -1,0 +1,75 @@
+.Block2048 {
+}
+.Block2048YT1 {
+  div[class*="__content"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+  }
+  // поле
+  #boadr2048 {
+    // перем.для повтор.значений (ширина ячейки, отступ)
+    --cell-size: 20vmin;
+    --cell-gal: 2vmin;
+    position: relative;
+    display: grid;
+    // 4 колонки в 4 ряда по 20 vmin (20% от мин окна брауз. Здесь 20% от высоты т.к. высота < ширины)
+    grid-template-columns: repeat(4, /* 20vmin */ var(--cell-size));
+    grid-template-rows: repeat(4, /* 20vmin */ var(--cell-size));
+    gap: /* 2vmin */ var(--cell-gal);
+    // padding: 20px;
+    background: #59351f;
+    border-radius: 1vmin;
+    border: 20px solid #59351f !important;
+  }
+  // ячейки
+  .cell {
+    background: #ccc;
+    background: var(--ui-act-col);
+    border-radius: 1vmin;
+    &:hover {
+      background: var(--act-light);
+    }
+  }
+  // плитка
+  .tile {
+    // перем.css для измен.полож.плиток ч/з js
+    --y: 1;
+    --x: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    top: 20px;
+    left: 20px;
+    // изменение сетки положения плиток по 1му значению (0-0, 0-1,.. 3-3)
+    top: calc(
+      /* 0 */ var(--y) *
+        (/* 20vmin */ var(--cell-size) + /* 2vmin */ var(--cell-gal))
+    );
+    left: calc(
+      /* 0 */ var(--x) *
+        (/* 20vmin */ var(--cell-size) + /* 2vmin */ var(--cell-gal))
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20vmin;
+    height: 20vmin;
+    border-radius: 1vmin;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 7.5vmin;
+    font-weight: bold;
+    background-color: var(--act-dark);
+    color: #000;
+    transition: 100ms;
+    animation: show 200ms;
+  }
+  @keyframes show {
+    0% {
+      opacity: 0.5;
+      transform: scale(0);
+    }
+  }
+}
