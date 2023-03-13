@@ -91,6 +91,22 @@ export function Header() {
                   </li>
                 </ul>
               </span>
+              {/* Block2048 */}
+              <span className="menu-top__items m-t-items">
+                <NavLink
+                  to="/Block2048"
+                  className="m-t-items__navlink activ-prob"
+                >
+                  2048
+                </NavLink>
+                <ul className="m-t-items__ul m-t-its-ul">
+                  <li className="m-t-its-ul__li">
+                    <Link to="/Block2048YT1" className="">
+                      Block2048YT1
+                    </Link>
+                  </li>
+                </ul>
+              </span>
               {/* MemoryCardGames */}
               <span className="menu-top__items m-t-items">
                 <NavLink
