@@ -17,14 +17,14 @@ const cardImages = [
   // 7. + св-во `соответствует` с false для сравнения 2х карт
   { src: require("../img/card1-1.png"), matched: false },
   { src: require("../img/card2-1.png"), matched: false },
-  { src: require("../img/card3-1.png"), matched: false },
-  { src: require("../img/card4-1.png"), matched: false },
-  { src: require("../img/card5-1.png"), matched: false },
-  { src: require("../img/card6-1.png"), matched: false },
-  { src: require("../img/card7-1.png"), matched: false },
-  { src: require("../img/card8-1.png"), matched: false },
-  { src: require("../img/card9-1.png"), matched: false },
-  { src: require("../img/card10-1.png"), matched: false },
+  // { src: require("../img/card3-1.png"), matched: false },
+  // { src: require("../img/card4-1.png"), matched: false },
+  // { src: require("../img/card5-1.png"), matched: false },
+  // { src: require("../img/card6-1.png"), matched: false },
+  // { src: require("../img/card7-1.png"), matched: false },
+  // { src: require("../img/card8-1.png"), matched: false },
+  // { src: require("../img/card9-1.png"), matched: false },
+  // { src: require("../img/card10-1.png"), matched: false },
 ];
 
 // секундомер
@@ -64,6 +64,11 @@ const Result = ({ turns, time, percentTage }) => {
         Выйграно со временем:
         {/* <StopWatch time={time} /> */}
         <StopWatchMemo time={time} />
+      </div>
+      <div className="attribut">
+        Общий счёт: {/* {time + turns * cardImages.length} */}
+        {Math.floor((time / 3600) * 100 * 100) / 100 +
+          turns * (cardImages.length * cardImages.length)}
       </div>
       <div className="progress">
         <div
@@ -274,6 +279,7 @@ export const MemoryReact = () => {
       // id_1: saveUserResult.length + 1, // при пустом стате saveUserResult
       userName: userNameSaveLS,
       time: time,
+      turns: turns,
     };
     // массив минимального времени
     // var arrMaxTime = [];
@@ -282,17 +288,17 @@ export const MemoryReact = () => {
     // setSaveUserResult((saveUserResult) => [
     //   ...saveUserResult,
     //   templateSaveLS,
-    //   // коммит
-    //   // { templateSaveLS },
-    //   // {
-    //   //   id_1: saveUserResult.length + 1, // к длине + 1 (1 для index 0)
-    //   //   userName: userNameSaveLS, // userName: prompt("Введите имя"), // prompt напрямую
-    //   //   time: time,
-    //   // рандомные id: и key={}
-    //   // id_2: new Date().getMilliseconds(), // 3 числа до 1к (милисек. от даты 01.01.1970)
-    //   // id_3: Math.random().toString().substring(2, 5), // рандом 3 числа после нуля
-    //   // id_4: prevItems.length + 1 + Math.random().toString().substring(2, 5), // к длине + 1 + рандом 3 цифры
-    //   // },
+    // коммит рандомных чисел
+    // { templateSaveLS },
+    // {
+    //   id_1: saveUserResult.length + 1, // к длине + 1 (1 для index 0)
+    //   userName: userNameSaveLS, // userName: prompt("Введите имя"), // prompt напрямую
+    //   time: time,
+    // рандомные id: и key={}
+    // id_2: new Date().getMilliseconds(), // 3 числа до 1к (милисек. от даты 01.01.1970)
+    // id_3: Math.random().toString().substring(2, 5), // рандом 3 числа после нуля
+    // id_4: prevItems.length + 1 + Math.random().toString().substring(2, 5), // к длине + 1 + рандом 3 цифры
+    // },
     // ]);
     // ! было оч. близко. проблемы в непереборе е/и масс. пуст. е/и добав в масс по умолч объ. то в ошб. - нет fn map или подобное
     // мак/мин знач ------------------------------------------------------------
@@ -317,7 +323,7 @@ export const MemoryReact = () => {
       // console.log("saveUserResult ", typeof saveUserResult);
       // console.log("saveUserResult ", isArray[saveUserResult]);
       setSaveUserResult(
-        // ! адакатно прописывается только при ... в двух местах
+        // ! адекватно прописывается только при ... в двух местах
         ...saveUserResult.map((uRes, index) => {
           // var arrMaxTime = [];
           // var max = Math.max(uRes.time);

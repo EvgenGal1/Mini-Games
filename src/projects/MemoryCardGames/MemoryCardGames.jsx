@@ -6,10 +6,21 @@ import { MemoryReact } from "./src/pages/MemoryReact";
 export const MemoryCardGames = () => {
   return (
     <div className="MemoryCardGames">
-      <div className="MemoryCardGames__body">
-        <div className="MemoryCardGames__descript">MemoryCardGames 1</div>
-        <div className="MemoryCardGames__content">MemoryCardGames 2</div>
+      <div className="MemoryCardGames__descript">
+        <ul>
+          <li>
+            <a href="/#" target="_blank" rel="noreferrer">
+              по ресурсу <b>надо найти</b> (на JS)
+            </a>
+          </li>
+          <li>
+            <a href="/#" target="_blank" rel="noreferrer">
+              посмотреть другие варианты <b>надо найти</b> (на JS, React, )
+            </a>
+          </li>
+        </ul>
       </div>
+      {/* <div className="MemoryCardGames__content">MemoryCardGames 2</div> */}
       <hr />
       <div className="MemoryCardGames__nav">
         <nav>
