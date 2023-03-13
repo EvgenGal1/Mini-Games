@@ -1,20 +1,14 @@
-// This optional code is used to register a service worker.
-// register() is not called by default.
+// Этот необязательный код используется для регистрации работника службы. register() по умолчанию не вызывается.
 
-// This lets the app load faster on subsequent visits in production, and gives
-// it offline capabilities. However, it also means that developers (and users)
-// will only see deployed updates on subsequent visits to a page, after all the
-// existing tabs open on the page have been closed, since previously cached
-// resources are updated in the background.
+// Это позволяет приложению загружаться быстрее при последующих посещениях в рабочей среде и дает ему возможность работать в автономном режиме. Однако это также означает, что разработчики (и пользователи) будут видеть развернутые обновления только при последующих посещениях страницы, после того как все существующие вкладки, открытые на странице, будут закрыты, поскольку ранее кэшированные ресурсы обновляются в фоновом режиме.
 
-// To learn more about the benefits of this model and instructions on how to
-// opt-in, read http://bit.ly/CRA-PWA
+// Чтобы узнать больше о преимуществах этой модели и инструкциях по включению, прочитайте http://bit.ly/CRA-PWA.
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
-    // [::1] is the IPv6 localhost address.
+    // [::1] это адрес Localhost IPv6.
     window.location.hostname === "[::1]" ||
-    // 127.0.0.1/8 is considered localhost for IPv4.
+    // 127.0.0.1/8 считается Localhost для IPv4.
     window.location.hostname.match(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
@@ -22,12 +16,10 @@ const isLocalhost = Boolean(
 
 export function register(config) {
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
-    // The URL constructor is available in all browsers that support SW.
+    // Конструктор URL доступен во всех браузерах, поддерживающих SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      // from what our page is served on. This might happen if a CDN is used to
-      // serve assets; see https://github.com/facebook/create-react-app/issues/2374
+      // Наш сервис-воркер не будет работать, если PUBLIC_URL находится в другом источнике, отличном от того, на котором обслуживается наша страница. Это может произойти, если CDN используется для обслуживания активов; см. https://github.com/facebook/create-react-app/issues/2374
       return;
     }
 
@@ -35,19 +27,18 @@ export function register(config) {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still exists or not.
+        // Это работает на локальном хосте. Давайте проверим, существует ли сервис-воркер или нет.
         checkValidServiceWorker(swUrl, config);
 
-        // Add some additional logging to localhost, pointing developers to the
-        // service worker/PWA documentation.
+        // Добавьте дополнительное ведение журнала на локальный хост, указав разработчикам на документацию сервисного работника/PWA.
         navigator.serviceWorker.ready.then(() => {
           console.log(
-            "This web app is being served cache-first by a service " +
-              "worker. To learn more, visit http://bit.ly/CRA-PWA"
+            "Это веб-приложение обслуживается в кеш " +
+              "работник.Чтобы узнать больше, посетить http://bit.ly/CRA-PWA"
           );
         });
       } else {
-        // Is not localhost. Just register service worker
+        // Не является локальным хостом. Просто зарегистрируйте сервисного работника
         registerValidSW(swUrl, config);
       }
     });
@@ -66,25 +57,21 @@ function registerValidSW(swUrl, config) {
         installingWorker.onstatechange = () => {
           if (installingWorker.state === "installed") {
             if (navigator.serviceWorker.controller) {
-              // At this point, the updated precached content has been fetched,
-              // but the previous service worker will still serve the older
-              // content until all client tabs are closed.
+              // На этом этапе обновленный предварительно кэшированный контент был получен, но предыдущий сервис-воркер будет по-прежнему обслуживать более старый контент, пока все вкладки клиента не будут закрыты.
               console.log(
                 "New content is available and will be used when all " +
                   "tabs for this page are closed. See http://bit.ly/CRA-PWA."
               );
 
-              // Execute callback
+              // Выполнить обратный вызов
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
               }
             } else {
-              // At this point, everything has been precached.
-              // It's the perfect time to display a
-              // "Content is cached for offline use." message.
+              // На данный момент все предварительно кэшировано. Это идеальное время, чтобы отобразить «Контент кэширован для автономного использования». сообщение.
               console.log("Content is cached for offline use.");
 
-              // Execute callback
+              // Выполнить обратный вызов
               if (config && config.onSuccess) {
                 config.onSuccess(registration);
               }

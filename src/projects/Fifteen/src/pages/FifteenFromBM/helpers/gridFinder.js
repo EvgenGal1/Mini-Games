@@ -3,7 +3,7 @@ export const coordsCompare = (one, two) => {
 };
 
 // ^ возврат - rMax,cMax сменить с 2 на 4
-export const isCoordPossibleToMove = (coord, rMax = 2, cMax = 2) => {
+export const isCoordPossibleToMove = (coord, rMax = 4, cMax = 4) => {
   return coord[0] >= 0 && coord[0] < rMax && coord[1] >= 0 && coord[1] < cMax;
 };
 
@@ -28,7 +28,7 @@ export const isEmptyCoordPossibleToMove = (fromCoord, emptyCoord) => {
 };
 
 // ^ возврат - rMax,cMax сменить с 2 на 4
-export const isRightCoordPosition = (coord, value, rMax = 2, cMax = 2) => {
+export const isRightCoordPosition = (coord, value, rMax = 4, cMax = 4) => {
   if (!value) {
     return coord[0] === rMax - 1 && coord[1] === cMax - 1;
   }

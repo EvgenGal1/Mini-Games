@@ -32,7 +32,7 @@ export const Fifteen = () => {
               target="_blank"
               rel="noreferrer"
             >
-              Ещё один код на JS
+              Ещё один код на JS и Canvas
             </a>
           </li>
         </ul>

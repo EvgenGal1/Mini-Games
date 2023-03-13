@@ -5,8 +5,8 @@
   /* ^ возврат - width,height сменить с 50 на 25% */
   width: 25%;
   height: 25%;
-  width: 50%;
-  height: 50%;
+  /* width: 50%;
+  height: 50%; */
   transition: left 0.3s ease-in-out, top 0.3s ease-in-out;
   display: flex;
   justify-content: center;

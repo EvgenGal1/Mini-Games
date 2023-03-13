@@ -5,8 +5,8 @@ import "./Tile.css";
 const Tile = ({ onClick, coord, value, done }) => {
   let style = {
     // ^ возврат - top,left сменить с 50 на 25
-    top: coord[0] * 50 + "%",
-    left: coord[1] * 50 + "%",
+    top: coord[0] * 25 + "%",
+    left: coord[1] * 25 + "%",
   };
 
   let className = ["tile", "rounded"];
