@@ -67,8 +67,10 @@ const Result = ({ turns, time, percentTage }) => {
       </div>
       <div className="attribut">
         Общий счёт: {/* {time + turns * cardImages.length} */}
-        {Math.floor((time / 3600) * 100 * 100) / 100 +
-          turns * (cardImages.length * cardImages.length)}
+        <span className="digits">
+          {Math.floor((time / 3600) * 100 * 100) / 100 +
+            turns * (cardImages.length * cardImages.length)}
+        </span>
       </div>
       <div className="progress">
         <div
