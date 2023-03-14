@@ -105,6 +105,11 @@ export function Header() {
                       Block2048YT1
                     </Link>
                   </li>
+                  <li className="m-t-its-ul__li">
+                    <Link to="/MatSz" className="">
+                      MatSz
+                    </Link>
+                  </li>
                 </ul>
               </span>
               {/* MemoryCardGames */}

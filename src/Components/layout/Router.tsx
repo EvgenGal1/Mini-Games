@@ -22,6 +22,7 @@ import { FifteenFromBM } from "../../projects/Fifteen/src/pages/FifteenFromBM";
 // 2048
 import { Block2048 } from "../../projects/Block2048/Block2048.jsx";
 import { Block2048YT1 } from "../../projects/Block2048/src/pages/Block2048YT1/Block2048YT1.jsx";
+import { MatSz } from "../../projects/Block2048/src/pages/MatSz/MatSz.tsx";
 
 export function Router() {
   return (
@@ -39,7 +40,7 @@ export function Router() {
         {/* Block2048 */}
         <Route path="Block2048/*" element={<Block2048 />} />
         <Route path="Block2048YT1" element={<Block2048YT1 />} />
-        {/* <Route path="FifteenFromBM" element={<FifteenFromBM />} /> */}
+        <Route path="MatSz" element={<MatSz />} />
         {/* стандарт */}
         <Route path="Prob0/*" element={<Prob0 />} />
         <Route path="Prob1" element={<Prob1 />} />
