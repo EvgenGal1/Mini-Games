@@ -21,7 +21,7 @@ import { FifteenFromEL } from "../../projects/Fifteen/src/pages/FifteenFromEL";
 import { FifteenFromBM } from "../../projects/Fifteen/src/pages/FifteenFromBM";
 // 2048
 import { Block2048 } from "../../projects/Block2048/Block2048.jsx";
-import { Block2048YT1 } from "../../projects/Block2048/src/pages/Block2048YT1.jsx";
+import { Block2048YT1 } from "../../projects/Block2048/src/pages/Block2048YT1/Block2048YT1.jsx";
 
 export function Router() {
   return (

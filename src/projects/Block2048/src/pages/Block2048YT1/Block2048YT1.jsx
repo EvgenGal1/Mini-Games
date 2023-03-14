@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 
-import { ArrowAccordionFnComp } from "../../../../Components/ui/accordion/ArrowAccordion.jsx";
+import { ArrowAccordionFnComp } from "../../../../../Components/ui/accordion/ArrowAccordion.jsx";
 
 import "./Block2048YT1.scss";
 
@@ -52,7 +52,6 @@ export const Block2048YT1 = () => {
       <div className="Block2048YT1__content openCont">
         <div id="boadr2048">
           {/* добавл ч/з js */}
-          {/* <div className="cell"></div>
           <div className="cell"></div>
           <div className="cell"></div>
           <div className="cell"></div>
@@ -68,7 +67,8 @@ export const Block2048YT1 = () => {
           <div className="cell"></div>
           <div className="cell"></div>
           <div className="cell"></div>
-          <div className="tile">2</div> */}
+          <div className="cell"></div>
+          <div className="tile">2</div>
         </div>
       </div>
     </div>

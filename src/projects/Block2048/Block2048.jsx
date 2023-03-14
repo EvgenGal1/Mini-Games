@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 
-import { Block2048YT1 } from "./src/pages/Block2048YT1";
+import { Block2048YT1 } from "./src/pages/Block2048YT1/Block2048YT1";
 
 export const Block2048 = () => {
   return (
@@ -14,7 +14,25 @@ export const Block2048 = () => {
               target="_blank"
               rel="noreferrer"
             >
-              По видео <b>2048 на JS</b>
+              По видео <b>2048 на JS</b> - <b>начато</b>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://habr.com/ru/company/skillfactory/blog/588356/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              По блогу <b>2048 на React</b> - <b>не сделано</b>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://demo.matsz.dev/2048/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              По игре <b>2048 на React, Redux и TS</b> - <b>начато</b>
             </a>
           </li>
         </ul>
