@@ -110,9 +110,9 @@ div {
     &:has(div),
     &:has(h1),
     &:has(p) {
-      line-height: 22px;
+      // line-height: 22px;
       // @include adaptiv-val("margin-top", 10, 2);
-      @include adaptiv-val("margin-bottom", 10, 2);
+      // @include adaptiv-val("margin-bottom", 10, 2);
     }
   }
   // для div.__descript где есть параграф|h1 и братский div
@@ -128,12 +128,18 @@ div {
     }
   }
   // div кл. на конце __content
-  div[class$="__content"] {
+  div[class*="__content"] {
     display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
     justify-content: center;
+    & > div,
+    & > span,
+    & > form {
+      background-color: var(--DeerBrown);
+      border-radius: 10px;
+    }
   }
   // для div.__content c братским div
   div[class$="__content"]:has(+ div) {
