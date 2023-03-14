@@ -1,6 +1,6 @@
 import { StorageModel } from "../types/Models";
 
-const ITEM_NAME = "2048_data";
+const ITEM_NAME = "MatSz_2048";
 
 export function getStoredData(): StorageModel {
   if (!localStorage.getItem(ITEM_NAME)) {

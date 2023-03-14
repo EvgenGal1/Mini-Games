@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetAction, undoAction } from "../actions/index.ts";
 import { StateType } from "../reducers/index.ts";
 
-const Header: React.FC = () => {
+const Banner: React.FC = () => {
   const dispatch = useDispatch();
   const reset = useCallback(() => dispatch(resetAction()), [dispatch]);
   const undo = useCallback(() => dispatch(undoAction()), [dispatch]);
@@ -15,30 +15,30 @@ const Header: React.FC = () => {
   const previousBoard = useSelector((state: StateType) => state.previousBoard);
 
   return (
-    <div className="header">
-      <div className="header-row">
+    <div className="banner">
+      <div className="banner-row">
         <h1>2048</h1>
-        <div className="header-scores">
-          <div className="header-scores-score">
+        <div className="banner-scores">
+          <div className="banner-scores-score">
             <div>Score</div>
             <div>{score}</div>
             {!!scoreIncrease && (
-              <div className="header-scores-score-increase" key={moveId}>
+              <div className="banner-scores-score-increase" key={moveId}>
                 +{scoreIncrease}
               </div>
             )}
           </div>
-          <div className="header-scores-score">
+          <div className="banner-scores-score">
             <div>Best</div>
             <div>{best}</div>
           </div>
         </div>
       </div>
-      <div className="header-row">
+      <div className="banner-row">
         <div>
           Join the numbers and get to the <strong>2048 tile!</strong>
         </div>
-        <div className="header-buttons">
+        <div className="banner-buttons">
           <button onClick={undo} disabled={!previousBoard}>
             Undo
           </button>
@@ -49,4 +49,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default Banner;

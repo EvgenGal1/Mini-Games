@@ -7,8 +7,8 @@ import "./MatSz.scss";
 // import GithubCorner from 'react-github-corner';
 // import './App.scss';
 
-import { animationDuration, gridGap } from "./config";
-import Header from "./components/Header.tsx";
+import { animationDuration, gridGap } from "./config.ts";
+import Banner from "./components/Banner.tsx";
 import Board from "./components/Board.tsx";
 import Info from "./components/Info.tsx";
 import BoardSizePicker from "./components/BoardSizePicker.tsx";
@@ -59,16 +59,17 @@ export const MatSz: React.FC = () => {
         />
       </div>
       <div
-        className={`MatSz__content--${openArrowAccord ? " openCont" : ""}`}
-        // style={
-        //   {
-        //     '--animation-duration': animationDuration + 'ms',
-        //     '--grid-gap': gridGap,
-        //   } as any
-        // }
+        // className={`MatSz__content--${openArrowAccord ? " openCont" : ""}`}
+        className="MatSz__content openCont"
+        style={
+          {
+            "--animation-duration": animationDuration + "ms",
+            "--grid-gap": gridGap,
+          } as any
+        }
       >
         <div className="page">
-          <Header />
+          <Banner />
           <Board />
           <BoardSizePicker />
           <Info />

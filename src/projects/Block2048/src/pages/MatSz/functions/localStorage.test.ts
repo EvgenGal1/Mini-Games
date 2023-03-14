@@ -1,6 +1,6 @@
 import { getStoredData, setStoredData } from "./localStorage";
 
-const ITEM_NAME = "2048_data";
+const ITEM_NAME = "MatSz_2048";
 
 describe("localStorage", () => {
   it("writes data", () => {
