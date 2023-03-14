@@ -20,7 +20,7 @@ const Banner: React.FC = () => {
         <h1>2048</h1>
         <div className="banner-scores">
           <div className="banner-scores-score">
-            <div>Score</div>
+            <div>Счет</div>
             <div>{score}</div>
             {!!scoreIncrease && (
               <div className="banner-scores-score-increase" key={moveId}>
@@ -29,20 +29,20 @@ const Banner: React.FC = () => {
             )}
           </div>
           <div className="banner-scores-score">
-            <div>Best</div>
+            <div>Лучший</div>
             <div>{best}</div>
           </div>
         </div>
       </div>
       <div className="banner-row">
         <div>
-          Join the numbers and get to the <strong>2048 tile!</strong>
+          Соедините числа и доберитесь до <b>плитки 2048!</b>
         </div>
         <div className="banner-buttons">
           <button onClick={undo} disabled={!previousBoard}>
-            Undo
+            Отменить
           </button>
-          <button onClick={reset}>New game</button>
+          <button onClick={reset}>Новая игра</button>
         </div>
       </div>
     </div>

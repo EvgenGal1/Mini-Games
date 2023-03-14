@@ -16,10 +16,12 @@ export interface BoardTileProps {
   animations?: Animation[];
 }
 
+// `плитка перевод`
 function tileTranslate(axis: "X" | "Y", value: number) {
   return `translate${axis}(calc(${value} * (${gridGap} + 100%))`;
 }
 
+// `Найти анимацию'
 function findAnimation<T extends Animation>(
   animations: Animation[] | undefined,
   type: AnimationType
@@ -27,6 +29,7 @@ function findAnimation<T extends Animation>(
   return animations?.find((animation) => animation.type === type) as T;
 }
 
+// `Плитка доски`
 const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
   const moveAnimation = useMemo(
     () => findAnimation<AnimationMove>(animations, AnimationType.MOVE),

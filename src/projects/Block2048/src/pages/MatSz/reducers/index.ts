@@ -14,37 +14,37 @@ import { Animation } from "../types/Animations.ts";
 import { defaultBoardSize, victoryTileValue } from "../config.ts";
 
 export interface StateType {
-  /** Board size. Currently always 4. */
+  /** Размер доски.В настоящее время всегда 4. */
   boardSize: number;
 
-  /** Current board. */
+  /** Текущая доска. */
   board: BoardType;
 
-  /** Previous board. */
+  /** Предыдущий доска. */
   previousBoard?: BoardType;
 
-  /** Was 2048 tile found? */
+  /** Было ли найдено 2048 плиток? */
   victory: boolean;
 
-  /** Is game over? */
+  /** Игра окончена? */
   defeat: boolean;
 
-  /** Should the victory screen be hidden? */
+  /** Если экран победы будет скрыт? */
   victoryDismissed: boolean;
 
-  /** Current score. */
+  /** Текущий счет. */
   score: number;
 
-  /** Score increase after last update. */
+  /** Увеличение очков после последнего обновления. */
   scoreIncrease?: number;
 
-  /** Best score. */
+  /** Лучший результат. */
   best: number;
 
-  /** Used for certain animations. Mainly as a value of the "key" property. */
+  /** Используется для определенных анимаций. В основном как значение свойства "key". */
   moveId?: string;
 
-  /** Animations after last update. */
+  /** Анимации после последнего обновления. */
   animations?: Animation[];
 }
 

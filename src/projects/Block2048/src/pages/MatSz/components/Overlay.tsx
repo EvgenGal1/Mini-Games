@@ -17,10 +17,10 @@ const Overlay: React.FC = () => {
   if (victory) {
     return (
       <div className="overlay overlay-victory">
-        <h1>You win!</h1>
+        <h1>Ты победил!</h1>
         <div className="overlay-buttons">
-          <button onClick={dismiss}>Keep going</button>
-          <button onClick={reset}>Try again</button>
+          <button onClick={dismiss}>Продолжать играть</button>
+          <button onClick={reset}>Попробуйте еще раз</button>
         </div>
       </div>
     );
@@ -29,9 +29,9 @@ const Overlay: React.FC = () => {
   if (defeat) {
     return (
       <div className="overlay overlay-defeat">
-        <h1>Game over!</h1>
+        <h1>Игра закончена!</h1>
         <div className="overlay-buttons">
-          <button onClick={reset}>Try again</button>
+          <button onClick={reset}>Попробуйте еще раз</button>
         </div>
       </div>
     );

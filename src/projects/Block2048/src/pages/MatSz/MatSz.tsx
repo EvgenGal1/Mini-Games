@@ -72,7 +72,7 @@ export const MatSz: React.FC = () => {
           <Banner />
           <Board />
           <BoardSizePicker />
-          <Info />
+          {/* <Info /> */}
         </div>
       </div>
     </div>

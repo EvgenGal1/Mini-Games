@@ -5,15 +5,19 @@ const Info: React.FC = () => {
     <div className="info">
       <h2>About</h2>
       <p>
-        This is a reimplementation of Gabriele Cirulli's excellent{" "}
-        <a href="https://play2048.co/">2048</a> game, built with React, Redux
-        and TypeScript. Unlike other React-based implementations, only
-        functional components are used here. This project doesn't rely on canvas
-        or element refs.
+        Это повторная реализация превосходной игры{" "}
+        <a href="https://play2048.co/">
+          <b>2048</b>
+        </a>{" "}
+        Габриэля Цирулли, созданная с помощью React, Redux и TypeScript. В
+        отличие от других реализаций на основе React, здесь используются только
+        функциональные компоненты. Этот проект не зависит от холста или ссылки
+        на элементы.
       </p>
       <p>
-        Developed by <a href="https://github.com/mat-sz">Mat Sz</a>. Source code
-        available at <a href="https://github.com/mat-sz/2048">mat-sz/2048</a>.
+        Разработан <a href="https://github.com/mat-sz">Mat Sz</a>. Исходный код
+        доступен по адресу{" "}
+        <a href="https://github.com/mat-sz/2048">mat-sz/2048</a>.
       </p>
     </div>
   );

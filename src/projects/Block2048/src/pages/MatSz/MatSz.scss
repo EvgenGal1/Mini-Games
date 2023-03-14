@@ -120,17 +120,18 @@
         font-weight: bold;
       }
     }
+    .board-size-picker {
+      padding-bottom: 20px;
+      .size-picker {
+        display: flex;
+        margin: 0 -5px;
 
-    .size-picker {
-      display: flex;
-      margin: 0 -5px;
-
-      button {
-        flex: 1;
-        margin: 0 5px;
+        button {
+          flex: 1;
+          margin: 0 5px;
+        }
       }
     }
-
     .board {
       position: relative;
       background: #bbada0;
