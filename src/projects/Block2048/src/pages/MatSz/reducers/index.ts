@@ -13,6 +13,7 @@ import { getStoredData, setStoredData } from "../functions/localStorage.ts";
 import { Animation } from "../types/Animations.ts";
 import { defaultBoardSize, victoryTileValue } from "../config.ts";
 
+// `тип состояния`
 export interface StateType {
   /** Размер доски.В настоящее время всегда 4. */
   boardSize: number;
@@ -50,6 +51,7 @@ export interface StateType {
 
 const storedData = getStoredData();
 
+// `инициализировать состояние`
 function initializeState(): StateType {
   const update = initializeBoard(defaultBoardSize);
 
@@ -69,6 +71,7 @@ let initialState: StateType = initializeState();
 
 export type StoreType = Store<StateType, ActionModel>;
 
+// `состояние приложения`
 function applicationState(state = initialState, action: ActionModel) {
   const newState = { ...state };
 

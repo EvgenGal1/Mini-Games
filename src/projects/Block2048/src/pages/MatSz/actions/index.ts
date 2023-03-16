@@ -2,6 +2,7 @@ import { ActionModel } from "../types/Models.ts";
 import { ActionType } from "../types/ActionType.ts";
 import { Direction } from "../types/Direction.ts";
 
+// `сброс действия`
 export function resetAction(size = 4): ActionModel {
   return {
     type: ActionType.RESET,
@@ -9,12 +10,14 @@ export function resetAction(size = 4): ActionModel {
   };
 }
 
+// `отменить действие`
 export function undoAction(): ActionModel {
   return {
     type: ActionType.UNDO,
   };
 }
 
+// `действие движения`
 export function moveAction(direction: Direction): ActionModel {
   return {
     type: ActionType.MOVE,
@@ -22,6 +25,7 @@ export function moveAction(direction: Direction): ActionModel {
   };
 }
 
+// `отклонить действие`
 export function dismissAction(): ActionModel {
   return {
     type: ActionType.DISMISS,

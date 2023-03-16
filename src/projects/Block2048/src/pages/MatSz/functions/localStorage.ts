@@ -2,6 +2,7 @@ import { StorageModel } from "../types/Models";
 
 const ITEM_NAME = "MatSz_2048";
 
+// `получить хранимые данные`
 export function getStoredData(): StorageModel {
   if (!localStorage.getItem(ITEM_NAME)) {
     return {};
@@ -32,7 +33,7 @@ export function getStoredData(): StorageModel {
             throw new Error("Invalid stored data.");
           }
 
-          // Make sure the value is a power of 2.
+          // Убедитесь, что значение является степенью 2.
           if (value !== 0 && Math.log2(value) % 1 !== 0) {
             throw new Error("Invalid stored data.");
           }
@@ -62,6 +63,7 @@ export function getStoredData(): StorageModel {
   return model;
 }
 
+// `установить сохраненные данные`
 export function setStoredData(model: StorageModel) {
   localStorage.setItem(
     ITEM_NAME,

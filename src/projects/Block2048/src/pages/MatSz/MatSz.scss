@@ -134,6 +134,7 @@
     }
     .board {
       position: relative;
+      background: var(--ui-act-col);
       background: #bbada0;
       border-radius: 6px;
       display: grid;
@@ -148,6 +149,7 @@
         margin: 0;
         border-radius: 3px;
         padding-bottom: 100%;
+        background: var(--act-light);
         background: #cdc1b4;
         line-height: 0;
         font-size: 1.6rem;

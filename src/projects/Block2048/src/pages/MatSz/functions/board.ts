@@ -3,19 +3,23 @@ import { Animation, AnimationType } from "../types/Animations.ts";
 
 export type BoardType = number[];
 
+// `новое значение плитки`
 export function newTileValue() {
   return Math.random() > 0.1 ? 2 : 4;
 }
 
+// `содержит пустые`
 function containsEmpty(board: BoardType): boolean {
   return board.find((value) => value === 0) === 0;
 }
 
+// `новый результат плитки`
 interface NewTileResult {
   board: BoardType;
   index?: number;
 }
 
+// `новая плитка`
 function newTile(board: BoardType): NewTileResult {
   if (!containsEmpty(board)) {
     return { board };
@@ -37,17 +41,19 @@ function newTile(board: BoardType): NewTileResult {
   };
 }
 
+// `обновление доски`
 export interface BoardUpdate {
   board: BoardType;
   animations?: Animation[];
   scoreIncrease: number;
 }
 
+// `инициализировать доску`
 export function initializeBoard(boardSize: number): BoardUpdate {
   const board = new Array(boardSize ** 2).fill(0);
   const animations: Animation[] = [];
 
-  // Spawn two tiles at first.
+  // Сначала создайте две плитки.
   let result = newTile(board);
   if (result.index) {
     animations.push({
@@ -67,6 +73,7 @@ export function initializeBoard(boardSize: number): BoardUpdate {
   return { board, scoreIncrease: 0, animations };
 }
 
+// `получить повернутый индекс`
 function getRotatedIndex(
   index: number,
   boardSize: number,
@@ -99,12 +106,13 @@ function getRotatedIndex(
   return y * boardSize + x;
 }
 
+// `вращать доску`
 function rotateBoard(
   board: BoardType,
   direction: Direction,
   undo = false
 ): BoardType {
-  // No need to rotate, it's already in the correct orientation.
+  // Не нужно вращать, он уже в правильной ориентации.
   if (direction === Direction.DOWN) {
     return [...board];
   }
@@ -131,12 +139,13 @@ function rotateBoard(
   return newBoard;
 }
 
+// `вращать анимацию`
 function rotateAnimations(
   board: BoardType,
   animations: Animation[],
   direction: Direction
 ): Animation[] {
-  // No need to rotate, it's already in the correct orientation.
+  // Не нужно вращать, он уже в правильной ориентации.
   if (direction === Direction.DOWN) {
     return animations;
   }
@@ -159,13 +168,14 @@ function rotateAnimations(
   return animations;
 }
 
+// `обновить доску`
 export function updateBoard(
   board: BoardType,
   direction: Direction
 ): BoardUpdate {
   const boardSize = Math.sqrt(board.length);
 
-  // First the board is rotated so gravity can work downwards.
+  // Сначала доска поворачивается, чтобы гравитация могла работать вниз.
   board = rotateBoard(board, direction);
 
   let changed = false;
@@ -174,7 +184,7 @@ export function updateBoard(
   let lastMergedIndex: number | undefined = undefined;
 
   for (let col = 0; col < boardSize; col++) {
-    // Going from second last to the first row on the rotated board.
+    // Переход от предпоследнего к первому ряду на повернутой доске.
     for (let row = boardSize - 2; row >= 0; row--) {
       const initialIndex = row * boardSize + col;
       if (board[initialIndex] === 0) {
@@ -194,13 +204,13 @@ export function updateBoard(
         changed = true;
 
         if (board[below] !== 0) {
-          // Ensure non-greedy behavior, only allow first merge after fall.
+          // Обеспечьте нежадное поведение, разрешите только первое слияние после падения.
           merged = true;
 
           scoreIncrease += board[i] * 2;
         }
 
-        // Merge or update tile.
+        // Объединить или обновить плитку.
         board[below] += board[i];
         board[i] = 0;
         i = below;
@@ -228,11 +238,11 @@ export function updateBoard(
     }
   }
 
-  // Undo board rotation.
+  // Отменить вращение доски.
   board = rotateBoard(board, direction, true);
   animations = rotateAnimations(board, animations, direction);
 
-  // Generate a new tile on change.
+  // Создавать новую плитку при изменении.
   if (changed) {
     const result = newTile(board);
     board = result.board;
@@ -248,6 +258,7 @@ export function updateBoard(
   return { board, scoreIncrease, animations };
 }
 
+// `возможное перемещение`
 export function movePossible(board: BoardType): boolean {
   const boardSize = Math.sqrt(board.length);
 
@@ -255,7 +266,7 @@ export function movePossible(board: BoardType): boolean {
     return true;
   }
 
-  // Check if a tile can be merged into a neighboring tile.
+  // Проверьте, может ли плитка быть объединена с соседней плиткой.
   for (let i = 0; i < board.length; i++) {
     if (
       board[i] === board[i + boardSize] ||

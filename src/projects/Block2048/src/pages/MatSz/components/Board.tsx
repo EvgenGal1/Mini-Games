@@ -19,11 +19,13 @@ const Board: React.FC = () => {
   const startPointerLocation = useRef<Point>();
   const currentPointerLocation = useRef<Point>();
 
+  // `на входе`
   const onMove = useCallback(
     (direction: Direction) => dispatch(moveAction(direction)),
     [dispatch]
   );
 
+  // `отрендеренная доска, отрендеренная анимация, последняя доска, время ожидания анимации`
   const [renderedBoard, setRenderedBoard] = useState(board);
   const [renderedAnimations, setRenderedAnimations] = useState<Animation[]>([]);
   const lastBoard = useRef<BoardType>([...board]);
@@ -56,6 +58,7 @@ const Board: React.FC = () => {
     };
   }, [onMove]);
 
+  // `указатель окончания`
   const finishPointer = useCallback(
     (a: Point, b: Point) => {
       const distance = Math.sqrt((b.y - a.y) ** 2 + (b.x - a.x) ** 2);
@@ -77,6 +80,7 @@ const Board: React.FC = () => {
     [onMove]
   );
 
+  // `запуск касанием`
   const onTouchStart = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
     const touch = e.touches[0];
@@ -85,6 +89,7 @@ const Board: React.FC = () => {
       startPointerLocation.current = point;
     }
   }, []);
+  // `движение касанием`
   const onTouchMove = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
     const touch = e.touches[0];
@@ -93,6 +98,7 @@ const Board: React.FC = () => {
       currentPointerLocation.current = point;
     }
   }, []);
+  // `конец касанием`
   const onTouchEnd = useCallback(
     (e: React.TouchEvent) => {
       e.preventDefault();
@@ -108,7 +114,7 @@ const Board: React.FC = () => {
     },
     [finishPointer]
   );
-
+  // `при запуске мыши`
   const onMouseStart = useCallback((e: React.MouseEvent) => {
     const point: Point = { x: e.pageX, y: e.pageY };
     startPointerLocation.current = point;
